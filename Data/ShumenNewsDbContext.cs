@@ -18,7 +18,7 @@ namespace ShumenNews.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<ShumenNewsUserArticle>().HasOne(ua => ua.User).WithMany(ua => ua.UserArticles).OnDelete(DeleteBehavior.NoAction);
+            //builder.Entity<ShumenNewsUserArticle>().HasOne(ua => ua.User).WithMany(ua => ua.UserArticles).OnDelete(DeleteBehavior.NoAction);
                 //builder.Entity<ShumenNewsUserArticle>().HasOne(u => u.User).WithMany(a => a.UserArticles).OnDelete(DeleteBehavior.NoAction);
             base.OnModelCreating(builder);
         }

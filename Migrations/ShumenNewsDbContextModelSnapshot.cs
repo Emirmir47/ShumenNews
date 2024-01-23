@@ -336,11 +336,11 @@ namespace ShumenNews.Migrations
 
             modelBuilder.Entity("ShumenNews.Data.Models.ShumenNewsUserArticle", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ArticleId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ArticleId"), 1L, 1);
 
                     b.Property<bool>("IsDisliked")
                         .HasColumnType("bit");
@@ -351,15 +351,18 @@ namespace ShumenNews.Migrations
                     b.Property<int?>("ShumenNewsArticleId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
+                    b.Property<string>("ShumenNewsUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ArticleId");
 
                     b.HasIndex("ShumenNewsArticleId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ShumenNewsUserId");
 
                     b.ToTable("UserArticles");
                 });
@@ -474,13 +477,9 @@ namespace ShumenNews.Migrations
                         .WithMany("UserArticles")
                         .HasForeignKey("ShumenNewsArticleId");
 
-                    b.HasOne("ShumenNews.Data.Models.ShumenNewsUser", "User")
+                    b.HasOne("ShumenNews.Data.Models.ShumenNewsUser", null)
                         .WithMany("UserArticles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("User");
+                        .HasForeignKey("ShumenNewsUserId");
                 });
 
             modelBuilder.Entity("ShumenNews.Data.Models.ShumenNewsArticle", b =>

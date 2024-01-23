@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ShumenNews.Migrations
 {
-    public partial class Initial : Migration
+    public partial class FKey2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -200,24 +200,25 @@ namespace ShumenNews.Migrations
                 name: "UserArticles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    ArticleId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsLiked = table.Column<bool>(type: "bit", nullable: false),
                     IsDisliked = table.Column<bool>(type: "bit", nullable: false),
-                    ShumenNewsArticleId = table.Column<int>(type: "int", nullable: true)
+                    ShumenNewsArticleId = table.Column<int>(type: "int", nullable: true),
+                    ShumenNewsUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserArticles", x => x.Id);
+                    table.PrimaryKey("PK_UserArticles", x => x.ArticleId);
                     table.ForeignKey(
                         name: "FK_UserArticles_Articles_ShumenNewsArticleId",
                         column: x => x.ShumenNewsArticleId,
                         principalTable: "Articles",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_UserArticles_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_UserArticles_AspNetUsers_ShumenNewsUserId",
+                        column: x => x.ShumenNewsUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 });
@@ -259,7 +260,7 @@ namespace ShumenNews.Migrations
                         name: "FK_Comments_UserArticles_ArticleId",
                         column: x => x.ArticleId,
                         principalTable: "UserArticles",
-                        principalColumn: "Id");
+                        principalColumn: "ArticleId");
                 });
 
             migrationBuilder.CreateIndex(
@@ -332,9 +333,9 @@ namespace ShumenNews.Migrations
                 column: "ShumenNewsArticleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserArticles_UserId",
+                name: "IX_UserArticles_ShumenNewsUserId",
                 table: "UserArticles",
-                column: "UserId");
+                column: "ShumenNewsUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
