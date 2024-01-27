@@ -1,0 +1,18 @@
+﻿@model ShumenNews.Models.BindingModels.ArticleCreateBindingModel
+@{
+    ViewData["Title"] = "Добави статия";
+}
+<h1>Добави нова статия</h1>
+<hr />
+<form method="post" enctype="multipart/form-data" class="form form-control col-md-4 color-2">
+    <div class="form-group">
+        <label asp-for="Title">Заглавие на статията:</label>
+        <input type="text" asp-for="Title" />
+        <label asp-for="Content">Текст на статията:</label>
+        <input type="text" asp-for="Content" />
+        <label asp-for="Images">Снимки:</label>
+        <input asp-for="Images" class="form-control" />
+        <input type="submit" value="Добави статия" class="btn-primary" />
+    </div>
+
+</form>

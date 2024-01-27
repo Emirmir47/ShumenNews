@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ShumenNews.Data;
+using ShumenNews.Data.Models;
 using ShumenNews.Data.Seeding;
 using ShumenNews.Extensions;
 
@@ -17,13 +18,18 @@ namespace ShumenNews
             builder.Services.AddDbContext<ShumenNewsDbContext>(options =>
                 options.UseSqlServer(connectionString));
             // Seeding
-            //builder.Services.AddScoped<ShumenNewsSeeder>();
+            builder.Services.AddScoped<ShumenNewsSeeder>();
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ShumenNewsDbContext>();
-            builder.Services.AddControllersWithViews();//.AddRazorRuntimeCompilation();    
+            builder.Services.AddDefaultIdentity<ShumenNewsUser>(options => options.SignIn.RequireConfirmedAccount = true)
+              .AddRoles<IdentityRole>()
+              .AddEntityFrameworkStores<ShumenNewsDbContext>()
+              .AddDefaultUI()
+              .AddDefaultTokenProviders();
+
+            builder.Services.AddControllersWithViews();
+            builder.Services.AddRazorPages();
 
             var app = builder.Build();
 
@@ -39,7 +45,8 @@ namespace ShumenNews
                 app.UseHsts();
             }
 
-            //app.UseDatabaseSeeding(); //extension
+            //Extension
+            app.UseDatabaseSeeding();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
