@@ -6,9 +6,9 @@ namespace ShumenNews.Data.Models
     {
         [Key]
         public int Id { get; set; }
-        public string UserId { get; set; }
         public virtual ShumenNewsUser User { get; set; }
-        public virtual ShumenNewsUserArticle Article { get; set; }
+        public virtual ShumenNewsArticle Article { get; set; }
+        public bool IsAuthor { get; set; } = false;
         public bool IsLiked { get; set; }
         public bool IsDisliked { get; set; }
     }

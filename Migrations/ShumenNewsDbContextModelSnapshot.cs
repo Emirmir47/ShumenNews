@@ -167,10 +167,6 @@ namespace ShumenNews.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("AuthorId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -192,12 +188,10 @@ namespace ShumenNews.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ViewCounter")
+                    b.Property<int>("Views")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
 
                     b.ToTable("Articles");
                 });
@@ -258,10 +252,6 @@ namespace ShumenNews.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ArticleId");
@@ -269,7 +259,7 @@ namespace ShumenNews.Migrations
                     b.ToTable("Images");
                 });
 
-            modelBuilder.Entity("ShumenNews.Data.Models.IdentityUser", b =>
+            modelBuilder.Entity("ShumenNews.Data.Models.ShumenNewsUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -342,7 +332,7 @@ namespace ShumenNews.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("ShumenNews.Data.Models.IdentityUserArticle", b =>
+            modelBuilder.Entity("ShumenNews.Data.Models.ShumenNewsUserArticle", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -350,22 +340,24 @@ namespace ShumenNews.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("ArticleId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsAuthor")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDisliked")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsLiked")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ShumenNewsArticleId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ShumenNewsArticleId");
+                    b.HasIndex("ArticleId");
 
                     b.HasIndex("UserId");
 
@@ -383,7 +375,7 @@ namespace ShumenNews.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("ShumenNews.Data.Models.IdentityUser", null)
+                    b.HasOne("ShumenNews.Data.Models.ShumenNewsUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -392,7 +384,7 @@ namespace ShumenNews.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("ShumenNews.Data.Models.IdentityUser", null)
+                    b.HasOne("ShumenNews.Data.Models.ShumenNewsUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -407,7 +399,7 @@ namespace ShumenNews.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ShumenNews.Data.Models.IdentityUser", null)
+                    b.HasOne("ShumenNews.Data.Models.ShumenNewsUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -416,27 +408,16 @@ namespace ShumenNews.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("ShumenNews.Data.Models.IdentityUser", null)
+                    b.HasOne("ShumenNews.Data.Models.ShumenNewsUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ShumenNews.Data.Models.ShumenNewsArticle", b =>
-                {
-                    b.HasOne("ShumenNews.Data.Models.IdentityUser", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-                });
-
             modelBuilder.Entity("ShumenNews.Data.Models.ShumenNewsComment", b =>
                 {
-                    b.HasOne("ShumenNews.Data.Models.IdentityUserArticle", "Article")
+                    b.HasOne("ShumenNews.Data.Models.ShumenNewsUserArticle", "Article")
                         .WithMany()
                         .HasForeignKey("ArticleId");
 
@@ -448,7 +429,7 @@ namespace ShumenNews.Migrations
                         .WithMany("Comments")
                         .HasForeignKey("ShumenNewsArticleId");
 
-                    b.HasOne("ShumenNews.Data.Models.IdentityUser", "User")
+                    b.HasOne("ShumenNews.Data.Models.ShumenNewsUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -472,17 +453,19 @@ namespace ShumenNews.Migrations
                     b.Navigation("Article");
                 });
 
-            modelBuilder.Entity("ShumenNews.Data.Models.IdentityUserArticle", b =>
+            modelBuilder.Entity("ShumenNews.Data.Models.ShumenNewsUserArticle", b =>
                 {
-                    b.HasOne("ShumenNews.Data.Models.ShumenNewsArticle", null)
+                    b.HasOne("ShumenNews.Data.Models.ShumenNewsArticle", "Article")
                         .WithMany("UserArticles")
-                        .HasForeignKey("ShumenNewsArticleId");
-
-                    b.HasOne("ShumenNews.Data.Models.IdentityUser", "User")
-                        .WithMany("UserArticles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("ShumenNews.Data.Models.ShumenNewsUser", "User")
+                        .WithMany("UserArticles")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Article");
 
                     b.Navigation("User");
                 });
@@ -501,7 +484,7 @@ namespace ShumenNews.Migrations
                     b.Navigation("Kids");
                 });
 
-            modelBuilder.Entity("ShumenNews.Data.Models.IdentityUser", b =>
+            modelBuilder.Entity("ShumenNews.Data.Models.ShumenNewsUser", b =>
                 {
                     b.Navigation("UserArticles");
                 });

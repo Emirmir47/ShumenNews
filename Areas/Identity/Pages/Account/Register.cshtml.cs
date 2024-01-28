@@ -66,11 +66,11 @@ namespace ShumenNews.Areas.Identity.Pages.Account
         {
             [Required] //TODO Add more validations
             [Display(Name = "FirstName")]
-            public string FirstName { get; set; } = string.Empty;
+            public string FirstName { get; set; }
 
             [Required] //TODO Add more validations
             [Display(Name = "LastName")]
-            public string LastName { get; set; } = string.Empty;
+            public string LastName { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.

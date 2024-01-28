@@ -11,15 +11,17 @@ namespace ShumenNews.Services
         {
             this.db = db;
         }
-        public ShumenNewsImage GetImageById(string imageId)
+        public string GetImageById(string imageId)
         {
-            var image = db.Images.FirstOrDefault(i => i.Id == imageId);
-            return image;
+            var img = db.Images.FirstOrDefault(i => i.Id == imageId);
+            var image = $"/img/{img!.Id}.{img.Extension}";
+            return image!;
 
         }
-        public List<ShumenNewsImage> GetAllImages()
+        public List<string> GetAllImages()
         {
-            var images = db.Images.ToList();
+            var imgs = db.Images.ToList();
+            var images = imgs.Select(i => $"/img/{i.Id}.{i.Extension}").ToList();
             return images;
         }
     }

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol;
 using ShumenNews.Data;
 using ShumenNews.Data.Models;
 using ShumenNews.Models.BindingModels;
+using ShumenNews.Services;
 
 namespace ShumenNews.Controllers
 {
@@ -10,11 +12,13 @@ namespace ShumenNews.Controllers
     {
         private readonly ShumenNewsDbContext db;
         private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly IUserService userService;
 
-        public ArticlesController(ShumenNewsDbContext db, IWebHostEnvironment webHostEnvironment)
+        public ArticlesController(ShumenNewsDbContext db, IWebHostEnvironment webHostEnvironment, IUserService userService)
         {
             this.db = db;
             this.webHostEnvironment = webHostEnvironment;
+            this.userService = userService;
         }
         [Authorize(Roles = "Admin, Moderator")]
         public IActionResult Index()
@@ -36,7 +40,6 @@ namespace ShumenNews.Controllers
                 {
                     Title = bindingModel.Title,
                     Content = bindingModel.Content,
-                    AuthorId = bindingModel.AuthorId,
                 };
                 if (bindingModel.Images is not null)
                 {
@@ -57,7 +60,16 @@ namespace ShumenNews.Controllers
                         images.Add(image);
                         db.Articles.Add(article);
                     }
-                    article.MainImageId = images[1].Id;
+                    article.MainImageId = images[0].Id;
+                    var userName = User.Identity!.Name;
+                    var user = userService.GetUserByUserName(userName!);
+                    var userArticle = new ShumenNewsUserArticle
+                    {
+                        User = user,
+                        Article = article,
+                        IsAuthor = true,
+                    };
+                    db.UserArticles.Add(userArticle);
                     db.SaveChanges();
                     return Redirect("Index");
                 }

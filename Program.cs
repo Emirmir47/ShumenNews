@@ -4,6 +4,7 @@ using ShumenNews.Data;
 using ShumenNews.Data.Models;
 using ShumenNews.Data.Seeding;
 using ShumenNews.Extensions;
+using ShumenNews.Services;
 
 namespace ShumenNews
 {
@@ -19,6 +20,8 @@ namespace ShumenNews
                 options.UseSqlServer(connectionString));
             // Seeding
             builder.Services.AddScoped<ShumenNewsSeeder>();
+            builder.Services.AddTransient<IImageService, ImageService>();
+            builder.Services.AddTransient<IUserService, UserService>();
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
