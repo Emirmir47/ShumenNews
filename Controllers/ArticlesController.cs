@@ -6,7 +6,6 @@ using ShumenNews.Models.BindingModels;
 
 namespace ShumenNews.Controllers
 {
-    [Authorize(Roles = "Author, Admin")]
     public class ArticlesController : Controller
     {
         private readonly ShumenNewsDbContext db;
@@ -17,14 +16,17 @@ namespace ShumenNews.Controllers
             this.db = db;
             this.webHostEnvironment = webHostEnvironment;
         }
+        [Authorize(Roles = "Admin, Moderator")]
         public IActionResult Index()
         {
             return View();
         }
+        [Authorize(Roles = "Admin, Author")]
         public IActionResult Create()
         {
             return View();
         }
+        [Authorize(Roles = "Admin, Author")]
         [HttpPost]
         public IActionResult Create(ArticleCreateBindingModel bindingModel)
         {
