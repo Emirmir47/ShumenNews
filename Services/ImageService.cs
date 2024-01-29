@@ -24,5 +24,11 @@ namespace ShumenNews.Services
             var images = imgs.Select(i => $"/img/{i.Id}.{i.Extension}").ToList();
             return images;
         }
+        public List<string> GetAllArticleImages(int articleId)
+        {
+            var imgs = db.Images.Where(i=>i.ArticleId == articleId).ToList();
+            var images = imgs.Select(i => $"/img/{i.Id}.{i.Extension}").ToList();
+            return images;
+        }
     }
 }

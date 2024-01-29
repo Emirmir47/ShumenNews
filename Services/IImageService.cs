@@ -6,5 +6,6 @@ namespace ShumenNews.Services
     {
         public string GetImageById(string imageId);
         public List<string> GetAllImages();
+        public List<string> GetAllArticleImages(int articleId);
     }
 }

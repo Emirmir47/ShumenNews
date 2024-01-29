@@ -4,6 +4,7 @@ using NuGet.Protocol;
 using ShumenNews.Data;
 using ShumenNews.Data.Models;
 using ShumenNews.Models.BindingModels;
+using ShumenNews.Models.ViewModels;
 using ShumenNews.Services;
 
 namespace ShumenNews.Controllers
@@ -13,22 +14,53 @@ namespace ShumenNews.Controllers
         private readonly ShumenNewsDbContext db;
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly IUserService userService;
+        private readonly IImageService imageService;
 
-        public ArticlesController(ShumenNewsDbContext db, IWebHostEnvironment webHostEnvironment, IUserService userService)
+        public ArticlesController(ShumenNewsDbContext db,
+            IWebHostEnvironment webHostEnvironment,
+            IUserService userService,
+            IImageService imageService)
         {
             this.db = db;
             this.webHostEnvironment = webHostEnvironment;
             this.userService = userService;
+            this.imageService = imageService;
         }
-        [Authorize(Roles = "Admin, Moderator")]
         public IActionResult Index()
         {
             return View();
         }
+        [Authorize(Roles = "Admin, Moderator")]
+        public IActionResult All()
+        {
+            var model = db.Articles.Select(a => new ArticleViewModel
+            {
+                Id = a.Id,
+                Title = a.Title,
+                PublishedOn = a.PublishedOn,
+                Likes = a.Likes,
+                Dislikes = a.Dislikes,
+                Views = a.Views,
+                MainImage = imageService.GetImageById(a.MainImageId)
+            }).OrderByDescending(a => a.PublishedOn)
+                .ToList();
+            return View(model);
+        }
         [Authorize(Roles = "Admin, Author")]
         public IActionResult Create()
         {
-            return View();
+            var userName = User.Identity!.Name;
+            var user = userService.GetUserByUserName(userName!);
+            var model = new ArticleCreateBindingModel
+            {
+                Author = new UserViewModel
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email
+                }
+            };
+            return View(model);
         }
         [Authorize(Roles = "Admin, Author")]
         [HttpPost]

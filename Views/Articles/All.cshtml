@@ -1,0 +1,32 @@
+﻿@using ShumenNews.Models.ViewModels
+@model IEnumerable<ArticleViewModel>
+<h3 class="text-center">Тук ще бъдат всички статии по дати!</h3>
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th class="border-1">&#8470;</th>
+            <th class="border-1">Заглавие</th>
+            <th class="border-1">Дата на публикуване</th>
+            <th class="border-1">Брой харесвания</th>
+            <th class="border-1">Брой нехаресвания</th>
+            <th class="border-1">Брой преглеждания</th>
+            <th class="border-1">Основна снимка</th>
+        </tr>
+    </thead>
+    @foreach (var article in Model)
+    {
+        <tbody>
+            <tr>
+                <td class="border-1">@article.Id</td>
+                <td class="border-1">@article.Title</td>
+                <td class="border-1">@article.PublishedOn.ToShortDateString() 
+                    @article.PublishedOn.ToShortTimeString()
+                </td>
+                <td class="border-1">@article.Likes</td>
+                <td class="border-1">@article.Dislikes</td>
+                <td class="border-1">@article.Views</td>
+                <td class="border-1"><img src="@article.MainImage" width="50" height="50" /></td>
+            </tr>
+        </tbody>
+    }
+</table>

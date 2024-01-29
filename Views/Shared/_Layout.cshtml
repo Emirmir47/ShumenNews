@@ -38,7 +38,7 @@
                             {
                                 <li class="nav-item">
                                     <a class="btn btn-outline-danger" asp-area="" asp-controller="Admin" asp-action="Index">Админ панел</a>
-                                    <a class="btn btn-outline-danger" asp-area="" asp-controller="Articles" asp-action="Index">Преглед на всички статии</a>
+                                    <a class="btn btn-outline-danger" asp-area="" asp-controller="Articles" asp-action="All">Преглед на всички статии</a>
                                     <a class="btn btn-outline-danger" asp-area="" asp-controller="Articles" asp-action="Create">Добави нова статия</a>
                                 </li>
                             }
@@ -51,7 +51,7 @@
                             else if (User.IsInRole("Moderator"))
                             {
                                 <li class="nav-item">
-                                    <a class="btn btn-outline-danger" asp-area="" asp-controller="Articles" asp-action="Index">Преглед на всички статии</a>
+                                    <a class="btn btn-outline-danger" asp-area="" asp-controller="Articles" asp-action="All">Преглед на всички статии</a>
                                 </li>
                             }
                             <li class="nav-item dropdown">

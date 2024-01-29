@@ -2,17 +2,22 @@
 @{
     ViewData["Title"] = "Добави статия";
 }
-<h1>Добави нова статия</h1>
-<hr />
-<form method="post" enctype="multipart/form-data" class="form form-control col-md-4 color-2">
+<h1 class="text-center">Добави нова статия</h1>
+<strong>Автор:</strong>
+<span>@Model.Author.FirstName @Model.Author.LastName</span>
+<form method="post" enctype="multipart/form-data" class="form form-control col-md-4 color-2 row">
     <div class="form-group">
-        <label asp-for="Title">Заглавие на статията:</label>
-        <input type="text" asp-for="Title" />
-        <label asp-for="Content">Текст на статията:</label>
-        <input type="text" asp-for="Content" />
-        <label asp-for="Images">Снимки:</label>
+        <label asp-for="Title" class="my-1">Заглавие на статията:</label>
+        <input type="text" asp-for="Title" class="w-100 text-center"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Content" class="my-1">Текст на статията:</label>
+        <textarea asp-for="Content" rows="10" class="w-100"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="Images" class="my-1">Снимки:</label>
         <input asp-for="Images" class="form-control" />
-        <input type="submit" value="Добави статия" class="btn-primary" />
+        <input type="submit" value="Добави статия" class="btn btn-primary my-2" />
     </div>
 
 </form>

@@ -29,7 +29,7 @@ namespace ShumenNews.Controllers
                 Views = a.Views,
                 PublishedOn = a.PublishedOn,
                 MainImage = imageService.GetImageById(a.MainImageId),
-                Images = imageService.GetAllImages()
+                Images = imageService.GetAllArticleImages(a.Id)
             }).ToList();
             return View(model);
         }
