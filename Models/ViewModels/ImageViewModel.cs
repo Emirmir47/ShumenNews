@@ -1,14 +1,12 @@
-﻿namespace ShumenNews.Data.Models
-{
+﻿using ShumenNews.Data.Models;
 
-    public class ShumenNewsImage
+namespace ShumenNews.Models.ViewModels
+{
+    public class ImageViewModel
     {
-        public ShumenNewsImage()
-        {
-            this.Id = Guid.NewGuid().ToString();
-        }
         public string Id { get; set; }
         public string Extension { get; set; }
+        public string Name { get; set; }
         public int ArticleId { get; set; }
         public virtual ShumenNewsImages Article { get; set; }
     }

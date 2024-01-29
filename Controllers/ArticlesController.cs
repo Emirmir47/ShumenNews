@@ -26,9 +26,21 @@ namespace ShumenNews.Controllers
             this.userService = userService;
             this.imageService = imageService;
         }
-        public IActionResult Index()
+        public IActionResult Index(int id)
         {
-            return View();
+            var model = db.Articles.Select(a => new ArticleViewModel
+            {
+                Id = a.Id,
+                Title = a.Title,
+                Content = a.Content,
+                Likes = a.Likes,
+                Dislikes = a.Dislikes,
+                Views = a.Views,
+                PublishedOn = a.PublishedOn,
+                MainImage = imageService.GetImageById(a.MainImageId),
+                Images = imageService.GetAllArticleImageNames(a.Id)
+            }).FirstOrDefault(a=>a.Id == id);
+            return View(model);
         }
         [Authorize(Roles = "Admin, Moderator")]
         public IActionResult All()
@@ -68,7 +80,7 @@ namespace ShumenNews.Controllers
         {
             if (ModelState.IsValid)
             {
-                var article = new ShumenNewsArticle
+                var article = new ShumenNewsImages
                 {
                     Title = bindingModel.Title,
                     Content = bindingModel.Content,

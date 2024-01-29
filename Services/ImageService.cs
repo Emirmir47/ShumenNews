@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShumenNews.Data;
 using ShumenNews.Data.Models;
 
@@ -18,13 +19,26 @@ namespace ShumenNews.Services
             return image!;
 
         }
-        public List<string> GetAllImages()
+        public List<ShumenNewsImage> GetAllArticleMainImages()
+        {
+            var images = db.Articles
+                .SelectMany(a=>a.Images.Where(i=>i.Id == a.MainImageId))
+                .Include(i=>i.Article)
+                .ToList();
+            return images;
+        }
+        public List<ShumenNewsImage> GetAllImages()
+        {
+            var images = db.Images.Include(i=>i.Article).ToList();
+            return images;
+        }
+        public List<string> GetAllImageNames()
         {
             var imgs = db.Images.ToList();
             var images = imgs.Select(i => $"/img/{i.Id}.{i.Extension}").ToList();
             return images;
         }
-        public List<string> GetAllArticleImages(int articleId)
+        public List<string> GetAllArticleImageNames(int articleId)
         {
             var imgs = db.Images.Where(i=>i.ArticleId == articleId).ToList();
             var images = imgs.Select(i => $"/img/{i.Id}.{i.Extension}").ToList();

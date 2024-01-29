@@ -32,7 +32,7 @@ namespace ShumenNews.Data.Seeding
 
 
                 //Articles
-                var article = new ShumenNewsArticle
+                var article = new ShumenNewsImages
                 {
                     Title = "Момче блъснат от камион",
                     Content = "",
@@ -44,7 +44,7 @@ namespace ShumenNews.Data.Seeding
                 };
                 db.Articles.Add(article);
 
-                var article2 = new ShumenNewsArticle
+                var article2 = new ShumenNewsImages
                 {
                     Title = "Откраднаха 10 кубика дърва!",
                     Content = "Вчера собственик на склад за дърва докладва, " +
