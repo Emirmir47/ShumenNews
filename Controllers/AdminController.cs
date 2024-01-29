@@ -33,5 +33,9 @@ namespace ShumenNews.Controllers
             }).ToList();
             return View(model);
         }
+        public IActionResult Details(int id)
+        {
+            return View();
+        }
     }
 }

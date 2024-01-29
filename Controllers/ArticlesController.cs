@@ -61,18 +61,7 @@ namespace ShumenNews.Controllers
         [Authorize(Roles = "Admin, Author")]
         public IActionResult Create()
         {
-            var userName = User.Identity!.Name;
-            var user = userService.GetUserByUserName(userName!);
-            var model = new ArticleCreateBindingModel
-            {
-                Author = new UserViewModel
-                {
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Email = user.Email
-                }
-            };
-            return View(model);
+            return View();
         }
         [Authorize(Roles = "Admin, Author")]
         [HttpPost]
@@ -80,7 +69,7 @@ namespace ShumenNews.Controllers
         {
             if (ModelState.IsValid)
             {
-                var article = new ShumenNewsImages
+                var article = new ShumenNewsArticle
                 {
                     Title = bindingModel.Title,
                     Content = bindingModel.Content,
@@ -115,7 +104,7 @@ namespace ShumenNews.Controllers
                     };
                     db.UserArticles.Add(userArticle);
                     db.SaveChanges();
-                    return Redirect("Index");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {

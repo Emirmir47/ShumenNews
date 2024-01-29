@@ -2,9 +2,9 @@
 
 namespace ShumenNews.Data.Models
 {
-    public class ShumenNewsImages
+    public class ShumenNewsArticle
     {
-        public ShumenNewsImages()
+        public ShumenNewsArticle()
         {
             PublishedOn = DateTime.UtcNow;
             UserArticles = new HashSet<ShumenNewsUserArticle>();

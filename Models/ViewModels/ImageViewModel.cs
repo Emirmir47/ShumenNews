@@ -8,6 +8,6 @@ namespace ShumenNews.Models.ViewModels
         public string Extension { get; set; }
         public string Name { get; set; }
         public int ArticleId { get; set; }
-        public virtual ShumenNewsImages Article { get; set; }
+        public virtual ShumenNewsArticle Article { get; set; }
     }
 }

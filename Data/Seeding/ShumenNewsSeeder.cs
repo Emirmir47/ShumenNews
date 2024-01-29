@@ -32,7 +32,7 @@ namespace ShumenNews.Data.Seeding
 
 
                 //Articles
-                var article = new ShumenNewsImages
+                var article = new ShumenNewsArticle
                 {
                     Title = "Хванаха 41-годишен шуменец да кара Аудито си с 1,32 промила алкохол!",
                     Content = "Установен е 41-годишен мъж от Шумен, който снощи управлявал автомобил след употреба на алкохол, " +
@@ -48,7 +48,7 @@ namespace ShumenNews.Data.Seeding
                 };
                 
 
-                var article2 = new ShumenNewsImages
+                var article2 = new ShumenNewsArticle
                 {
                     Title = "57 293 кубика дърва за огрев на населението в Шуменско са предоставили от СИДП!",
                     Content = "12 821 семейства в област Шумен се отопляват с дърва през тази зима, като те вече са получили и заплатили 57 293 пространствени кубически " +
@@ -68,7 +68,7 @@ namespace ShumenNews.Data.Seeding
                     Views = 25000,
                     MainImageId = "seederImg4"
                 };
-                var article3 = new ShumenNewsImages
+                var article3 = new ShumenNewsArticle
                 {
                     Title = "Задържаха помагач на телефонни измамници!",
                     Content = "37-годишен мъж от Шумен, попаднал в схема на телефонна измама, е задържан от полицията, съобщиха от пресцентъра на ОД на МВР." +
@@ -89,7 +89,7 @@ namespace ShumenNews.Data.Seeding
                     Views = 2500,
                     MainImageId = "seederImg5"
                 };
-                var article4 = new ShumenNewsImages
+                var article4 = new ShumenNewsArticle
                 {
                     Title = "Мъж с Тойота удари 5 паркирани коли в Шумен!",
                     Content = "Водач на лек автомобил Тойота Авенсис е ударил тази сутрин 5 паркирани на бул. " +
@@ -106,7 +106,7 @@ namespace ShumenNews.Data.Seeding
                     Views = 951,
                     MainImageId = "seederImg6"
                 };
-                var article5 = new ShumenNewsImages
+                var article5 = new ShumenNewsArticle
                 {
                     Title = "684 деца са родени в МБАЛ-Шумен през миналата година!",
                     Content = "През миналата година в МБАЛ-Шумен са родени 684 деца. Броят им е по-нисък от този през 2022-ра, " +
@@ -124,7 +124,7 @@ namespace ShumenNews.Data.Seeding
                     Views = 2540,
                     MainImageId = "seederImg12"
                 };
-                var article6 = new ShumenNewsImages
+                var article6 = new ShumenNewsArticle
                 {
                     Title = "Мъж въртя Опел през таван на пътя Нови пазар-Стоян Михайловски!",
                     Content = "Мъж от село Ружица катастрофира около 8,00 часа тази сутрин. Инцидентът стана на пътя Нови пазар - Стоян Михайловски, " +
