@@ -8,6 +8,7 @@ namespace ShumenNews.Data.Models
         {
             PublishedOn = DateTime.UtcNow;
             UserArticles = new HashSet<ShumenNewsUserArticle>();
+            CategoryArticles = new HashSet<ShumenNewsCategoryArticle>();
             Comments = new HashSet<ShumenNewsComment>();
             Images = new HashSet<ShumenNewsImage>();
         }
@@ -19,6 +20,7 @@ namespace ShumenNews.Data.Models
         public DateTime PublishedOn { get; set; }
         public int Views { get; set; }
         public virtual ICollection<ShumenNewsUserArticle> UserArticles { get; set; }
+        public virtual ICollection<ShumenNewsCategoryArticle> CategoryArticles { get; set; }
         public virtual ICollection<ShumenNewsComment> Comments { get; set; }
         public virtual ICollection<ShumenNewsImage> Images { get; set; }
         public string MainImageId { get; set; }

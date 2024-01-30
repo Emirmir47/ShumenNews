@@ -12,9 +12,11 @@ namespace ShumenNews.Data
         {
             this.Database.Migrate();
         }
+        public DbSet<ShumenNewsCategory> Categories { get; set; }
         public DbSet<ShumenNewsArticle> Articles { get; set; }
         public DbSet<ShumenNewsComment> Comments { get; set; }
         public DbSet<ShumenNewsImage> Images { get; set; } 
         public DbSet<ShumenNewsUserArticle> UserArticles { get; set; }
+        public DbSet<ShumenNewsCategoryArticle> CategoryArticles { get; set; }
     }
 }
