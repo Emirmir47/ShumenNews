@@ -8,15 +8,16 @@
     {
         <div class="card" style="width: 18rem;">
             <img src="@article.MainImage" class="card-img-top" alt="image">
-            <div class="card-body">
-                <h5 class="card-title">@article.Title</h5>
-                <h6 class="card-title">
-                    преди @article.PublishedOn.ToShortDateString()
-                    | харесвания @article.Likes | нехаресвания @article.Dislikes | преглеждания @article.Views
-                </h6>
-                <p class="card-text">@article.Content</p>   
+            <div class="card-body d-flex align-items-end flex-column">
+                <h5 class="card-title m-0">@article.Title</h5>
+                <ul class="card-title list-group-flush w-100 p-2">
+                    <li>Публикувано: @article.PublishedOn.ToShortDateString()</li>
+                    <li><i class="fa-solid fa-thumbs-up"></i> @article.Likes | <i class="fa-solid fa-thumbs-down"></i> @article.Dislikes</li>
+                    <li><i class="fa-solid fa-eye"></i> @article.Views</li>
+                    <li><i class="fa-solid fa-comments"></i> 0</li>
+                </ul>
                 <!--Links-->
-                <a asp-controller="Admin" asp-action="Details" asp-route-id="@article.Id" class="btn btn-primary">Подробности</a>
+                <a asp-controller="Admin" asp-action="Details" asp-route-id="@article.Id" class="btn btn-primary mt-auto p-2">Подробности</a>
             </div>
         </div>
     }
