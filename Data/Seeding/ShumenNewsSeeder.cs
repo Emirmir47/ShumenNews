@@ -32,7 +32,6 @@ namespace ShumenNews.Data.Seeding
                 };
                 await db.Users.AddAsync(user);
 
-
                 //Articles
                 var article = new ShumenNewsArticle
                 {
@@ -48,8 +47,6 @@ namespace ShumenNews.Data.Seeding
                     Views = 1500,
                     MainImageId = "seederImg1"
                 };
-                
-
                 var article2 = new ShumenNewsArticle
                 {
                     Title = "57 293 кубика дърва за огрев на населението в Шуменско са предоставили от СИДП!",
@@ -424,7 +421,7 @@ namespace ShumenNews.Data.Seeding
                 //Categories
                 var category = new ShumenNewsCategory
                 {
-                    Name = "Водещи новини от Шумен"
+                    Name = "Водещи новини от Шумен" //1, 2, 3, 4
                 };
                 var category2 = new ShumenNewsCategory
                 {
@@ -444,15 +441,15 @@ namespace ShumenNews.Data.Seeding
                 };
                 var category6 = new ShumenNewsCategory
                 {
-                    Name = "Спорт"
+                    Name = "Спорт" //13, 14
                 };
                 var category7 = new ShumenNewsCategory
                 {
-                    Name = "Здраве"
+                    Name = "Здраве" //5
                 };
                 var category8 = new ShumenNewsCategory
                 {
-                    Name = "Анализи"
+                    Name = "Анализи" //12
                 };
                 var category9 = new ShumenNewsCategory
                 {
@@ -475,7 +472,70 @@ namespace ShumenNews.Data.Seeding
                     Name = "Водещи новини от седмицата"
                 };
 
+                db.Categories.Add(category);
+                db.Categories.Add(category2);
+                db.Categories.Add(category3);
+                db.Categories.Add(category4);
+                db.Categories.Add(category5);
+                db.Categories.Add(category6);
+                db.Categories.Add(category7);
+                db.Categories.Add(category8);
+                db.Categories.Add(category9);
+                db.Categories.Add(category10);
+                db.Categories.Add(category11);
+                db.Categories.Add(category12);
+                db.Categories.Add(category13);
+
                 //CategoryArticles
+                var categoryArticle = new ShumenNewsCategoryArticle
+                {
+                    Category = category,
+                    Article = article
+                };
+                var categoryArticle2 = new ShumenNewsCategoryArticle
+                {
+                    Category = category,
+                    Article = article2
+                };
+                var categoryArticle3 = new ShumenNewsCategoryArticle
+                {
+                    Category = category,
+                    Article = article3
+                };
+                var categoryArticle4 = new ShumenNewsCategoryArticle
+                {
+                    Category = category,
+                    Article = article4
+                };
+                var categoryArticle5 = new ShumenNewsCategoryArticle
+                {
+                    Category = category6,
+                    Article = article13
+                };
+                var categoryArticle6 = new ShumenNewsCategoryArticle
+                {
+                    Category = category6,
+                    Article = article14
+                };
+                var categoryArticle7 = new ShumenNewsCategoryArticle
+                {
+                    Category = category7,
+                    Article = article5
+                };
+                var categoryArticle8 = new ShumenNewsCategoryArticle
+                {
+                    Category = category8,
+                    Article = article12
+                };
+
+                db.CategoryArticles.Add(categoryArticle);
+                db.CategoryArticles.Add(categoryArticle2);
+                db.CategoryArticles.Add(categoryArticle3);
+                db.CategoryArticles.Add(categoryArticle4);
+                db.CategoryArticles.Add(categoryArticle5);
+                db.CategoryArticles.Add(categoryArticle6);
+                db.CategoryArticles.Add(categoryArticle7);
+                db.CategoryArticles.Add(categoryArticle8);
 
                 //UserArticles 
                 var userArticle = new ShumenNewsUserArticle
