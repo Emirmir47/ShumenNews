@@ -477,7 +477,7 @@ namespace ShumenNews.Data.Seeding
 
                 //CategoryArticles
 
-                //UserArticles
+                //UserArticles 
                 var userArticle = new ShumenNewsUserArticle
                 {
                     User = user,
