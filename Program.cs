@@ -20,6 +20,7 @@ namespace ShumenNews
                 options.UseSqlServer(connectionString));
             // Seeding
             builder.Services.AddScoped<ShumenNewsSeeder>();
+            builder.Services.AddTransient<IArticleService, ArticleService>();
             builder.Services.AddTransient<IImageService, ImageService>();
             builder.Services.AddTransient<IUserService, UserService>();
 

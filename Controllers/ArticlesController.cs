@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol;
 using ShumenNews.Data;
 using ShumenNews.Data.Models;
@@ -28,7 +29,9 @@ namespace ShumenNews.Controllers
         }
         public IActionResult Index(int id)
         {
-            var model = db.Articles.Select(a => new ArticleViewModel
+            var model = db.Articles
+                .Include(a=> a.Images)
+                .Select(a => new ArticleViewModel
             {
                 Id = a.Id,
                 Title = a.Title,
@@ -37,8 +40,8 @@ namespace ShumenNews.Controllers
                 Dislikes = a.Dislikes,
                 Views = a.Views,
                 PublishedOn = a.PublishedOn,
-                MainImage = imageService.GetImageById(a.MainImageId),
-                Images = imageService.GetAllArticleImageNames(a.Id)
+                MainImage = imageService.GetArticleMainImageUrl(a.MainImageId, a),
+                Images = imageService.GetAllArticleImageUrls(a)
             }).FirstOrDefault(a=>a.Id == id);
             return View(model);
         }
@@ -53,7 +56,7 @@ namespace ShumenNews.Controllers
                 Likes = a.Likes,
                 Dislikes = a.Dislikes,
                 Views = a.Views,
-                MainImage = imageService.GetImageById(a.MainImageId)
+                MainImage = imageService.GetImageUrlById(a.MainImageId)
             }).OrderByDescending(a => a.PublishedOn)
                 .ToList();
             return View(model);

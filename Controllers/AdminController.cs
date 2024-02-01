@@ -28,8 +28,8 @@ namespace ShumenNews.Controllers
                 Dislikes = a.Dislikes,
                 Views = a.Views,
                 PublishedOn = a.PublishedOn,
-                MainImage = imageService.GetImageById(a.MainImageId),
-                Images = imageService.GetAllArticleImageNames(a.Id)
+                MainImage = imageService.GetImageUrlById(a.MainImageId),
+                Images = imageService.GetAllArticleImageUrls(a)
             }).ToList();
             return View(model);
         }

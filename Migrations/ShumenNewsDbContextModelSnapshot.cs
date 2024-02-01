@@ -196,6 +196,46 @@ namespace ShumenNews.Migrations
                     b.ToTable("Articles");
                 });
 
+            modelBuilder.Entity("ShumenNews.Data.Models.ShumenNewsCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("ShumenNews.Data.Models.ShumenNewsCategoryArticle", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ArticleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticleId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("CategoryArticles");
+                });
+
             modelBuilder.Entity("ShumenNews.Data.Models.ShumenNewsComment", b =>
                 {
                     b.Property<int>("Id")
@@ -415,6 +455,25 @@ namespace ShumenNews.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ShumenNews.Data.Models.ShumenNewsCategoryArticle", b =>
+                {
+                    b.HasOne("ShumenNews.Data.Models.ShumenNewsArticle", "Article")
+                        .WithMany("CategoryArticles")
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ShumenNews.Data.Models.ShumenNewsCategory", "Category")
+                        .WithMany("CategoryArticles")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Article");
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("ShumenNews.Data.Models.ShumenNewsComment", b =>
                 {
                     b.HasOne("ShumenNews.Data.Models.ShumenNewsUserArticle", "Article")
@@ -472,11 +531,18 @@ namespace ShumenNews.Migrations
 
             modelBuilder.Entity("ShumenNews.Data.Models.ShumenNewsArticle", b =>
                 {
+                    b.Navigation("CategoryArticles");
+
                     b.Navigation("Comments");
 
                     b.Navigation("Images");
 
                     b.Navigation("UserArticles");
+                });
+
+            modelBuilder.Entity("ShumenNews.Data.Models.ShumenNewsCategory", b =>
+                {
+                    b.Navigation("CategoryArticles");
                 });
 
             modelBuilder.Entity("ShumenNews.Data.Models.ShumenNewsComment", b =>

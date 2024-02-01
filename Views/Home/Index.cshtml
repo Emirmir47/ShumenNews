@@ -1,4 +1,4 @@
-﻿@model ICollection<ShumenNews.Models.ViewModels.ImageViewModel>
+﻿@model ICollection<ShumenNews.Models.ViewModels.ArticleViewModel>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -7,25 +7,25 @@
 <div id="carouselExampleCaptions" class="carousel slide mt-5">
     <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        @for (int i = 1; i < Model.Count(); i++)
+        @for (int i = 1; i < 5; i++)
         {
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="@i" aria-label="Slide @i"></button>
         }
     </div>
     <div class="carousel-inner">
-        @for (int i = 0; i < Model.Count(); i++)
+        @for (int i = 0; i < 5; i++)
         {
             @if (i == 0)
             {
                 <div class="carousel-item active">
-                    <a asp-area="" asp-controller="Articles" asp-action="Index" asp-route-id="@Model.ElementAtOrDefault(i)!.Article.Id">
-                        <img src="@Model.ElementAtOrDefault(i)!.Name" class="d-block w-100" alt="image" height="400">
+                    <a asp-area="" asp-controller="Articles" asp-action="Index" asp-route-id="@Model.ElementAtOrDefault(i)!.Id">
+                        <img src="@Model.ElementAtOrDefault(i)!.MainImage" class="d-block w-100" alt="image" height="400">
                         <div class="carousel-caption d-none d-md-block">
-                            <h5>@Model.ElementAtOrDefault(i)!.Article.Title</h5>
+                            <h5>@Model.ElementAtOrDefault(i)!.Title</h5>
                             <p>
-                                Дата: @Model.ElementAtOrDefault(i)!.Article.PublishedOn.ToLongDateString() |
-                                @Model.ElementAtOrDefault(i)!.Article.Likes харесвания |
-                                @Model.ElementAtOrDefault(i)!.Article.Views преглеждания
+                                Дата: @Model.ElementAtOrDefault(i)!.PublishedOn.ToLongDateString() |
+                                @Model.ElementAtOrDefault(i)!.Likes харесвания |
+                                @Model.ElementAtOrDefault(i)!.Views преглеждания
                             </p>
                         </div>
                     </a>
@@ -34,14 +34,14 @@
             else
             {
                 <div class="carousel-item">
-                    <a asp-area="" asp-controller="Articles" asp-action="Index" asp-route-id="@Model.ElementAtOrDefault(i)!.Article.Id">
-                        <img src="@Model.ElementAtOrDefault(i)!.Name" class="d-block w-100" alt="image" height="400">
+                    <a asp-area="" asp-controller="Articles" asp-action="Index" asp-route-id="@Model.ElementAtOrDefault(i)!.Id">
+                        <img src="@Model.ElementAtOrDefault(i)!.MainImage" class="d-block w-100" alt="image" height="400">
                         <div class="carousel-caption d-none d-md-block">
-                            <h5>@Model.ElementAtOrDefault(i)!.Article.Title</h5>
+                            <h5>@Model.ElementAtOrDefault(i)!.Title</h5>
                             <p>
-                                Дата: @Model.ElementAtOrDefault(i)!.Article.PublishedOn.ToLongDateString() |
-                                @Model.ElementAtOrDefault(i)!.Article.Likes харесвания |
-                                @Model.ElementAtOrDefault(i)!.Article.Views преглеждания
+                                Дата: @Model.ElementAtOrDefault(i)!.PublishedOn.ToLongDateString() |
+                                @Model.ElementAtOrDefault(i)!.Likes харесвания |
+                                @Model.ElementAtOrDefault(i)!.Views преглеждания
                             </p>
                         </div>
                     </a>
@@ -60,19 +60,21 @@
 </div>
 <!--Cards-->
 <div class="d-flex justify-content-center mt-3">
-    @foreach (var imageViewModel in Model)
+    @for (int i = 0; i < 3; i++)
     {
         <div class="card mx-2" style="width: 18rem;">
-            <img src="@imageViewModel.Name" class="card-img-top" alt="image">
+            <img src="@Model.ElementAtOrDefault(i)!.MainImage" class="card-img-top" alt="image">
             <div class="card-body">
-                <h5 class="card-title">@imageViewModel.Article.Title</h5>
+                <h5 class="card-title">@Model.ElementAtOrDefault(i)!.Title</h5>
                 <h6 class="card-title">
-                    преди @imageViewModel.Article.PublishedOn.ToShortDateString()
-                    | харесвания @imageViewModel.Article.Likes | нехаресвания @imageViewModel.Article.Dislikes | преглеждания @imageViewModel.Article.Views
+                    преди @Model.ElementAtOrDefault(i)!.PublishedOn.ToShortDateString()
+                    | харесвания @Model.ElementAtOrDefault(i)!.Likes
+                    | нехаресвания @Model.ElementAtOrDefault(i)!.Dislikes
+                    | преглеждания @Model.ElementAtOrDefault(i)!.Views
                 </h6>
-                <p class="card-text">@imageViewModel.Article.Content</p>
+                <p class="card-text">@Model.ElementAtOrDefault(i)!.Content</p>
                 <!--Links-->
-                <a class="btn btn-success" asp-area="" asp-controller="Articles" asp-action="Index" asp-route-id="@imageViewModel.Article.Id">Прочети</a>
+                <a class="btn btn-success" asp-area="" asp-controller="Articles" asp-action="Index" asp-route-id="@Model.ElementAtOrDefault(i)!.Id">Прочети</a>
             </div>
         </div>
     }

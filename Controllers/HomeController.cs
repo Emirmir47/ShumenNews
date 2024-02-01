@@ -12,22 +12,32 @@ namespace ShumenNews.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ShumenNewsDbContext db;
         private readonly IImageService imageService;
+        private readonly IArticleService articleService;
 
-        public HomeController(ILogger<HomeController> logger, ShumenNewsDbContext db, IImageService imageService)
+        public HomeController(ILogger<HomeController> logger,
+            ShumenNewsDbContext db,
+            IImageService imageService,
+            IArticleService articleService)
         {
             _logger = logger;
             this.db = db;
             this.imageService = imageService;
+            this.articleService = articleService;
         }
 
         public IActionResult Index()
         {
-            var images = imageService.GetAllArticleMainImages();
-            var model = images.Select(i=> new ImageViewModel
+            var articles = articleService.GetAllArticlesWithShortContent();
+            var model = articles.Select(a => new ArticleViewModel
             {
-                Name = $"/img/{i.Id}.{i.Extension}",
-                ArticleId = i.ArticleId,
-                Article = i.Article
+                Id = a.Id,
+                Title = a.Title,
+                Content = a.Content,
+                Likes = a.Likes,
+                Dislikes = a.Dislikes,
+                Views = a.Views,
+                PublishedOn = a.PublishedOn,
+                MainImage = imageService.GetArticleMainImageUrl(a.MainImageId, a)
             }).ToList();
             return View(model);
         }
