@@ -420,9 +420,62 @@ namespace ShumenNews.Data.Seeding
                 db.Articles.Add(article18);
                 db.Articles.Add(article19);
                 db.Articles.Add(article20);
-                        
 
-                    
+                //Categories
+                var category = new ShumenNewsCategory
+                {
+                    Name = "Водещи новини от Шумен"
+                };
+                var category2 = new ShumenNewsCategory
+                {
+                    Name = "Водещи новини от България"
+                };
+                var category3 = new ShumenNewsCategory
+                {
+                    Name = "По света"
+                };
+                var category4 = new ShumenNewsCategory
+                {
+                    Name = "Политика"
+                };
+                var category5 = new ShumenNewsCategory
+                {
+                    Name = "Бизнес"
+                };
+                var category6 = new ShumenNewsCategory
+                {
+                    Name = "Спорт"
+                };
+                var category7 = new ShumenNewsCategory
+                {
+                    Name = "Здраве"
+                };
+                var category8 = new ShumenNewsCategory
+                {
+                    Name = "Анализи"
+                };
+                var category9 = new ShumenNewsCategory
+                {
+                    Name = "Любопитно"
+                };
+                var category10 = new ShumenNewsCategory
+                {
+                    Name = "Култура"
+                };
+                var category11 = new ShumenNewsCategory
+                {
+                    Name = "Развлечения"
+                };
+                var category12 = new ShumenNewsCategory
+                {
+                    Name = "Времето"
+                };
+                var category13 = new ShumenNewsCategory
+                {
+                    Name = "Водещи новини от седмицата"
+                };
+
+                //CategoryArticles
 
                 //UserArticles
                 var userArticle = new ShumenNewsUserArticle
