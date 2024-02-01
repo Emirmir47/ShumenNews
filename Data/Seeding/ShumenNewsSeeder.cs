@@ -32,6 +32,73 @@ namespace ShumenNews.Data.Seeding
                 };
                 await db.Users.AddAsync(user);
 
+                //Categories
+                var category = new ShumenNewsCategory
+                {
+                    Name = "Водещи новини от Шумен" //1, 2, 3, 4
+                };
+                var category2 = new ShumenNewsCategory
+                {
+                    Name = "Водещи новини от България"
+                };
+                var category3 = new ShumenNewsCategory
+                {
+                    Name = "По света"
+                };
+                var category4 = new ShumenNewsCategory
+                {
+                    Name = "Политика"
+                };
+                var category5 = new ShumenNewsCategory
+                {
+                    Name = "Бизнес"
+                };
+                var category6 = new ShumenNewsCategory
+                {
+                    Name = "Спорт" //13, 14
+                };
+                var category7 = new ShumenNewsCategory
+                {
+                    Name = "Здраве" //5
+                };
+                var category8 = new ShumenNewsCategory
+                {
+                    Name = "Анализи" //12
+                };
+                var category9 = new ShumenNewsCategory
+                {
+                    Name = "Любопитно"
+                };
+                var category10 = new ShumenNewsCategory
+                {
+                    Name = "Култура"
+                };
+                var category11 = new ShumenNewsCategory
+                {
+                    Name = "Развлечения"
+                };
+                var category12 = new ShumenNewsCategory
+                {
+                    Name = "Времето"
+                };
+                var category13 = new ShumenNewsCategory
+                {
+                    Name = "Водещи новини от седмицата"
+                };
+                db.Categories.Add(category);
+                db.Categories.Add(category2);
+                db.Categories.Add(category3);
+                db.Categories.Add(category4);
+                db.Categories.Add(category5);
+                db.Categories.Add(category6);
+                db.Categories.Add(category7);
+                db.Categories.Add(category8);
+                db.Categories.Add(category9);
+                db.Categories.Add(category10);
+                db.Categories.Add(category11);
+                db.Categories.Add(category12);
+                db.Categories.Add(category13);
+
                 //Articles
                 var article = new ShumenNewsArticle
                 {
@@ -45,7 +112,8 @@ namespace ShumenNews.Data.Seeding
                     Dislikes = 10,
                     PublishedOn = DateTime.UtcNow,
                     Views = 1500,
-                    MainImageId = "seederImg1"
+                    MainImageId = "seederImg1",
+                    Category = category
                 };
                 var article2 = new ShumenNewsArticle
                 {
@@ -65,7 +133,8 @@ namespace ShumenNews.Data.Seeding
                     Dislikes = 24,
                     PublishedOn = DateTime.UtcNow,
                     Views = 25000,
-                    MainImageId = "seederImg4"
+                    MainImageId = "seederImg4",
+                    Category = category
                 };
                 var article3 = new ShumenNewsArticle
                 {
@@ -86,7 +155,8 @@ namespace ShumenNews.Data.Seeding
                     Dislikes = 400,
                     PublishedOn = DateTime.UtcNow,
                     Views = 2500,
-                    MainImageId = "seederImg5"
+                    MainImageId = "seederImg5",
+                    Category = category
                 };
                 var article4 = new ShumenNewsArticle
                 {
@@ -103,7 +173,8 @@ namespace ShumenNews.Data.Seeding
                     Dislikes = 100,
                     PublishedOn = DateTime.UtcNow,
                     Views = 951,
-                    MainImageId = "seederImg6"
+                    MainImageId = "seederImg6",
+                    Category = category
                 };
                 var article5 = new ShumenNewsArticle
                 {
@@ -121,7 +192,8 @@ namespace ShumenNews.Data.Seeding
                     Dislikes = 0,
                     PublishedOn = DateTime.UtcNow,
                     Views = 2540,
-                    MainImageId = "seederImg12"
+                    MainImageId = "seederImg12",
+                    Category = category7
                 };
                 var article6 = new ShumenNewsArticle
                 {
@@ -242,7 +314,8 @@ namespace ShumenNews.Data.Seeding
                     Dislikes = 9000,
                     PublishedOn = DateTime.UtcNow,
                     Views = 3,
-                    MainImageId = "seederImg19"
+                    MainImageId = "seederImg19",
+                    Category = category8
                 };
                 var article13 = new ShumenNewsArticle
                 {
@@ -263,7 +336,8 @@ namespace ShumenNews.Data.Seeding
                     Dislikes = 51,
                     PublishedOn = DateTime.UtcNow,
                     Views = 498,
-                    MainImageId = "seederImg20"
+                    MainImageId = "seederImg20",
+                    Category = category6
                 };
                 var article14 = new ShumenNewsArticle
                 {
@@ -277,7 +351,8 @@ namespace ShumenNews.Data.Seeding
                     Dislikes = 200,
                     PublishedOn = DateTime.UtcNow,
                     Views = 985,
-                    MainImageId = "seederImg25"
+                    MainImageId = "seederImg25",
+                    Category = category6
                 };
                 var article15 = new ShumenNewsArticle
                 {
@@ -417,125 +492,6 @@ namespace ShumenNews.Data.Seeding
                 db.Articles.Add(article18);
                 db.Articles.Add(article19);
                 db.Articles.Add(article20);
-
-                //Categories
-                var category = new ShumenNewsCategory
-                {
-                    Name = "Водещи новини от Шумен" //1, 2, 3, 4
-                };
-                var category2 = new ShumenNewsCategory
-                {
-                    Name = "Водещи новини от България"
-                };
-                var category3 = new ShumenNewsCategory
-                {
-                    Name = "По света"
-                };
-                var category4 = new ShumenNewsCategory
-                {
-                    Name = "Политика"
-                };
-                var category5 = new ShumenNewsCategory
-                {
-                    Name = "Бизнес"
-                };
-                var category6 = new ShumenNewsCategory
-                {
-                    Name = "Спорт" //13, 14
-                };
-                var category7 = new ShumenNewsCategory
-                {
-                    Name = "Здраве" //5
-                };
-                var category8 = new ShumenNewsCategory
-                {
-                    Name = "Анализи" //12
-                };
-                var category9 = new ShumenNewsCategory
-                {
-                    Name = "Любопитно"
-                };
-                var category10 = new ShumenNewsCategory
-                {
-                    Name = "Култура"
-                };
-                var category11 = new ShumenNewsCategory
-                {
-                    Name = "Развлечения"
-                };
-                var category12 = new ShumenNewsCategory
-                {
-                    Name = "Времето"
-                };
-                var category13 = new ShumenNewsCategory
-                {
-                    Name = "Водещи новини от седмицата"
-                };
-
-                db.Categories.Add(category);
-                db.Categories.Add(category2);
-                db.Categories.Add(category3);
-                db.Categories.Add(category4);
-                db.Categories.Add(category5);
-                db.Categories.Add(category6);
-                db.Categories.Add(category7);
-                db.Categories.Add(category8);
-                db.Categories.Add(category9);
-                db.Categories.Add(category10);
-                db.Categories.Add(category11);
-                db.Categories.Add(category12);
-                db.Categories.Add(category13);
-
-                //CategoryArticles
-                var categoryArticle = new ShumenNewsCategoryArticle
-                {
-                    Category = category,
-                    Article = article
-                };
-                var categoryArticle2 = new ShumenNewsCategoryArticle
-                {
-                    Category = category,
-                    Article = article2
-                };
-                var categoryArticle3 = new ShumenNewsCategoryArticle
-                {
-                    Category = category,
-                    Article = article3
-                };
-                var categoryArticle4 = new ShumenNewsCategoryArticle
-                {
-                    Category = category,
-                    Article = article4
-                };
-                var categoryArticle5 = new ShumenNewsCategoryArticle
-                {
-                    Category = category6,
-                    Article = article13
-                };
-                var categoryArticle6 = new ShumenNewsCategoryArticle
-                {
-                    Category = category6,
-                    Article = article14
-                };
-                var categoryArticle7 = new ShumenNewsCategoryArticle
-                {
-                    Category = category7,
-                    Article = article5
-                };
-                var categoryArticle8 = new ShumenNewsCategoryArticle
-                {
-                    Category = category8,
-                    Article = article12
-                };
-
-                db.CategoryArticles.Add(categoryArticle);
-                db.CategoryArticles.Add(categoryArticle2);
-                db.CategoryArticles.Add(categoryArticle3);
-                db.CategoryArticles.Add(categoryArticle4);
-                db.CategoryArticles.Add(categoryArticle5);
-                db.CategoryArticles.Add(categoryArticle6);
-                db.CategoryArticles.Add(categoryArticle7);
-                db.CategoryArticles.Add(categoryArticle8);
 
                 //UserArticles 
                 var userArticle = new ShumenNewsUserArticle

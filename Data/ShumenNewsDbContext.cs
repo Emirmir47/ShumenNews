@@ -17,6 +17,5 @@ namespace ShumenNews.Data
         public DbSet<ShumenNewsComment> Comments { get; set; }
         public DbSet<ShumenNewsImage> Images { get; set; } 
         public DbSet<ShumenNewsUserArticle> UserArticles { get; set; }
-        public DbSet<ShumenNewsCategoryArticle> CategoryArticles { get; set; }
     }
 }
