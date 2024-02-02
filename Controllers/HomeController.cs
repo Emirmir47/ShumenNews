@@ -38,7 +38,7 @@ namespace ShumenNews.Controllers
                 Views = a.Views,
                 PublishedOn = a.PublishedOn,
                 MainImage = imageService.GetArticleMainImageUrl(a.MainImageId, a),
-                //
+                Category = a.Category,
             }).ToList();
             return View(model);
         }

@@ -15,38 +15,46 @@ namespace ShumenNews.Controllers
         private readonly ShumenNewsDbContext db;
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly IUserService userService;
+        private readonly ICategoryService categoryService;
         private readonly IArticleService articleService;
         private readonly IImageService imageService;
 
         public ArticlesController(ShumenNewsDbContext db,
             IWebHostEnvironment webHostEnvironment,
             IUserService userService,
+            ICategoryService categoryService,
             IArticleService articleService,
             IImageService imageService)
         {
             this.db = db;
             this.webHostEnvironment = webHostEnvironment;
             this.userService = userService;
+            this.categoryService = categoryService;
             this.articleService = articleService;
             this.imageService = imageService;
         }
         public IActionResult Index(int id)
         {
-            var model = db.Articles
-                .Include(a=> a.Images)
-                .Select(a => new ArticleViewModel
+            var lastArticleId = articleService.GetLastArticleId();
+            if (id > 0 && id <= lastArticleId)
             {
-                Id = a.Id,
-                Title = a.Title,
-                Content = a.Content,
-                Likes = a.Likes,
-                Dislikes = a.Dislikes,
-                Views = a.Views,
-                PublishedOn = a.PublishedOn,
-                MainImage = imageService.GetArticleMainImageUrl(a.MainImageId, a),
-                Images = imageService.GetAllArticleImageUrls(a)
-            }).FirstOrDefault(a=>a.Id == id);
-            return View(model);
+                var model = db.Articles
+                    .Include(a => a.Images)
+                    .Select(a => new ArticleViewModel
+                    {
+                        Id = a.Id,
+                        Title = a.Title,
+                        Content = a.Content,
+                        Likes = a.Likes,
+                        Dislikes = a.Dislikes,
+                        Views = a.Views,
+                        PublishedOn = a.PublishedOn,
+                        MainImage = imageService.GetArticleMainImageUrl(a.MainImageId, a),
+                        Images = imageService.GetAllArticleImageUrls(a)
+                    }).FirstOrDefault(a => a.Id == id);
+                return View(model);
+            }
+            return RedirectToAction("Index", "Home");
         }
         [Authorize(Roles = "Admin, Moderator")]
         public IActionResult All()
@@ -70,7 +78,12 @@ namespace ShumenNews.Controllers
         [Authorize(Roles = "Admin, Author")]
         public IActionResult Create()
         {
-            return View();
+            var categories = categoryService.GetAllCategories();
+            var model = new ArticleCreateBindingModel
+            {
+                Categories = categories
+            };
+            return View(model);
         }
         [Authorize(Roles = "Admin, Author")]
         [HttpPost]
@@ -78,10 +91,13 @@ namespace ShumenNews.Controllers
         {
             if (ModelState.IsValid)
             {
+                var category = categoryService.GetCategoryById(bindingModel.CategoryId);
                 var article = new ShumenNewsArticle
                 {
                     Title = bindingModel.Title,
                     Content = bindingModel.Content,
+                    CategoryId = bindingModel.CategoryId,
+                    Category = category
                 };
                 if (bindingModel.Images is not null)
                 {
@@ -115,12 +131,13 @@ namespace ShumenNews.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index", "Home");
                 }
-                else
-                {
-                    ModelState.AddModelError("images collection is null", "Добавете поне една снимка!");
-                }
             }
-            return View();
+            else
+            {
+                var categories = categoryService.GetAllCategories();
+                bindingModel.Categories = categories;
+            }
+            return View(bindingModel);
         }
     }
 }

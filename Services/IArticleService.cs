@@ -5,5 +5,6 @@ namespace ShumenNews.Services
     public interface IArticleService
     {
         public List<ShumenNewsArticle> GetAllArticlesWithShortContent();
+        public int GetLastArticleId();
     }
 }
