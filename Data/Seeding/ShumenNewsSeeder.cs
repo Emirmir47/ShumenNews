@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using NuGet.Protocol;
 using ShumenNews.Data.Models;
+using System.Configuration;
 using System.Reflection.Metadata;
 
 namespace ShumenNews.Data.Seeding
@@ -9,12 +10,12 @@ namespace ShumenNews.Data.Seeding
     public class ShumenNewsSeeder : ISeeder
     {
         private readonly ShumenNewsDbContext db;
-        private readonly UserManager<ShumenNewsUser> userManager;
+        
 
-        public ShumenNewsSeeder(ShumenNewsDbContext db, UserManager<ShumenNewsUser> userManager)
+        public ShumenNewsSeeder(ShumenNewsDbContext db)
         {
             this.db = db;
-            this.userManager = userManager;
+           
         }
 
         public async Task Seed()
@@ -22,22 +23,24 @@ namespace ShumenNews.Data.Seeding
             if (!db.Categories.Any())
             {
                 //Roles
-                db.Roles.Add(new IdentityRole
+                var role1 = new IdentityRole
                 {
                     Name = "Admin",
                     NormalizedName = "ADMIN"
-                });
-                db.Roles.Add(new IdentityRole
+                };
+                var role2 = new IdentityRole
                 {
                     Name = "Moderator",
                     NormalizedName = "MODERATOR"
-                });
-                db.Roles.Add(new IdentityRole
+                };
+                var role3 = new IdentityRole
                 {
                     Name = "Author",
                     NormalizedName = "AUTHOR"
-                });
-                db.SaveChanges();
+                };
+                db.Roles.Add(role1);
+                db.Roles.Add(role2);
+                db.Roles.Add(role3);
 
                 //Users
                 var user = new ShumenNewsUser
@@ -209,7 +212,7 @@ namespace ShumenNews.Data.Seeding
                     " което пострадало най-сериозно.\r\n\r\nНа мястото пристигна екип на полицията, видя репортер на ШУМ.БГ. Водачът беше " +
                     "тестван за алкохол и наркотици, като пробите му бяха отрицателни.\r\n\r\nОт пресцентъра на полицията обясниха по-късно," +
                     "че водачът е казал, че се е подхлъзнал на пътя.",
-                    
+
                     Likes = 700,
                     Dislikes = 100,
                     PublishedOn = DateTime.UtcNow,
@@ -229,7 +232,7 @@ namespace ShumenNews.Data.Seeding
                     "\r\n\r\n„Препоръките ни са за раждане на повече от едно дете в семейство. Също така в никакъв случай да не се отлага моментът на " +
                     "първото раждане, което е една от причините за високия процент на недоносените деца“, каза още началникът на Неонатологично." +
                     "\r\n\r\nПрез 2022-ра в шуменската болница се родиха 782 бебета, или с 98 повече спрямо 2023-та. Спадът е с близо 13%.",
-                   
+
                     Likes = 990,
                     Dislikes = 0,
                     PublishedOn = DateTime.UtcNow,
@@ -244,7 +247,7 @@ namespace ShumenNews.Data.Seeding
                     Content = "Мъж от село Ружица катастрофира около 8,00 часа тази сутрин. Инцидентът стана на пътя Нови пазар - Стоян Михайловски, " +
                     "съобщиха от пресцентъра на полицията.\r\n\r\nНа заледен участък Опелът поднесъл и излязъл от платното, като се обърнал няколко пъти " +
                     "през таван.\r\n\r\nЗа щастие 51-годишният водач се отървал без никакви наранявания. Тестът му за алкохол е отрицателен.",
-                     
+
                     Likes = 1000,
                     Dislikes = 200,
                     PublishedOn = DateTime.UtcNow,
@@ -332,7 +335,7 @@ namespace ShumenNews.Data.Seeding
                     CategoryId = category14.Id,
                     Category = category14
                 };
-                
+
                 var article11 = new ShumenNewsArticle
                 {
                     Title = "Първият приемен ден на кмета на Шумен и екипа му е на 31 януари!",
@@ -797,7 +800,7 @@ namespace ShumenNews.Data.Seeding
                     EmailConfirmed = true
                 };
                 await db.Users.AddAsync(user2);
-                await userManager.AddToRoleAsync(user2, "Author");
+
 
                 var user3 = new ShumenNewsUser
                 {
@@ -810,7 +813,7 @@ namespace ShumenNews.Data.Seeding
                     EmailConfirmed = true
                 };
                 await db.Users.AddAsync(user3);
-                await userManager.AddToRoleAsync(user3, "Author");
+
 
                 var user4 = new ShumenNewsUser
                 {
@@ -823,7 +826,7 @@ namespace ShumenNews.Data.Seeding
                     EmailConfirmed = true
                 };
                 await db.Users.AddAsync(user4);
-                await userManager.AddToRoleAsync(user4, "Author");
+
 
                 var user5 = new ShumenNewsUser
                 {
@@ -836,7 +839,7 @@ namespace ShumenNews.Data.Seeding
                     EmailConfirmed = true
                 };
                 await db.Users.AddAsync(user5);
-                await userManager.AddToRoleAsync(user5, "Author");
+
 
                 var user6 = new ShumenNewsUser
                 {
@@ -849,7 +852,7 @@ namespace ShumenNews.Data.Seeding
                     EmailConfirmed = true
                 };
                 await db.Users.AddAsync(user6);
-                await userManager.AddToRoleAsync(user6, "Author");
+
 
                 //UserArticles 
                 var userArticle = new ShumenNewsUserArticle
@@ -991,7 +994,7 @@ namespace ShumenNews.Data.Seeding
                 db.UserArticles.Add(userArticle17);
                 db.UserArticles.Add(userArticle18);
                 db.UserArticles.Add(userArticle19);
-                db.UserArticles.Add(userArticle20); 
+                db.UserArticles.Add(userArticle20);
 
                 //AdminUser
                 var adminUser = new ShumenNewsUser
@@ -1005,8 +1008,9 @@ namespace ShumenNews.Data.Seeding
                     EmailConfirmed = true,
                 };
                 await db.Users.AddAsync(adminUser);
-                await userManager.AddToRoleAsync(adminUser, "Admin");
+                
                 db.SaveChanges();
+
             }
         }
     }

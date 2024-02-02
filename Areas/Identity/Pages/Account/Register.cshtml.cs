@@ -121,17 +121,17 @@ namespace ShumenNews.Areas.Identity.Pages.Account
                 user.LastName = Input.LastName;
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
-                if (_userManager.Users.Count() == 2)
+                if (_userManager.Users.Count() == 8)
                 {
                     await _userManager.AddToRoleAsync(user, "Author");
                     await _userManager.AddToRoleAsync(user, "Moderator");
                     await _userManager.AddToRoleAsync(user, "Admin");
                 }
-                else if (_userManager.Users.Count() == 3)
+                else if (_userManager.Users.Count() == 9)
                 {
                     await _userManager.AddToRoleAsync(user, "Author");
                 }
-                else if (_userManager.Users.Count() == 4)
+                else if (_userManager.Users.Count() == 10)
                 {
                     await _userManager.AddToRoleAsync(user, "Moderator");
                 }
