@@ -19,14 +19,12 @@ namespace ShumenNews.Data.Models
         public int Dislikes { get; set; }
         public DateTime PublishedOn { get; set; }
         public int Views { get; set; }
-        
-   
+
+        [ForeignKey(nameof(Category))]
         public int CategoryId { get; set; }
-        public virtual Category Category { get; set; }
       
         [ForeignKey(nameof(Image))]
         public string MainImageId { get; set; }
-        public virtual Image MainImage { get; set; }
        
         public virtual ICollection<UserArticleAttitude> ArticleAttitudes { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }

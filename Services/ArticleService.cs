@@ -15,8 +15,8 @@ namespace ShumenNews.Services
         public List<Article> GetAllArticlesWithShortContent()
         {
             var articles = db.Articles
-                .Include(a=>a.Images)
-                .Include(a => a.Category).ToList();
+                .Include(a=>a.Images).ToList();
+            //.Include(a => a.Category)
             foreach (var article in articles)
             {
                 var words = article.Content.Split(" ").Take(25).ToList();

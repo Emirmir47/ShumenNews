@@ -101,7 +101,7 @@ namespace ShumenNews.Controllers
                     var user = userService.GetUserByUserName(userName!);
                     var userArticle = new UserArticleAttitude
                     {
-                        User = user,
+                        AppUser = user,
                         Article = article,
                         //IsAuthor = true,
                     };

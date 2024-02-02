@@ -1,4 +1,6 @@
-﻿namespace ShumenNews.Data.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ShumenNews.Data.Models
 {
     public class Comment
     {
@@ -11,9 +13,8 @@
        
         public string AppUserId { get; set; }
         public virtual AppUser Commenter { get; set; }
-        
+        [ForeignKey(nameof(Article))]
         public int ArticleId { get; set; }
-        public virtual UserArticleAttitude Article { get; set; }
        
         //Optional
         public int? ParentCommentId { get; set; }

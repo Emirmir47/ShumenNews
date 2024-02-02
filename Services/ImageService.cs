@@ -26,11 +26,12 @@ namespace ShumenNews.Services
         }
         public List<Image> GetAllArticleMainImages()
         {
-            var images = db.Articles
-                .SelectMany(a => a.Images.Where(i => i.Id == a.MainImageId))
-                .Include(i => i.Article)
-                .ToList();
-            return images;
+            //var images = db.Articles
+            //    .SelectMany(a => a.Images.Where(i => i.Id == a.MainImageId))
+            //    .Include(i => i.Article)
+            //    .ToList();
+            //return images;
+            return null;
         }
         public string GetArticleMainImageUrl(string mainImageId, Article article)
         {

@@ -22,7 +22,7 @@ namespace ShumenNews.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<UserArticleAttitude>().HasKey(x => new { x.AppUserId, x.ArticleId });
+            builder.Entity<UserArticleAttitude>().HasKey(x => new { x.AppUser.Id, x.Article.Id });
 
             builder.Entity<Article>().HasMany(x => x.Images).WithOne(x => x.Article);
 

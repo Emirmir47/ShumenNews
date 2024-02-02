@@ -113,7 +113,7 @@ namespace ShumenNews.Data.Seeding
                     PublishedOn = DateTime.UtcNow,
                     Views = 1500,
                     MainImageId = "seederImg1",
-                    Category = category
+                    //Category = category
                 };
                 var article2 = new Article
                 {
@@ -134,7 +134,7 @@ namespace ShumenNews.Data.Seeding
                     PublishedOn = DateTime.UtcNow,
                     Views = 25000,
                     MainImageId = "seederImg4",
-                    Category = category
+                    //Category = category
                 };
                 var article3 = new Article
                 {
@@ -156,7 +156,7 @@ namespace ShumenNews.Data.Seeding
                     PublishedOn = DateTime.UtcNow,
                     Views = 2500,
                     MainImageId = "seederImg5",
-                    Category = category
+                    //Category = category
                 };
                 var article4 = new Article
                 {
@@ -174,7 +174,7 @@ namespace ShumenNews.Data.Seeding
                     PublishedOn = DateTime.UtcNow,
                     Views = 951,
                     MainImageId = "seederImg6",
-                    Category = category
+                    //Category = category
                 };
                 var article5 = new Article
                 {
@@ -193,7 +193,7 @@ namespace ShumenNews.Data.Seeding
                     PublishedOn = DateTime.UtcNow,
                     Views = 2540,
                     MainImageId = "seederImg12",
-                    Category = category7
+                    //Category = category7
                 };
                 var article6 = new Article
                 {
@@ -315,7 +315,7 @@ namespace ShumenNews.Data.Seeding
                     PublishedOn = DateTime.UtcNow,
                     Views = 3,
                     MainImageId = "seederImg19",
-                    Category = category8
+                    //Category = category8
                 };
                 var article13 = new Article
                 {
@@ -337,7 +337,7 @@ namespace ShumenNews.Data.Seeding
                     PublishedOn = DateTime.UtcNow,
                     Views = 498,
                     MainImageId = "seederImg20",
-                    Category = category6
+                    //Category = category6
                 };
                 var article14 = new Article
                 {
@@ -352,7 +352,7 @@ namespace ShumenNews.Data.Seeding
                     PublishedOn = DateTime.UtcNow,
                     Views = 985,
                     MainImageId = "seederImg25",
-                    Category = category6
+                    //Category = category6
                 };
                 var article15 = new Article
                 {
@@ -496,14 +496,14 @@ namespace ShumenNews.Data.Seeding
                 //UserArticles 
                 var userArticle = new UserArticleAttitude
                 {
-                    User = user,
+                    AppUser = user,
                     Article = article,
                    // IsAuthor = true
                 };
                 db.UserArticles.Add(userArticle);
                 var userArticle2 = new UserArticleAttitude
                 {
-                    User = user,
+                    AppUser = user,
                     Article = article2,
                    // IsAuthor = true
                 };

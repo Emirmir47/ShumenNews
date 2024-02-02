@@ -8,10 +8,8 @@ namespace ShumenNews.Data.Models
         //public int Id { get; set; }
 
         //TODO PK = Composite Key Based on ShumenNewsUserId + ShumenNewsArticleId
-        public int AppUserId { get; set; }
-        public virtual AppUser User { get; set; }
+        public virtual AppUser AppUser { get; set; }
 
-        public int ArticleId { get; set; }
         public virtual Article Article { get; set; }
 
         //public bool IsAuthor { get; set; } = false;
