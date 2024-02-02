@@ -19,8 +19,8 @@ namespace ShumenNews.Data.Models
         public int Dislikes { get; set; }
         public DateTime PublishedOn { get; set; }
         public int Views { get; set; }
-        public string? CategoryId { get; set; }
-        public ShumenNewsCategory? Category { get; set; }
+        public string CategoryId { get; set; }
+        public ShumenNewsCategory Category { get; set; }
         public virtual ICollection<ShumenNewsUserArticle> UserArticles { get; set; }
         public virtual ICollection<ShumenNewsComment> Comments { get; set; }
         public virtual ICollection<ShumenNewsImage> Images { get; set; }

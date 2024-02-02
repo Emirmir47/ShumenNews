@@ -9,16 +9,36 @@ namespace ShumenNews.Data.Seeding
     public class ShumenNewsSeeder : ISeeder
     {
         private readonly ShumenNewsDbContext db;
+        private readonly UserManager<ShumenNewsUser> userManager;
 
-        public ShumenNewsSeeder(ShumenNewsDbContext db)
+        public ShumenNewsSeeder(ShumenNewsDbContext db, UserManager<ShumenNewsUser> userManager)
         {
             this.db = db;
+            this.userManager = userManager;
         }
 
         public async Task Seed()
         {
-            if (!db.Articles.Any())
+            if (!db.Categories.Any())
             {
+                //Roles
+                db.Roles.Add(new IdentityRole
+                {
+                    Name = "Admin",
+                    NormalizedName = "ADMIN"
+                });
+                db.Roles.Add(new IdentityRole
+                {
+                    Name = "Moderator",
+                    NormalizedName = "MODERATOR"
+                });
+                db.Roles.Add(new IdentityRole
+                {
+                    Name = "Author",
+                    NormalizedName = "AUTHOR"
+                });
+                db.SaveChanges();
+
                 //Users
                 var user = new ShumenNewsUser
                 {
@@ -97,6 +117,11 @@ namespace ShumenNews.Data.Seeding
                 {
                     Id = "13",
                     Name = "Водещи новини от седмицата"
+                };
+                var category14 = new ShumenNewsCategory
+                {
+                    Id = "14",
+                    Name = "Други"
                 };
                 db.Categories.Add(category);
                 db.Categories.Add(category2);
@@ -224,7 +249,9 @@ namespace ShumenNews.Data.Seeding
                     Dislikes = 200,
                     PublishedOn = DateTime.UtcNow,
                     Views = 1504,
-                    MainImageId = "seederImg13"
+                    MainImageId = "seederImg13",
+                    CategoryId = category14.Id,
+                    Category = category14
                 };
                 var article7 = new ShumenNewsArticle
                 {
@@ -241,7 +268,9 @@ namespace ShumenNews.Data.Seeding
                     Dislikes = 1456,
                     PublishedOn = DateTime.UtcNow,
                     Views = 2480,
-                    MainImageId = "seederImg14"
+                    MainImageId = "seederImg14",
+                    CategoryId = category14.Id,
+                    Category = category14
                 };
                 var article8 = new ShumenNewsArticle
                 {
@@ -260,7 +289,9 @@ namespace ShumenNews.Data.Seeding
                     Views = 16834,
                     Dislikes = 3445,
                     PublishedOn = DateTime.UtcNow,
-                    MainImageId = "seederImg15"
+                    MainImageId = "seederImg15",
+                    CategoryId = category14.Id,
+                    Category = category14
                 };
                 var article9 = new ShumenNewsArticle
                 {
@@ -275,7 +306,9 @@ namespace ShumenNews.Data.Seeding
                     Dislikes = 1021,
                     PublishedOn = DateTime.UtcNow,
                     Views = 6196,
-                    MainImageId = "seederImg16"
+                    MainImageId = "seederImg16",
+                    CategoryId = category14.Id,
+                    Category = category14
                 };
                 var article10 = new ShumenNewsArticle
                 {
@@ -295,7 +328,9 @@ namespace ShumenNews.Data.Seeding
                     Dislikes = 5000,
                     PublishedOn = DateTime.UtcNow,
                     Views = 10461,
-                    MainImageId = "seederImg17"
+                    MainImageId = "seederImg17",
+                    CategoryId = category14.Id,
+                    Category = category14
                 };
                 
                 var article11 = new ShumenNewsArticle
@@ -312,7 +347,9 @@ namespace ShumenNews.Data.Seeding
                     Dislikes = 200,
                     PublishedOn = DateTime.UtcNow,
                     Views = 8964,
-                    MainImageId = "seederImg18"
+                    MainImageId = "seederImg18",
+                    CategoryId = category14.Id,
+                    Category = category14
                 };
                 var article12 = new ShumenNewsArticle
                 {
@@ -388,7 +425,9 @@ namespace ShumenNews.Data.Seeding
                     Dislikes = 125,
                     PublishedOn = DateTime.UtcNow,
                     Views = 4546,
-                    MainImageId = "seederImg26"
+                    MainImageId = "seederImg26",
+                    CategoryId = category14.Id,
+                    Category = category14
                 };
                 var article16 = new ShumenNewsArticle
                 {
@@ -411,7 +450,9 @@ namespace ShumenNews.Data.Seeding
                     Dislikes = 2114,
                     PublishedOn = DateTime.UtcNow,
                     Views = 6796,
-                    MainImageId = "seederImg27"
+                    MainImageId = "seederImg27",
+                    CategoryId = category14.Id,
+                    Category = category14
                 };
                 var article17 = new ShumenNewsArticle
                 {
@@ -433,7 +474,9 @@ namespace ShumenNews.Data.Seeding
                     Dislikes = 141,
                     PublishedOn = DateTime.UtcNow,
                     Views = 1279,
-                    MainImageId = "seederImg28"
+                    MainImageId = "seederImg28",
+                    CategoryId = category14.Id,
+                    Category = category14
                 };
                 var article18 = new ShumenNewsArticle
                 {
@@ -454,7 +497,9 @@ namespace ShumenNews.Data.Seeding
                     Dislikes = 247,
                     PublishedOn = DateTime.UtcNow,
                     Views = 6344,
-                    MainImageId = "seederImg29"
+                    MainImageId = "seederImg29",
+                    CategoryId = category14.Id,
+                    Category = category14
                 };
                 var article19 = new ShumenNewsArticle
                 {
@@ -470,7 +515,9 @@ namespace ShumenNews.Data.Seeding
                     Dislikes = 1241,
                     PublishedOn = DateTime.UtcNow,
                     Views = 2738,
-                    MainImageId = "seederImg30"
+                    MainImageId = "seederImg30",
+                    CategoryId = category14.Id,
+                    Category = category14
                 };
                 var article20 = new ShumenNewsArticle
                 {
@@ -491,7 +538,9 @@ namespace ShumenNews.Data.Seeding
                     Dislikes = 3741,
                     PublishedOn = DateTime.UtcNow,
                     Views = 5808,
-                    MainImageId = "seederImg31"
+                    MainImageId = "seederImg31",
+                    CategoryId = category14.Id,
+                    Category = category14
                 };
                 db.Articles.Add(article);
                 db.Articles.Add(article2);
@@ -514,21 +563,6 @@ namespace ShumenNews.Data.Seeding
                 db.Articles.Add(article19);
                 db.Articles.Add(article20);
 
-                //UserArticles 
-                var userArticle = new ShumenNewsUserArticle
-                {
-                    User = user,
-                    Article = article,
-                    IsAuthor = true
-                };
-                db.UserArticles.Add(userArticle);
-                var userArticle2 = new ShumenNewsUserArticle
-                {
-                    User = user,
-                    Article = article2,
-                    IsAuthor = true
-                };
-                db.UserArticles.Add(userArticle2);
 
                 //Images
                 ShumenNewsImage image = new ShumenNewsImage
@@ -750,22 +784,228 @@ namespace ShumenNews.Data.Seeding
                 db.Images.Add(image30);
                 db.Images.Add(image31);
 
-                //Roles
-                db.Roles.Add(new IdentityRole
+
+                //Authors
+                var user2 = new ShumenNewsUser
                 {
-                    Name = "Admin",
-                    NormalizedName = "ADMIN"
-                });
-                db.Roles.Add(new IdentityRole
+                    UserName = "ivanpetrov10",
+                    NormalizedUserName = "IVANPETROV10",
+                    Email = "ivanpetrov10@gmail.com",
+                    NormalizedEmail = "IVANPETROV@GMAIL.COM",
+                    FirstName = "Иван",
+                    LastName = "Петров",
+                    EmailConfirmed = true
+                };
+                await db.Users.AddAsync(user2);
+                await userManager.AddToRoleAsync(user2, "Author");
+
+                var user3 = new ShumenNewsUser
                 {
-                    Name = "Moderator",
-                    NormalizedName = "MODERATOR"
-                });
-                db.Roles.Add(new IdentityRole
+                    UserName = "mihail8elenkov",
+                    NormalizedUserName = "MIHAIL8ELENKOV",
+                    Email = "mihail8elenkov@gmail.com",
+                    NormalizedEmail = "MIHAIL8ELENKOV@GMAIL.COM",
+                    FirstName = "Михаил",
+                    LastName = "Еленков",
+                    EmailConfirmed = true
+                };
+                await db.Users.AddAsync(user3);
+                await userManager.AddToRoleAsync(user3, "Author");
+
+                var user4 = new ShumenNewsUser
                 {
-                    Name = "Author",
-                    NormalizedName = "AUTHOR"
-                });
+                    UserName = "eli34",
+                    NormalizedUserName = "ELI34",
+                    Email = "eli34@gmail.com",
+                    NormalizedEmail = "ELI34@GMAIL.COM",
+                    FirstName = "Ели",
+                    LastName = "Недялкова",
+                    EmailConfirmed = true
+                };
+                await db.Users.AddAsync(user4);
+                await userManager.AddToRoleAsync(user4, "Author");
+
+                var user5 = new ShumenNewsUser
+                {
+                    UserName = "ivi677",
+                    NormalizedUserName = "IVI677",
+                    Email = "ivi677@gmail.com",
+                    NormalizedEmail = "IVI677@GMAIL.COM",
+                    FirstName = "Петя",
+                    LastName = "Иванова",
+                    EmailConfirmed = true
+                };
+                await db.Users.AddAsync(user5);
+                await userManager.AddToRoleAsync(user5, "Author");
+
+                var user6 = new ShumenNewsUser
+                {
+                    UserName = "emilian233",
+                    NormalizedUserName = "EMILIAN233",
+                    Email = "emilian233@gmail.com",
+                    NormalizedEmail = "EMILIAN233@GMAIL.COM",
+                    FirstName = "Емилиян",
+                    LastName = "Петров",
+                    EmailConfirmed = true
+                };
+                await db.Users.AddAsync(user6);
+                await userManager.AddToRoleAsync(user6, "Author");
+
+                //UserArticles 
+                var userArticle = new ShumenNewsUserArticle
+                {
+                    User = user2,
+                    Article = article,
+                    IsAuthor = true
+                };
+                var userArticle2 = new ShumenNewsUserArticle
+                {
+                    User = user3,
+                    Article = article2,
+                    IsAuthor = true
+                };
+                var userArticle3 = new ShumenNewsUserArticle
+                {
+                    User = user4,
+                    Article = article3,
+                    IsAuthor = true
+                };
+                var userArticle4 = new ShumenNewsUserArticle
+                {
+                    User = user5,
+                    Article = article4,
+                    IsAuthor = true
+                };
+                var userArticle5 = new ShumenNewsUserArticle
+                {
+                    User = user6,
+                    Article = article5,
+                    IsAuthor = true
+                };
+                var userArticle6 = new ShumenNewsUserArticle
+                {
+                    User = user6,
+                    Article = article6,
+                    IsAuthor = true
+                };
+                var userArticle7 = new ShumenNewsUserArticle
+                {
+                    User = user6,
+                    Article = article7,
+                    IsAuthor = true
+                };
+                var userArticle8 = new ShumenNewsUserArticle
+                {
+                    User = user6,
+                    Article = article8,
+                    IsAuthor = true
+                };
+                var userArticle9 = new ShumenNewsUserArticle
+                {
+                    User = user6,
+                    Article = article9,
+                    IsAuthor = true
+                };
+                var userArticle10 = new ShumenNewsUserArticle
+                {
+                    User = user6,
+                    Article = article10,
+                    IsAuthor = true
+                };
+                var userArticle11 = new ShumenNewsUserArticle
+                {
+                    User = user6,
+                    Article = article11,
+                    IsAuthor = true
+                };
+                var userArticle12 = new ShumenNewsUserArticle
+                {
+                    User = user6,
+                    Article = article12,
+                    IsAuthor = true
+                };
+                var userArticle13 = new ShumenNewsUserArticle
+                {
+                    User = user6,
+                    Article = article13,
+                    IsAuthor = true
+                };
+                var userArticle14 = new ShumenNewsUserArticle
+                {
+                    User = user6,
+                    Article = article14,
+                    IsAuthor = true
+                };
+                var userArticle15 = new ShumenNewsUserArticle
+                {
+                    User = user6,
+                    Article = article15,
+                    IsAuthor = true
+                };
+                var userArticle16 = new ShumenNewsUserArticle
+                {
+                    User = user6,
+                    Article = article16,
+                    IsAuthor = true
+                };
+                var userArticle17 = new ShumenNewsUserArticle
+                {
+                    User = user6,
+                    Article = article17,
+                    IsAuthor = true
+                };
+                var userArticle18 = new ShumenNewsUserArticle
+                {
+                    User = user6,
+                    Article = article18,
+                    IsAuthor = true
+                };
+                var userArticle19 = new ShumenNewsUserArticle
+                {
+                    User = user6,
+                    Article = article19,
+                    IsAuthor = true
+                };
+                var userArticle20 = new ShumenNewsUserArticle
+                {
+                    User = user6,
+                    Article = article20,
+                    IsAuthor = true
+                };
+                db.UserArticles.Add(userArticle);
+                db.UserArticles.Add(userArticle2);
+                db.UserArticles.Add(userArticle3);
+                db.UserArticles.Add(userArticle4);
+                db.UserArticles.Add(userArticle5);
+                db.UserArticles.Add(userArticle6);
+                db.UserArticles.Add(userArticle7);
+                db.UserArticles.Add(userArticle8);
+                db.UserArticles.Add(userArticle9);
+                db.UserArticles.Add(userArticle10);
+                db.UserArticles.Add(userArticle11);
+                db.UserArticles.Add(userArticle12);
+                db.UserArticles.Add(userArticle13);
+                db.UserArticles.Add(userArticle14);
+                db.UserArticles.Add(userArticle15);
+                db.UserArticles.Add(userArticle16);
+                db.UserArticles.Add(userArticle17);
+                db.UserArticles.Add(userArticle18);
+                db.UserArticles.Add(userArticle19);
+                db.UserArticles.Add(userArticle20); 
+
+                //AdminUser
+                var adminUser = new ShumenNewsUser
+                {
+                    UserName = "hoseJamal",
+                    NormalizedUserName = "HOSEJAMAl",
+                    Email = "jamaltreti3@gmail.com",
+                    NormalizedEmail = "JAMLTRETI3@GMAIL.COM",
+                    FirstName = "Hose",
+                    LastName = "Jamal",
+                    EmailConfirmed = true,
+                };
+                await db.Users.AddAsync(adminUser);
+                await userManager.AddToRoleAsync(adminUser, "Admin");
                 db.SaveChanges();
             }
         }

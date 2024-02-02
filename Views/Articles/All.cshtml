@@ -5,6 +5,8 @@
     <thead>
         <tr>
             <th class="border-1">&#8470;    &#9998;       &#10003;</th>
+            <th class="border-1">Автор</th>
+            <th class="border-1">Категория</th>
             <th class="border-1">Заглавие</th>
             <th class="border-1">Дата на публикуване</th>
             <th class="border-1">Брой харесвания</th>
@@ -18,6 +20,8 @@
         <tbody>
             <tr>
                 <td class="border-1">@article.Id</td>
+                <td class="border-1">@article.Author.FirstName @article.Author.LastName</td>
+                <td class="border-1">@article.Category.Name</td>
                 <td class="border-1">@article.Title</td>
                 <td class="border-1">@article.PublishedOn.ToShortDateString() 
                     @article.PublishedOn.ToShortTimeString()

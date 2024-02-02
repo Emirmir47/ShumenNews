@@ -16,7 +16,9 @@ namespace ShumenNews.Services
         {
             var articles = db.Articles
                 .Include(a=>a.Images)
-                .Include(a => a.Category).ToList();
+                .Include(a=>a.Category)
+                .Include(a=>a.UserArticles.Where(ua=>ua.IsAuthor == true))
+                .ThenInclude(ua => ua.User).ToList();
             foreach (var article in articles)
             {
                 var words = article.Content.Split(" ").Take(25).ToList();

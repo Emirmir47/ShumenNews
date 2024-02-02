@@ -180,7 +180,7 @@ namespace ShumenNews.Migrations
                     Dislikes = table.Column<int>(type: "int", nullable: false),
                     PublishedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Views = table.Column<int>(type: "int", nullable: false),
-                    CategoryId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CategoryId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     MainImageId = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>

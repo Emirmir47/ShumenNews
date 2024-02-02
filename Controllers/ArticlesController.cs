@@ -15,16 +15,19 @@ namespace ShumenNews.Controllers
         private readonly ShumenNewsDbContext db;
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly IUserService userService;
+        private readonly IArticleService articleService;
         private readonly IImageService imageService;
 
         public ArticlesController(ShumenNewsDbContext db,
             IWebHostEnvironment webHostEnvironment,
             IUserService userService,
+            IArticleService articleService,
             IImageService imageService)
         {
             this.db = db;
             this.webHostEnvironment = webHostEnvironment;
             this.userService = userService;
+            this.articleService = articleService;
             this.imageService = imageService;
         }
         public IActionResult Index(int id)
@@ -48,9 +51,12 @@ namespace ShumenNews.Controllers
         [Authorize(Roles = "Admin, Moderator")]
         public IActionResult All()
         {
-            var model = db.Articles.Select(a => new ArticleViewModel
+            var articles = articleService.GetAllArticlesWithShortContent();
+            var model = articles.Select(a => new ArticleViewModel
             {
                 Id = a.Id,
+                Author = a.UserArticles.SingleOrDefault()!.User,
+                Category = a.Category,
                 Title = a.Title,
                 PublishedOn = a.PublishedOn,
                 Likes = a.Likes,
