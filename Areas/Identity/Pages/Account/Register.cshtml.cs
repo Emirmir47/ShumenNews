@@ -17,17 +17,17 @@ namespace ShumenNews.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<ShumenNewsUser> _signInManager;
-        private readonly UserManager<ShumenNewsUser> _userManager;
-        private readonly IUserStore<ShumenNewsUser> _userStore;
-        private readonly IUserEmailStore<ShumenNewsUser> _emailStore;
+        private readonly SignInManager<AppUser> _signInManager;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly IUserStore<AppUser> _userStore;
+        private readonly IUserEmailStore<AppUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
-            UserManager<ShumenNewsUser> userManager,
-            IUserStore<ShumenNewsUser> userStore,
-            SignInManager<ShumenNewsUser> signInManager,
+            UserManager<AppUser> userManager,
+            IUserStore<AppUser> userStore,
+            SignInManager<AppUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
@@ -172,27 +172,27 @@ namespace ShumenNews.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private ShumenNewsUser CreateUser()
+        private AppUser CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<ShumenNewsUser>();
+                return Activator.CreateInstance<AppUser>();
             }
             catch
             {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(ShumenNewsUser)}'. " +
-                    $"Ensure that '{nameof(ShumenNewsUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(AppUser)}'. " +
+                    $"Ensure that '{nameof(AppUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
 
-        private IUserEmailStore<ShumenNewsUser> GetEmailStore()
+        private IUserEmailStore<AppUser> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)
             {
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
-            return (IUserEmailStore<ShumenNewsUser>)_userStore;
+            return (IUserEmailStore<AppUser>)_userStore;
         }
     }
 }

@@ -12,9 +12,9 @@ namespace ShumenNews.Models.ViewModels
         public int Views { get; set; }
         public DateTime PublishedOn { get; set; }
         public string MainImage { get; set; }
-        public virtual ShumenNewsCategory Category { get; set; }
-        public virtual ICollection<ShumenNewsUserArticle> UserArticles { get; set; }
-        public virtual ICollection<ShumenNewsComment> Comments { get; set; }
+        public virtual Category Category { get; set; }
+        public virtual ICollection<UserArticleAttitude> UserArticles { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
         public virtual IEnumerable<string> Images { get; set; }
     }
 }

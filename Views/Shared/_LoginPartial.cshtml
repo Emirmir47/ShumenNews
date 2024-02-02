@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using ShumenNews.Data.Models
-@inject SignInManager<ShumenNewsUser> SignInManager
-@inject UserManager<ShumenNewsUser> UserManager
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))

@@ -4,6 +4,6 @@ namespace ShumenNews.Services
 {
     public interface IUserService
     {
-        public ShumenNewsUser GetUserByUserName(string userName);
+        public AppUser GetUserByUserName(string userName);
     }
 }

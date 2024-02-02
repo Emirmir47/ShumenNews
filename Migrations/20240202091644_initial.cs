@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ShumenNews.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -81,7 +81,7 @@ namespace ShumenNews.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -102,7 +102,7 @@ namespace ShumenNews.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -122,7 +122,7 @@ namespace ShumenNews.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -140,13 +140,13 @@ namespace ShumenNews.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -166,7 +166,7 @@ namespace ShumenNews.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -182,17 +182,24 @@ namespace ShumenNews.Migrations
                     PublishedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Views = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    MainImageId = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    MainImageId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MainImageId1 = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Articles", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Articles_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Articles_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -200,7 +207,7 @@ namespace ShumenNews.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Extension = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ArticleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -211,30 +218,27 @@ namespace ShumenNews.Migrations
                         column: x => x.ArticleId,
                         principalTable: "Articles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "UserArticles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    AppUserId = table.Column<int>(type: "int", nullable: false),
                     ArticleId = table.Column<int>(type: "int", nullable: false),
-                    IsAuthor = table.Column<bool>(type: "bit", nullable: false),
-                    IsLiked = table.Column<bool>(type: "bit", nullable: false),
-                    IsDisliked = table.Column<bool>(type: "bit", nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Attitude = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserArticles", x => x.Id);
+                    table.PrimaryKey("PK_UserArticles", x => new { x.AppUserId, x.ArticleId });
                     table.ForeignKey(
                         name: "FK_UserArticles_Articles_ArticleId",
                         column: x => x.ArticleId,
                         principalTable: "Articles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_UserArticles_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -251,41 +255,54 @@ namespace ShumenNews.Migrations
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Likes = table.Column<int>(type: "int", nullable: false),
                     Dislikes = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ArticleId = table.Column<int>(type: "int", nullable: true),
-                    ParentCommentId = table.Column<int>(type: "int", nullable: true),
-                    ShumenNewsArticleId = table.Column<int>(type: "int", nullable: true)
+                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ArticleId = table.Column<int>(type: "int", nullable: false),
+                    ArticleAppUserId = table.Column<int>(type: "int", nullable: false),
+                    ArticleId1 = table.Column<int>(type: "int", nullable: false),
+                    ParentCommentId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comments_Articles_ShumenNewsArticleId",
-                        column: x => x.ShumenNewsArticleId,
+                        name: "FK_Comments_Articles_ArticleId",
+                        column: x => x.ArticleId,
                         principalTable: "Articles",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_Comments_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Comments_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Comments_Comments_ParentCommentId",
                         column: x => x.ParentCommentId,
                         principalTable: "Comments",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Comments_UserArticles_ArticleId",
-                        column: x => x.ArticleId,
+                        name: "FK_Comments_UserArticles_ArticleAppUserId_ArticleId1",
+                        columns: x => new { x.ArticleAppUserId, x.ArticleId1 },
                         principalTable: "UserArticles",
-                        principalColumn: "Id");
+                        principalColumns: new[] { "AppUserId", "ArticleId" },
+                        onDelete: ReferentialAction.NoAction);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Articles_AppUserId",
+                table: "Articles",
+                column: "AppUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Articles_CategoryId",
                 table: "Articles",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Articles_MainImageId1",
+                table: "Articles",
+                column: "MainImageId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -327,6 +344,16 @@ namespace ShumenNews.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Comments_AppUserId",
+                table: "Comments",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_ArticleAppUserId_ArticleId1",
+                table: "Comments",
+                columns: new[] { "ArticleAppUserId", "ArticleId1" });
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Comments_ArticleId",
                 table: "Comments",
                 column: "ArticleId");
@@ -335,16 +362,6 @@ namespace ShumenNews.Migrations
                 name: "IX_Comments_ParentCommentId",
                 table: "Comments",
                 column: "ParentCommentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Comments_ShumenNewsArticleId",
-                table: "Comments",
-                column: "ShumenNewsArticleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Comments_UserId",
-                table: "Comments",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Images_ArticleId",
@@ -360,10 +377,30 @@ namespace ShumenNews.Migrations
                 name: "IX_UserArticles_UserId",
                 table: "UserArticles",
                 column: "UserId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Articles_Images_MainImageId1",
+                table: "Articles",
+                column: "MainImageId1",
+                principalTable: "Images",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.NoAction);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Articles_AspNetUsers_AppUserId",
+                table: "Articles");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Articles_Categories_CategoryId",
+                table: "Articles");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Articles_Images_MainImageId1",
+                table: "Articles");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -383,22 +420,22 @@ namespace ShumenNews.Migrations
                 name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "Images");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "UserArticles");
 
             migrationBuilder.DropTable(
-                name: "Articles");
-
-            migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Images");
+
+            migrationBuilder.DropTable(
+                name: "Articles");
         }
     }
 }

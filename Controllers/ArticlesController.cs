@@ -72,15 +72,15 @@ namespace ShumenNews.Controllers
         {
             if (ModelState.IsValid)
             {
-                var article = new ShumenNewsArticle
+                var article = new Article
                 {
                     Title = bindingModel.Title,
                     Content = bindingModel.Content,
                 };
                 if (bindingModel.Images is not null)
                 {
-                    List<ShumenNewsImage> images = new List<ShumenNewsImage>();
-                    var image = new ShumenNewsImage();
+                    List<Image> images = new List<Image>();
+                    var image = new Image();
                     foreach (var img in bindingModel.Images)
                     {
                         var extension = Path.GetExtension(img.FileName);
@@ -91,7 +91,7 @@ namespace ShumenNews.Controllers
                             img.CopyTo(fs);
                         };
                         image.Id = fileName;
-                        image.Extension = extension;
+                        image.Location = extension;
                         article.Images.Add(image);
                         images.Add(image);
                         db.Articles.Add(article);
@@ -99,11 +99,11 @@ namespace ShumenNews.Controllers
                     article.MainImageId = images[0].Id;
                     var userName = User.Identity!.Name;
                     var user = userService.GetUserByUserName(userName!);
-                    var userArticle = new ShumenNewsUserArticle
+                    var userArticle = new UserArticleAttitude
                     {
                         User = user,
                         Article = article,
-                        IsAuthor = true,
+                        //IsAuthor = true,
                     };
                     db.UserArticles.Add(userArticle);
                     db.SaveChanges();

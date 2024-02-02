@@ -5,17 +5,29 @@ using ShumenNews.Data.Models;
 
 namespace ShumenNews.Data
 {
-    public class ShumenNewsDbContext : IdentityDbContext<ShumenNewsUser, IdentityRole, string>
+    public class ShumenNewsDbContext : IdentityDbContext<AppUser, IdentityRole, string>
     {
         public ShumenNewsDbContext(DbContextOptions<ShumenNewsDbContext> options)
             : base(options)
         {
             this.Database.Migrate();
         }
-        public DbSet<ShumenNewsCategory> Categories { get; set; }
-        public DbSet<ShumenNewsArticle> Articles { get; set; }
-        public DbSet<ShumenNewsComment> Comments { get; set; }
-        public DbSet<ShumenNewsImage> Images { get; set; } 
-        public DbSet<ShumenNewsUserArticle> UserArticles { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Article> Articles { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Image> Images { get; set; } 
+        public DbSet<UserArticleAttitude> UserArticles { get; set; }
+
+
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<UserArticleAttitude>().HasKey(x => new { x.AppUserId, x.ArticleId });
+
+            builder.Entity<Article>().HasMany(x => x.Images).WithOne(x => x.Article);
+
+
+            base.OnModelCreating(builder);
+        }
     }
 }

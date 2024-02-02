@@ -15,10 +15,10 @@ namespace ShumenNews.Areas.Identity.Pages.Account
 {
     public class LogoutModel : PageModel
     {
-        private readonly SignInManager<ShumenNewsUser> _signInManager;
+        private readonly SignInManager<AppUser> _signInManager;
         private readonly ILogger<LogoutModel> _logger;
 
-        public LogoutModel(SignInManager<ShumenNewsUser> signInManager, ILogger<LogoutModel> logger)
+        public LogoutModel(SignInManager<AppUser> signInManager, ILogger<LogoutModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;

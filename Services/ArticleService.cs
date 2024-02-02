@@ -12,7 +12,7 @@ namespace ShumenNews.Services
         {
             this.db = db;
         }
-        public List<ShumenNewsArticle> GetAllArticlesWithShortContent()
+        public List<Article> GetAllArticlesWithShortContent()
         {
             var articles = db.Articles
                 .Include(a=>a.Images)

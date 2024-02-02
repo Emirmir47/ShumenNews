@@ -15,16 +15,16 @@ namespace ShumenNews.Services
         public string GetImageUrlById(string imageId)
         {
             var img = db.Images.FirstOrDefault(i => i.Id == imageId);
-            var image = $"/img/{img!.Id}.{img.Extension}";
+            var image = $"/img/{img!.Id}.{img.Location}";
             return image!;
 
         }
-        public List<ShumenNewsImage> GetAllImages()
+        public List<Image> GetAllImages()
         {
             var images = db.Images.Include(i => i.Article).ToList();
             return images;
         }
-        public List<ShumenNewsImage> GetAllArticleMainImages()
+        public List<Image> GetAllArticleMainImages()
         {
             var images = db.Articles
                 .SelectMany(a => a.Images.Where(i => i.Id == a.MainImageId))
@@ -32,23 +32,23 @@ namespace ShumenNews.Services
                 .ToList();
             return images;
         }
-        public string GetArticleMainImageUrl(string mainImageId, ShumenNewsArticle article)
+        public string GetArticleMainImageUrl(string mainImageId, Article article)
         {
             var image = article.Images.FirstOrDefault(a=>a.Id == mainImageId);
-            var imageUrl = $"/img/{image!.Id}.{image.Extension}";
+            var imageUrl = $"/img/{image!.Id}.{image.Location}";
             return imageUrl;
         }
-        public List<string> GetAllArticleImageUrls(ShumenNewsArticle article = null)
+        public List<string> GetAllArticleImageUrls(Article article = null)
         {
             var imageUrls = new List<string>();
             imageUrls = article.Images
-            .Select(i => $"/img/{i.Id}.{i.Extension}").ToList();
+            .Select(i => $"/img/{i.Id}.{i.Location}").ToList();
             return imageUrls;
         }
         public List<string> GetAllImageUrls()
         {
             var imgs = db.Images.ToList();
-            var images = imgs.Select(i => $"/img/{i.Id}.{i.Extension}").ToList();
+            var images = imgs.Select(i => $"/img/{i.Id}.{i.Location}").ToList();
             return images;
         }
     }

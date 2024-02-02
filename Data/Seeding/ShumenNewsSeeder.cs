@@ -20,7 +20,7 @@ namespace ShumenNews.Data.Seeding
             if (!db.Articles.Any())
             {
                 //Users
-                var user = new ShumenNewsUser
+                var user = new AppUser
                 {
                     UserName = "root",
                     NormalizedUserName = "ROOT",
@@ -33,55 +33,55 @@ namespace ShumenNews.Data.Seeding
                 await db.Users.AddAsync(user);
 
                 //Categories
-                var category = new ShumenNewsCategory
+                var category = new Category
                 {
                     Name = "Водещи новини от Шумен" //1, 2, 3, 4
                 };
-                var category2 = new ShumenNewsCategory
+                var category2 = new Category
                 {
                     Name = "Водещи новини от България"
                 };
-                var category3 = new ShumenNewsCategory
+                var category3 = new Category
                 {
                     Name = "По света"
                 };
-                var category4 = new ShumenNewsCategory
+                var category4 = new Category
                 {
                     Name = "Политика"
                 };
-                var category5 = new ShumenNewsCategory
+                var category5 = new Category
                 {
                     Name = "Бизнес"
                 };
-                var category6 = new ShumenNewsCategory
+                var category6 = new Category
                 {
                     Name = "Спорт" //13, 14
                 };
-                var category7 = new ShumenNewsCategory
+                var category7 = new Category
                 {
                     Name = "Здраве" //5
                 };
-                var category8 = new ShumenNewsCategory
+                var category8 = new Category
                 {
                     Name = "Анализи" //12
                 };
-                var category9 = new ShumenNewsCategory
+                var category9 = new Category
                 {
                     Name = "Любопитно"
                 };
-                var category10 = new ShumenNewsCategory
+                var category10 = new Category
                 {
                     Name = "Култура"
                 };
-                var category11 = new ShumenNewsCategory
+                var category11 = new Category
                 {
                     Name = "Развлечения"
                 };
-                var category12 = new ShumenNewsCategory
+                var category12 = new Category
                 {
                     Name = "Времето"
                 };
-                var category13 = new ShumenNewsCategory
+                var category13 = new Category
                 {
                     Name = "Водещи новини от седмицата"
                 };
@@ -100,7 +100,7 @@ namespace ShumenNews.Data.Seeding
                 db.Categories.Add(category13);
 
                 //Articles
-                var article = new ShumenNewsArticle
+                var article = new Article
                 {
                     Title = "Хванаха 41-годишен шуменец да кара Аудито си с 1,32 промила алкохол!",
                     Content = "Установен е 41-годишен мъж от Шумен, който снощи управлявал автомобил след употреба на алкохол, " +
@@ -115,7 +115,7 @@ namespace ShumenNews.Data.Seeding
                     MainImageId = "seederImg1",
                     Category = category
                 };
-                var article2 = new ShumenNewsArticle
+                var article2 = new Article
                 {
                     Title = "57 293 кубика дърва за огрев на населението в Шуменско са предоставили от СИДП!",
                     Content = "12 821 семейства в област Шумен се отопляват с дърва през тази зима, като те вече са получили и заплатили 57 293 пространствени кубически " +
@@ -136,7 +136,7 @@ namespace ShumenNews.Data.Seeding
                     MainImageId = "seederImg4",
                     Category = category
                 };
-                var article3 = new ShumenNewsArticle
+                var article3 = new Article
                 {
                     Title = "Задържаха помагач на телефонни измамници!",
                     Content = "37-годишен мъж от Шумен, попаднал в схема на телефонна измама, е задържан от полицията, съобщиха от пресцентъра на ОД на МВР." +
@@ -158,7 +158,7 @@ namespace ShumenNews.Data.Seeding
                     MainImageId = "seederImg5",
                     Category = category
                 };
-                var article4 = new ShumenNewsArticle
+                var article4 = new Article
                 {
                     Title = "Мъж с Тойота удари 5 паркирани коли в Шумен!",
                     Content = "Водач на лек автомобил Тойота Авенсис е ударил тази сутрин 5 паркирани на бул. " +
@@ -176,7 +176,7 @@ namespace ShumenNews.Data.Seeding
                     MainImageId = "seederImg6",
                     Category = category
                 };
-                var article5 = new ShumenNewsArticle
+                var article5 = new Article
                 {
                     Title = "684 деца са родени в МБАЛ-Шумен през миналата година!",
                     Content = "През миналата година в МБАЛ-Шумен са родени 684 деца. Броят им е по-нисък от този през 2022-ра, " +
@@ -195,7 +195,7 @@ namespace ShumenNews.Data.Seeding
                     MainImageId = "seederImg12",
                     Category = category7
                 };
-                var article6 = new ShumenNewsArticle
+                var article6 = new Article
                 {
                     Title = "Мъж се преобърна с Опел на пътя Нови пазар-Стоян Михайловски!",
                     Content = "Мъж от село Ружица катастрофира около 8,00 часа тази сутрин. Инцидентът стана на пътя Нови пазар - Стоян Михайловски, " +
@@ -208,7 +208,7 @@ namespace ShumenNews.Data.Seeding
                     Views = 1504,
                     MainImageId = "seederImg13"
                 };
-                var article7 = new ShumenNewsArticle
+                var article7 = new Article
                 {
                     Title = "Хванаха дрогиран без книжка зад волана на Опел!",
                     Content = "29-годишен неправоспособен водач е установен да управлява лек автомобил след употреба на наркотици, съобщиха от пресцентъра на шуменската полиция.\r\n\r\n" +
@@ -225,7 +225,7 @@ namespace ShumenNews.Data.Seeding
                     Views = 2480,
                     MainImageId = "seederImg14"
                 };
-                var article8 = new ShumenNewsArticle
+                var article8 = new Article
                 {
                     Title = "Спират водата в Шумен на 31 януари заради ремонти по довеждащия водопровод!",
                     Content = "Неотложни ремонти по довеждащия водопровод от яз. “Тича” ще извърши ВиК - Шумен на 31 януари. " +
@@ -244,7 +244,7 @@ namespace ShumenNews.Data.Seeding
                     PublishedOn = DateTime.UtcNow,
                     MainImageId = "seederImg15"
                 };
-                var article9 = new ShumenNewsArticle
+                var article9 = new Article
                 {
                     Title = "18-годишен с Голф удари жена на пешеходна пътека!",
                     Content = "18-годишен водач на Фолксваген Голф блъсна жена на пешеходна пътека в Шумен. " +
@@ -259,7 +259,7 @@ namespace ShumenNews.Data.Seeding
                     Views = 6196,
                     MainImageId = "seederImg16"
                 };
-                var article10 = new ShumenNewsArticle
+                var article10 = new Article
                 {
                     Title = "Мъж плати в магазин с парти банкноти, върнаха му ресто истински пари!",
                     Content = "47-годишен от Каолиново пробута в местен магазин реквизитна 50-еврова банкнота, предназначена за партита и дискотеки. " +
@@ -280,7 +280,7 @@ namespace ShumenNews.Data.Seeding
                     MainImageId = "seederImg17"
                 };
                 
-                var article11 = new ShumenNewsArticle
+                var article11 = new Article
                 {
                     Title = "Първият приемен ден на кмета на Шумен и екипа му е на 31 януари!",
                     Content = "Първият приемен ден на кмета на Община Шумен Христо Христов ще е на 31 януари, съобщиха от пресцентъра на администрацията, " +
@@ -296,7 +296,7 @@ namespace ShumenNews.Data.Seeding
                     Views = 8964,
                     MainImageId = "seederImg18"
                 };
-                var article12 = new ShumenNewsArticle
+                var article12 = new Article
                 {
                     Title = "31 221 са разгледали комплекс „Създатели на българската държава“ през 2023!",
                     Content = "Ръст на туристите, посетили паметник „Създатели на българската държава“, отчитат от комплекса за поредна година.\r\n\r\n" +
@@ -317,7 +317,7 @@ namespace ShumenNews.Data.Seeding
                     MainImageId = "seederImg19",
                     Category = category8
                 };
-                var article13 = new ShumenNewsArticle
+                var article13 = new Article
                 {
                     Title = "“Рилски спортист” измъкна победата срещу “Шумен” в края на мача!",
                     Content = "С по-концентрирана игра в края на мача “Рилски спортист” успя да вземе победата срещу “Шумен” с 98:87 в мач от 14-ия кръг " +
@@ -339,7 +339,7 @@ namespace ShumenNews.Data.Seeding
                     MainImageId = "seederImg20",
                     Category = category6
                 };
-                var article14 = new ShumenNewsArticle
+                var article14 = new Article
                 {
                     Title = "Любители на шаха участваха в Коледно-новогодишния блиц-турнир на СКШ “Шумен”!",
                     Content = "Доайени, бивши и настоящи ученици на спортен клуб по шах “Шумен”, " +
@@ -354,7 +354,7 @@ namespace ShumenNews.Data.Seeding
                     MainImageId = "seederImg25",
                     Category = category6
                 };
-                var article15 = new ShumenNewsArticle
+                var article15 = new Article
                 {
                     Title = "След приятелски запой 30-годишен наби трима от компанията!",
                     Content = "30-годишен мъж нанесе побой на трима мъже, като преди това четиримата заедно са запивали, съобщиха от пресцентъра на ОД на МВР.\r\n\r\n" +
@@ -369,7 +369,7 @@ namespace ShumenNews.Data.Seeding
                     Views = 4546,
                     MainImageId = "seederImg26"
                 };
-                var article16 = new ShumenNewsArticle
+                var article16 = new Article
                 {
                     Title = "Трима пияни шофьори преспаха в ареста по Коледа!",
                     Content = "Трима пияни водачи са задържани за 24 часа, след като са хванати да управляват автомобил под въздействие на алкохол през почивните дни в " +
@@ -392,7 +392,7 @@ namespace ShumenNews.Data.Seeding
                     Views = 6796,
                     MainImageId = "seederImg27"
                 };
-                var article17 = new ShumenNewsArticle
+                var article17 = new Article
                 {
                     Title = "Правят солна стая в СУ „Трайко Симеонов“!",
                     Content = "Солна стая ще бъде изградена в шуменското СУ „Трайко Симеонов“, съобщиха от училището.\r\n\r\n" +
@@ -414,7 +414,7 @@ namespace ShumenNews.Data.Seeding
                     Views = 1279,
                     MainImageId = "seederImg28"
                 };
-                var article18 = new ShumenNewsArticle
+                var article18 = new Article
                 {
                     Title = "Обявяват грипна епидемия в Шуменско, засега няма да се спира учебният процес!",
                     Content = "От 31 януари до 7 февруари да се обяви грипна епидемия в Шуменско, реши Областният оперативен щаб за борба с грип и ОРЗ за периода, " +
@@ -435,7 +435,7 @@ namespace ShumenNews.Data.Seeding
                     Views = 6344,
                     MainImageId = "seederImg29"
                 };
-                var article19 = new ShumenNewsArticle
+                var article19 = new Article
                 {
                     Title = "Конфискуваха Аудито на пиян от Златна нива!",
                     Content = "Лек автомобил ауди е иззет в полза на държавата, след като водачът му е установен да шофира под " +
@@ -451,7 +451,7 @@ namespace ShumenNews.Data.Seeding
                     Views = 2738,
                     MainImageId = "seederImg30"
                 };
-                var article20 = new ShumenNewsArticle
+                var article20 = new Article
                 {
                     Title = "Екоминистерството обяви за защитена зона „Голяма Камчия“ с площ от 5 881 дка!",
                     Content = "Министърът на околната среда и водите Юлиян Попов издаде заповед за обявяване за защитена зона „Голяма Камчия“ " +
@@ -494,206 +494,206 @@ namespace ShumenNews.Data.Seeding
                 db.Articles.Add(article20);
 
                 //UserArticles 
-                var userArticle = new ShumenNewsUserArticle
+                var userArticle = new UserArticleAttitude
                 {
                     User = user,
                     Article = article,
-                    IsAuthor = true
+                   // IsAuthor = true
                 };
                 db.UserArticles.Add(userArticle);
-                var userArticle2 = new ShumenNewsUserArticle
+                var userArticle2 = new UserArticleAttitude
                 {
                     User = user,
                     Article = article2,
-                    IsAuthor = true
+                   // IsAuthor = true
                 };
                 db.UserArticles.Add(userArticle2);
 
                 //Images
-                ShumenNewsImage image = new ShumenNewsImage
+                Image image = new Image
                 {
                     Id = "seederImg1",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article
                 };
-                ShumenNewsImage image2 = new ShumenNewsImage
+                Image image2 = new Image
                 {
                     Id = "seederImg2",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article
                 };
-                ShumenNewsImage image3 = new ShumenNewsImage
+                Image image3 = new Image
                 {
                     Id = "seederImg3",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article2
                 };
-                ShumenNewsImage image4 = new ShumenNewsImage
+                Image image4 = new Image
                 {
                     Id = "seederImg4",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article2
                 };
-                ShumenNewsImage image5 = new ShumenNewsImage
+                Image image5 = new Image
                 {
                     Id = "seederImg5",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article3
                 };
-                ShumenNewsImage image6 = new ShumenNewsImage
+                Image image6 = new Image
                 {
                     Id = "seederImg6",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article4
                 };
-                ShumenNewsImage image7 = new ShumenNewsImage
+                Image image7 = new Image
                 {
                     Id = "seederImg7",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article4
                 };
-                ShumenNewsImage image8 = new ShumenNewsImage
+                Image image8 = new Image
                 {
                     Id = "seederImg8",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article4
                 };
-                ShumenNewsImage image9 = new ShumenNewsImage
+                Image image9 = new Image
                 {
                     Id = "seederImg9",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article4
                 };
-                ShumenNewsImage image10 = new ShumenNewsImage
+                Image image10 = new Image
                 {
                     Id = "seederImg10",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article4
                 };
-                ShumenNewsImage image11 = new ShumenNewsImage
+                Image image11 = new Image
                 {
                     Id = "seederImg11",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article4
                 };
-                ShumenNewsImage image12 = new ShumenNewsImage
+                Image image12 = new Image
                 {
                     Id = "seederImg12",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article5
                 };
-                ShumenNewsImage image13 = new ShumenNewsImage
+                Image image13 = new Image
                 {
                     Id = "seederImg13",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article6
                 };
-                ShumenNewsImage image14 = new ShumenNewsImage
+                Image image14 = new Image
                 {
                     Id = "seederImg14",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article7
                 };
-                ShumenNewsImage image15 = new ShumenNewsImage
+                Image image15 = new Image
                 {
                     Id = "seederImg15",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article8
                 };
-                ShumenNewsImage image16 = new ShumenNewsImage
+                Image image16 = new Image
                 {
                     Id = "seederImg16",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article9
                 };
-                ShumenNewsImage image17 = new ShumenNewsImage
+                Image image17 = new Image
                 {
                     Id = "seederImg17",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article10
                 };
-                ShumenNewsImage image18 = new ShumenNewsImage
+                Image image18 = new Image
                 {
                     Id = "seederImg18",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article11
                 };
-                ShumenNewsImage image19 = new ShumenNewsImage
+                Image image19 = new Image
                 {
                     Id = "seederImg19",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article12
                 };
-                ShumenNewsImage image20 = new ShumenNewsImage
+                Image image20 = new Image
                 {
                     Id = "seederImg20",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article13
                 };
-                ShumenNewsImage image21 = new ShumenNewsImage
+                Image image21 = new Image
                 {
                     Id = "seederImg21",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article13
                 };
-                ShumenNewsImage image22 = new ShumenNewsImage
+                Image image22 = new Image
                 {
                     Id = "seederImg22",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article13
                 };
-                ShumenNewsImage image23 = new ShumenNewsImage
+                Image image23 = new Image
                 {
                     Id = "seederImg23",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article13
                 };
-                ShumenNewsImage image24 = new ShumenNewsImage
+                Image image24 = new Image
                 {
                     Id = "seederImg24",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article13
                 };
-                ShumenNewsImage image25 = new ShumenNewsImage
+                Image image25 = new Image
                 {
                     Id = "seederImg25",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article14
                 };
-                ShumenNewsImage image26 = new ShumenNewsImage
+                Image image26 = new Image
                 {
                     Id = "seederImg26",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article15
                 };
-                ShumenNewsImage image27 = new ShumenNewsImage
+                Image image27 = new Image
                 {
                     Id = "seederImg27",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article16
                 };
-                ShumenNewsImage image28 = new ShumenNewsImage
+                Image image28 = new Image
                 {
                     Id = "seederImg28",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article17
                 };
-                ShumenNewsImage image29 = new ShumenNewsImage
+                Image image29 = new Image
                 {
                     Id = "seederImg29",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article18
                 };
-                ShumenNewsImage image30 = new ShumenNewsImage
+                Image image30 = new Image
                 {
                     Id = "seederImg30",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article19
                 };
-                ShumenNewsImage image31 = new ShumenNewsImage
+                Image image31 = new Image
                 {
                     Id = "seederImg31",
-                    Extension = "jpg",
+                    Location = "jpg",
                     Article = article20
                 };
 

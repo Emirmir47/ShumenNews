@@ -26,7 +26,7 @@ namespace ShumenNews
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<ShumenNewsUser>(options =>
+            builder.Services.AddDefaultIdentity<AppUser>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = true;
                 //Password settings

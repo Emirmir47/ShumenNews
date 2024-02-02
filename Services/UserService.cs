@@ -11,7 +11,7 @@ namespace ShumenNews.Services
         {
             this.db = db;
         }
-        public ShumenNewsUser GetUserByUserName(string userName)
+        public AppUser GetUserByUserName(string userName)
         {
             var user = db.Users.SingleOrDefault(u => u.Email == userName)!;
             return user;
