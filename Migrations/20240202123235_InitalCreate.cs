@@ -222,8 +222,7 @@ namespace ShumenNews.Migrations
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     ArticleId = table.Column<int>(type: "int", nullable: false),
                     IsAuthor = table.Column<bool>(type: "bit", nullable: false),
-                    IsLiked = table.Column<bool>(type: "bit", nullable: false),
-                    IsDisliked = table.Column<bool>(type: "bit", nullable: false)
+                    Attitude = table.Column<bool>(type: "bit", nullable: true),
                 },
                 constraints: table =>
                 {

@@ -9,7 +9,7 @@ namespace ShumenNews.Data.Models
         public virtual ShumenNewsUser User { get; set; }
         public virtual ShumenNewsArticle Article { get; set; }
         public bool IsAuthor { get; set; } = false;
-        public bool IsLiked { get; set; }
-        public bool IsDisliked { get; set; }
+        //true=Like / false=Dislike /Null=neutral
+        public bool? Attitude { get; set; }
     }
 }
