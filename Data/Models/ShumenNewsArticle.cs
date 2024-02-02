@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Net;
 
 namespace ShumenNews.Data.Models
 {
@@ -18,8 +19,8 @@ namespace ShumenNews.Data.Models
         public int Dislikes { get; set; }
         public DateTime PublishedOn { get; set; }
         public int Views { get; set; }
-        public int CategoryId { get; set; }
-        public virtual ShumenNewsCategory Category { get; set; }
+        public string? CategoryId { get; set; }
+        public ShumenNewsCategory? Category { get; set; }
         public virtual ICollection<ShumenNewsUserArticle> UserArticles { get; set; }
         public virtual ICollection<ShumenNewsComment> Comments { get; set; }
         public virtual ICollection<ShumenNewsImage> Images { get; set; }

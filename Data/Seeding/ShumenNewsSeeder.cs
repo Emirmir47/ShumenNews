@@ -35,54 +35,67 @@ namespace ShumenNews.Data.Seeding
                 //Categories
                 var category = new ShumenNewsCategory
                 {
+                    Id = "1",
                     Name = "Водещи новини от Шумен" //1, 2, 3, 4
                 };
                 var category2 = new ShumenNewsCategory
                 {
+                    Id = "2",
                     Name = "Водещи новини от България"
                 };
                 var category3 = new ShumenNewsCategory
                 {
+                    Id = "3",
                     Name = "По света"
                 };
                 var category4 = new ShumenNewsCategory
                 {
+                    Id = "4",
                     Name = "Политика"
                 };
                 var category5 = new ShumenNewsCategory
                 {
+                    Id = "5",
                     Name = "Бизнес"
                 };
                 var category6 = new ShumenNewsCategory
                 {
+                    Id = "6",
                     Name = "Спорт" //13, 14
                 };
                 var category7 = new ShumenNewsCategory
                 {
+                    Id = "7",
                     Name = "Здраве" //5
                 };
                 var category8 = new ShumenNewsCategory
                 {
+                    Id = "8",
                     Name = "Анализи" //12
                 };
                 var category9 = new ShumenNewsCategory
                 {
+                    Id = "9",
                     Name = "Любопитно"
                 };
                 var category10 = new ShumenNewsCategory
                 {
+                    Id = "10",
                     Name = "Култура"
                 };
                 var category11 = new ShumenNewsCategory
                 {
+                    Id = "11",
                     Name = "Развлечения"
                 };
                 var category12 = new ShumenNewsCategory
                 {
+                    Id = "12",
                     Name = "Времето"
                 };
                 var category13 = new ShumenNewsCategory
                 {
+                    Id = "13",
                     Name = "Водещи новини от седмицата"
                 };
                 db.Categories.Add(category);
@@ -113,6 +126,7 @@ namespace ShumenNews.Data.Seeding
                     PublishedOn = DateTime.UtcNow,
                     Views = 1500,
                     MainImageId = "seederImg1",
+                    CategoryId = category.Id,
                     Category = category
                 };
                 var article2 = new ShumenNewsArticle
@@ -134,6 +148,7 @@ namespace ShumenNews.Data.Seeding
                     PublishedOn = DateTime.UtcNow,
                     Views = 25000,
                     MainImageId = "seederImg4",
+                    CategoryId = category.Id,
                     Category = category
                 };
                 var article3 = new ShumenNewsArticle
@@ -156,6 +171,7 @@ namespace ShumenNews.Data.Seeding
                     PublishedOn = DateTime.UtcNow,
                     Views = 2500,
                     MainImageId = "seederImg5",
+                    CategoryId = category.Id,
                     Category = category
                 };
                 var article4 = new ShumenNewsArticle
@@ -174,6 +190,7 @@ namespace ShumenNews.Data.Seeding
                     PublishedOn = DateTime.UtcNow,
                     Views = 951,
                     MainImageId = "seederImg6",
+                    CategoryId = category.Id,
                     Category = category
                 };
                 var article5 = new ShumenNewsArticle
@@ -193,6 +210,7 @@ namespace ShumenNews.Data.Seeding
                     PublishedOn = DateTime.UtcNow,
                     Views = 2540,
                     MainImageId = "seederImg12",
+                    CategoryId = category7.Id,
                     Category = category7
                 };
                 var article6 = new ShumenNewsArticle
@@ -315,6 +333,7 @@ namespace ShumenNews.Data.Seeding
                     PublishedOn = DateTime.UtcNow,
                     Views = 3,
                     MainImageId = "seederImg19",
+                    CategoryId = category8.Id,
                     Category = category8
                 };
                 var article13 = new ShumenNewsArticle
@@ -337,6 +356,7 @@ namespace ShumenNews.Data.Seeding
                     PublishedOn = DateTime.UtcNow,
                     Views = 498,
                     MainImageId = "seederImg20",
+                    CategoryId = category6.Id,
                     Category = category6
                 };
                 var article14 = new ShumenNewsArticle
@@ -352,6 +372,7 @@ namespace ShumenNews.Data.Seeding
                     PublishedOn = DateTime.UtcNow,
                     Views = 985,
                     MainImageId = "seederImg25",
+                    CategoryId = category6.Id,
                     Category = category6
                 };
                 var article15 = new ShumenNewsArticle
