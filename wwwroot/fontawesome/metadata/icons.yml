@@ -13972,7 +13972,7 @@ eye:
       - seen
       - show
       - sight
-      - views
+      - ViewsCount
       - visible
   styles:
     - solid
@@ -14060,7 +14060,7 @@ eye-slash:
       - show
       - toggle
       - unseen
-      - views
+      - ViewsCount
       - visible
       - visiblity
   styles:

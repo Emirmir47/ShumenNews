@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ShumenNews.Views.Articles
+namespace ShumenNews.ViewsCount.Articles
 {
     public class CreateModel : PageModel
     {

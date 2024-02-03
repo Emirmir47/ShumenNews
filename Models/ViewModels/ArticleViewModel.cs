@@ -7,9 +7,9 @@ namespace ShumenNews.Models.ViewModels
         public int Id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
-        public int Likes { get; set; }
-        public int Dislikes { get; set; }
-        public int Views { get; set; }
+        public int LikesCount { get; set; }
+        public int DislikesCount { get; set; }
+        public int ViewsCount { get; set; }
         public DateTime PublishedOn { get; set; }
         public string MainImage { get; set; }
         public virtual ShumenNewsUser Author { get; set; }

@@ -17053,7 +17053,7 @@ eye:
       - seen
       - show
       - sight
-      - views
+      - ViewsCount
       - visible
   unicode: f06e
   voted: false
@@ -17159,7 +17159,7 @@ eye-slash:
       - show
       - toggle
       - unseen
-      - views
+      - ViewsCount
       - visible
       - visiblity
   unicode: f070

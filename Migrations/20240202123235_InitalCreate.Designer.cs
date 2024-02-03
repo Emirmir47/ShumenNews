@@ -177,10 +177,10 @@ namespace ShumenNews.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Dislikes")
+                    b.Property<int>("DislikesCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("Likes")
+                    b.Property<int>("LikesCount")
                         .HasColumnType("int");
 
                     b.Property<string>("MainImageId")
@@ -194,7 +194,7 @@ namespace ShumenNews.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Views")
+                    b.Property<int>("ViewsCount")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -233,10 +233,10 @@ namespace ShumenNews.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Dislikes")
+                    b.Property<int>("DislikesCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("Likes")
+                    b.Property<int>("LikesCount")
                         .HasColumnType("int");
 
                     b.Property<int?>("ParentCommentId")

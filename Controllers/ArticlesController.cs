@@ -45,9 +45,9 @@ namespace ShumenNews.Controllers
                         Id = a.Id,
                         Title = a.Title,
                         Content = a.Content,
-                        Likes = a.Likes,
-                        Dislikes = a.Dislikes,
-                        Views = a.Views,
+                        LikesCount = a.LikesCount,
+                        DislikesCount = a.DislikesCount,
+                        ViewsCount = a.ViewsCount,
                         PublishedOn = a.PublishedOn,
                         MainImage = imageService.GetArticleMainImageUrl(a.MainImageId, a),
                         Images = imageService.GetAllArticleImageUrls(a)
@@ -67,9 +67,9 @@ namespace ShumenNews.Controllers
                 Category = a.Category,
                 Title = a.Title,
                 PublishedOn = a.PublishedOn,
-                Likes = a.Likes,
-                Dislikes = a.Dislikes,
-                Views = a.Views,
+                LikesCount = a.LikesCount,
+                DislikesCount = a.DislikesCount,
+                ViewsCount = a.ViewsCount,
                 MainImage = imageService.GetImageUrlById(a.MainImageId)
             }).OrderByDescending(a => a.PublishedOn)
                 .ToList();
