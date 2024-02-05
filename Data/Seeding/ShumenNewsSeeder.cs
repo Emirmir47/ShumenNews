@@ -201,6 +201,7 @@ namespace ShumenNews.Data.Seeding
                     if (i == 3)
                     {
                         indexes.Add(i);
+                        articles[articleCount].MainImageId = $"seederImg{i - 2}";
                         articleCount++;
                     }
                     for (int j = 0; j < indexes.Count(); j++)
@@ -208,7 +209,12 @@ namespace ShumenNews.Data.Seeding
                         if (i - indexes[j] == 3 && i != 168)
                         {
                             indexes.Add(i);
+                            articles[articleCount].MainImageId = $"seederImg{i - 2}";
                             articleCount++;
+                        }
+                        else if (i == 168)
+                        {
+                            articles[articleCount].MainImageId = $"seederImg{i - 2}";
                         }
                     }
                 }

@@ -63,8 +63,8 @@
 {
 <div>Категория: @category.Name</div>
 <div class="d-flex justify-content-center mt-3">
-    @foreach(var article in category.Articles.Take(3))
-    {
+    @foreach(var article in category.Articles)
+    { 
         <div class="card mx-2" style="width: 18rem;">
             <img src="@article.Images.First(i=>i.Id == article.MainImageId).Url" class="card-img-top" alt="image">
             <div class="card-body">
