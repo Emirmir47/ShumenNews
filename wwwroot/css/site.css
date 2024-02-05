@@ -14,5 +14,20 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+  margin-bottom: 300px;
+}
+.bg-primary-color {
+    background-color: #1D3357;
+}
+.bg-secondary-color {
+    background-color: #EF233C;
+}
+.secondary-color {
+    color: #EF233C;
+}
+a {
+    text-decoration: none; 
+}
+.logo {
+    margin-right: 9%;
 }

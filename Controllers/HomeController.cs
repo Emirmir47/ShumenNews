@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
 using ShumenNews.Data;
 using ShumenNews.Models;
 using ShumenNews.Models.ViewModels;
@@ -26,7 +27,7 @@ namespace ShumenNews.Controllers
         }
 
         public IActionResult Index()
-        {
+        {           
             var articles = articleService.GetAllArticlesWithShortContent();
             var model = articles.Select(a => new ArticleViewModel
             {

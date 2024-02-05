@@ -71,7 +71,7 @@ namespace ShumenNews.Controllers
                 DislikesCount = a.DislikesCount,
                 ViewsCount = a.ViewsCount,
                 MainImage = imageService.GetImageUrlById(a.MainImageId)
-            }).OrderByDescending(a => a.PublishedOn)
+            }).OrderByDescending(a => a.Id)
                 .ToList();
             return View(model);
         }

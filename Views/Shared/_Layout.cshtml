@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ShumenNews</title>
+    <title>Shumen News - Водещи нови от Шумен, България и света</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ShumenNews.styles.css" asp-append-version="true" />
@@ -12,17 +12,17 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-dark bg-dark">
-            <div class="container-fluid">
-                <form class="d-flex mt-3" role="search">
+        <nav class="navbar navbar-dark bg-primary-color p-0">
+            <div class="container-fluid p-4">
+                <form class="d-flex my-auto" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <i class="fa-solid fa-magnifying-glass btn-success p-2"></i>
+                    <i class="fa-solid fa-magnifying-glass bg-secondary-color text-white p-2"></i>
                 </form>
-                <a class="navbar-brand text-center " asp-area="" asp-controller="Home" asp-action="Index" style="color:aqua">Shumen News</a>
+                <a class="logo" asp-area="" asp-controller="Home" asp-action="Index" style="color:aqua">Shumen News</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                <div class="offcanvas offcanvas-end secondary-color" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                     <div class="offcanvas-header">
                         <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Shumen News</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -42,7 +42,7 @@
                                     <a class="btn btn-outline-danger" asp-area="" asp-controller="Articles" asp-action="Create">Добави нова статия</a>
                                 </li>
                             }
-                            else if(User.IsInRole("Author"))
+                            else if (User.IsInRole("Author"))
                             {
                                 <li class="nav-item">
                                     <a class="btn btn-outline-danger" asp-area="" asp-controller="Articles" asp-action="Create">Добави нова статия</a>
@@ -75,37 +75,66 @@
                     </div>
                 </div>
             </div>
+            <div class="d-flex container-fluid justify-content-center py-3">
+                <a asp-controller="Home" asp-action="Index" class="text-white"><h6>НАЧАЛО</h6></a>
+                <a asp-controller="Categories" asp-action="Index" asp-route-id="Shumen" class="mx-3 text-white"><h6>ШУМЕН</h6></a>
+                <a asp-controller="Categories" asp-action="Index" asp-route-id="Bulgaria" class="mx-3 text-white"><h6>БЪЛГАРИЯ</h6></a>
+                <a asp-controller="Categories" asp-action="Index" asp-route-id="World" class="mx-3 text-white"><h6>ПО СВЕТА</h6></a>
+                <a asp-controller="Categories" asp-action="Index" asp-route-id="Politics" class="mx-3 text-white"><h6>ПОЛИТИКА</h6></a>
+                <a asp-controller="Categories" asp-action="Index" asp-route-id="Analyses" class="mx-3 text-white"><h6>АНАЛИЗИ</h6></a>
+                <a asp-controller="Categories" asp-action="Index" asp-route-id="Business" class="mx-3 text-white"><h6>БИЗНЕС</h6></a>
+                <a asp-controller="Categories" asp-action="Index" asp-route-id="Sport" class="mx-3 text-white"><h6>СПОРТ</h6></a>
+                <a asp-controller="Categories" asp-action="Index" asp-route-id="Others" class="mx-3 text-white"><h6>ОЩЕ</h6></a>
+            </div>
         </nav>
-
-
-
-        @*         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container-fluid">
-
-
-        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-        <ul class="navbar-nav flex-grow-1">
-        <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </li>
-        </ul>
-
-        </div>
-        </div>
-        </nav> *@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - ShumenNews - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="border-top footer bg-primary-color text-muted">
+        <div class="container pt-3">
+            <div class="d-flex">
+                <div class="container-fluid">
+                    <a asp-area="" asp-controller="Home" asp-action="Index" style="color:aqua">Shumen News</a>
+                    <h5 class="text-white">НОВИНИ</h5>
+                    <div class="container-fluid d-flex p-0"> 
+                        <a class="btn text-white ps-0" asp-controller="Home" asp-action="Index">Начало</a>
+                        <a class="btn text-white mx-2" asp-controller="Categories" asp-action="Index" asp-route-id="Shumen">Шумен</a>
+                        <a class="btn text-white mx-2" asp-controller="Categories" asp-action="Index" asp-route-id="Bulgaria">България</a>
+                        <a class="btn text-white mx-2" asp-controller="Categories" asp-action="Index" asp-route-id="World">По света</a>
+                        <a class="btn text-white mx-2" asp-controller="Categories" asp-action="Index" asp-route-id="Politics">Политика</a>
+                        <a class="btn text-white mx-2" asp-controller="Categories" asp-action="Index" asp-route-id="Analyses">Анализи</a>
+                        <a class="btn text-white mx-2" asp-controller="Categories" asp-action="Index" asp-route-id="Business">Бизнес</a>
+                        <a class="btn text-white mx-2" asp-controller="Categories" asp-action="Index" asp-route-id="Sport">Спорт</a>
+                        <a class="btn text-white" asp-controller="Categories" asp-action="Index" asp-route-id="Others">Още</a>
+                    </div>
+                    <h5 class="text-white">ИНФОРМАЦИЯ</h5> 
+                    <div class="container-fluid d-flex p-0">
+                        <a class="btn text-white ps-0">За нас</a>
+                        <a class="btn text-white mx-1">За реклама</a>
+                        <a class="btn text-white mx-1">Изпрати новина</a>
+                        <a class="btn text-white mx-1">Контакти</a>
+                    </div>
+                    <div class="container-fluid d-flex p-0">
+                        <a class="btn text-white ps-0">Общи условия</a>
+                        <a class="btn text-white mx-1" asp-area="" asp-controller="Home" asp-action="Privacy"><p>Политика за поверителност</p></a>
+                        <a class="btn text-white mx-1">Лични данни</a>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <h4 class="pt-2">Бюлетин</h4> 
+                    <span class="text-wrap">Абонирай се за нашия бюлетин и получавай всички най-актуални новини по света и у нас.</span>
+                    <div class="container-fluid d-flex justify-content-center"> 
+                        <input class="form-control me-2" type="search" placeholder="Вашият имейл адрес..." aria-label="Search">
+                        <input class="form-control border-0 bg-secondary-color text-white" type="submit" value="Изпрати">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            &copy; 2024 ShumenNews.bg. Всички права запазени!
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
