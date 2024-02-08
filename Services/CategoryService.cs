@@ -17,7 +17,12 @@ namespace ShumenNews.Services
             var category = db.Categories.FirstOrDefault(c => c.Id == id);
             return category!;
         }
-        public List<SelectListItem> GetAllCategories()
+        public List<ShumenNewsCategory> GetAllArticles()
+        {
+            var categories = db.Categories.ToList();
+            return categories;
+        }
+        public List<SelectListItem> GetAllCategoriesAsSelectListItem()
         {
             var categories = db.Categories.Select(c => new SelectListItem
             {

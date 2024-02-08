@@ -19,10 +19,11 @@ namespace ShumenNews.Services
             return image!;
 
         }
-        public List<ShumenNewsImage> GetAllImages()
+        public string GetArticleMainImageUrl(string mainImageId, ShumenNewsArticle article)
         {
-            var images = db.Images.Include(i => i.Article).ToList();
-            return images;
+            var image = article.Images.FirstOrDefault(a=>a.Id == mainImageId);
+            var imageUrl = $"/img/{image!.Id}.{image.Extension}";
+            return imageUrl;
         }
         public List<ShumenNewsImage> GetAllArticleMainImages()
         {
@@ -30,25 +31,6 @@ namespace ShumenNews.Services
                 .SelectMany(a => a.Images.Where(i => i.Id == a.MainImageId))
                 .Include(i => i.Article)
                 .ToList();
-            return images;
-        }
-        public string GetArticleMainImageUrl(string mainImageId, ShumenNewsArticle article)
-        {
-            var image = article.Images.FirstOrDefault(a=>a.Id == mainImageId);
-            var imageUrl = $"/img/{image!.Id}.{image.Extension}";
-            return imageUrl;
-        }
-        public List<string> GetAllArticleImageUrls(ShumenNewsArticle article = null)
-        {
-            var imageUrls = new List<string>();
-            imageUrls = article.Images
-            .Select(i => $"/img/{i.Id}.{i.Extension}").ToList();
-            return imageUrls;
-        }
-        public List<string> GetAllImageUrls()
-        {
-            var imgs = db.Images.ToList();
-            var images = imgs.Select(i => $"/img/{i.Id}.{i.Extension}").ToList();
             return images;
         }
     }

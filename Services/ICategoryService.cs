@@ -6,6 +6,7 @@ namespace ShumenNews.Services
     public interface ICategoryService
     {
         public ShumenNewsCategory GetCategoryById(string id);
-        public List<SelectListItem> GetAllCategories();
+        List<ShumenNewsCategory> GetAllArticles();
+        public List<SelectListItem> GetAllCategoriesAsSelectListItem();
     }
 }

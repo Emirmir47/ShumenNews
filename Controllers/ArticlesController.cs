@@ -50,7 +50,7 @@ namespace ShumenNews.Controllers
                         ViewsCount = a.ViewsCount,
                         PublishedOn = a.PublishedOn,
                         MainImage = imageService.GetArticleMainImageUrl(a.MainImageId, a),
-                        Images = imageService.GetAllArticleImageUrls(a)
+                        Images = a.Images.Select(a=>a.Url)
                     }).FirstOrDefault(a => a.Id == id);
                 return View(model);
             }
@@ -78,7 +78,7 @@ namespace ShumenNews.Controllers
         [Authorize(Roles = "Admin, Author")]
         public IActionResult Create()
         {
-            var categories = categoryService.GetAllCategories();
+            var categories = categoryService.GetAllCategoriesAsSelectListItem();
             var model = new ArticleCreateBindingModel
             {
                 Categories = categories
@@ -134,7 +134,7 @@ namespace ShumenNews.Controllers
             }
             else
             {
-                var categories = categoryService.GetAllCategories();
+                var categories = categoryService.GetAllCategoriesAsSelectListItem();
                 bindingModel.Categories = categories;
             }
             return View(bindingModel);
