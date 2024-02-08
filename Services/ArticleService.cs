@@ -28,11 +28,13 @@ namespace ShumenNews.Services
             var author = article.UserArticles.Where(ua => ua.IsAuthor == true).Select(ua => ua.User).SingleOrDefault();
             return author!;
         }
-        public List<ShumenNewsArticle> GetAllArticlesByAuthor(ShumenNewsUser author)
+        public List<ShumenNewsArticle> GetArticlesByAuthor(ShumenNewsUser author)
         {
-            var articles = db.UserArticles.Where(ua => ua.User.Id == author.Id).Select(ua => ua.Article)
-                .Include(a => a.Images)
-                .Include(a => a.Category)
+            var articles = db.UserArticles
+                .Where(ua => ua.User.Id == author.Id)
+                .Include(ua => ua.Article)
+                .ThenInclude(a => a.Images)
+                .Select(ua => ua.Article)
                 .ToList();
             return articles;
         }

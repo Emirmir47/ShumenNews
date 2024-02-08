@@ -140,10 +140,10 @@ namespace ShumenNews.Controllers
             return View(bindingModel);
         }
         [Authorize(Roles = "Author")]
-        public IActionResult MyArticles (string userName)
+        public IActionResult MyArticles()
         {
-            var user = db.Users.SingleOrDefault(u=> u.UserName == userName);
-            var articles = articleService.GetAllArticlesByAuthor(user!);
+            var user = db.Users.SingleOrDefault(u=> u.Email == User.Identity!.Name);
+            var articles = articleService.GetArticlesByAuthor(user!);
             var model = articles.Select(a => new ArticleViewModel
             {
                 Title = a.Title,
