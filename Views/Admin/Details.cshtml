@@ -1,1 +1,14 @@
-﻿<p>Да се добавят детайлите за конкретната статия</p>
+﻿@using ShumenNews.Models.BindingModels
+@model ArticleUpdateBindingModel
+<form class="form-control" method="post">
+    <div>
+        <label asp-for="@Model.Title">Заглавие</label>
+        <input asp-for="@Model.Title" value="@Model.Title" />
+    </div>
+    <div>
+        <label asp-for="@Model.Content">Заглавие</label>
+        <input asp-for="@Model.Content" value="@Model.Content" />
+    </div>
+    <input type="submit" value="Промени информацията за статията"/>
+</form>
+<p>@Model.Author</p>

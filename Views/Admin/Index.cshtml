@@ -3,7 +3,7 @@
     ViewData["Title"] = "Admin Panel";
 }
 <a class="btn btn-outline-danger" asp-area="" asp-controller="Articles" asp-action="Index">Article Index</a>
-<div class="row gap-5">
+<div class="row gap-5"> 
     @foreach (var article in Model)
     {
         <div class="card" style="width: 18rem;"> 

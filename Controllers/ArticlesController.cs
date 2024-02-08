@@ -139,5 +139,17 @@ namespace ShumenNews.Controllers
             }
             return View(bindingModel);
         }
+        [Authorize(Roles = "Author")]
+        public IActionResult MyArticles (string userName)
+        {
+            var user = db.Users.SingleOrDefault(u=> u.UserName == userName);
+            var articles = articleService.GetAllArticlesByAuthor(user!);
+            var model = articles.Select(a => new ArticleViewModel
+            {
+                Title = a.Title,
+                //TODO
+            }).ToList();
+            return View(model);
+        }
     }
 }

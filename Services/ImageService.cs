@@ -21,7 +21,7 @@ namespace ShumenNews.Services
         }
         public string GetArticleMainImageUrl(string mainImageId, ShumenNewsArticle article)
         {
-            var image = article.Images.FirstOrDefault(a=>a.Id == mainImageId);
+            var image = article.Images.FirstOrDefault(i=>i.Id == mainImageId);
             var imageUrl = $"/img/{image!.Id}.{image.Extension}";
             return imageUrl;
         }
