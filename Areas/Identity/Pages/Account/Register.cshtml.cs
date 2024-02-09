@@ -133,6 +133,10 @@ namespace ShumenNews.Areas.Identity.Pages.Account
                 {
                     await _userManager.AddToRoleAsync(user, "Moderator");
                 }
+                else if (_userManager.Users.Count() == 25)
+                {
+                    await _userManager.AddToRoleAsync(user, "Author");
+                }
 
                 if (result.Succeeded)
                 {
