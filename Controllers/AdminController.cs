@@ -24,7 +24,7 @@ namespace ShumenNews.Controllers
         }
         public IActionResult Index()
         {
-            var model = db.Articles.Select(a => new ArticleViewModel
+            var articles = db.Articles.Select(a => new ArticleViewModel
             {
                 Id = a.Id,
                 Title = a.Title,
@@ -37,6 +37,26 @@ namespace ShumenNews.Controllers
                 Images = a.Images.Select(a => a.Url),
                 Category = a.Category
             }).ToList();
+            var authors = db.Users
+                .Where(u => u.UserArticles.Any(ua => ua.IsAuthor == true))
+                .Select(u => new UserViewModel
+                {
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Email = u.Email
+                }).ToList();
+            var categories = db.Categories
+                .Select(c => new CategoryViewModel
+                {
+                    Id = c.Id,
+                    Name = c.Name
+                }).ToList();
+            var model = new AdminViewModel
+            {
+                Authors = authors,
+                Categories = categories,
+                Articles = articles
+            };
             return View(model);
         }
     }

@@ -11,6 +11,10 @@
         <div>
             <label asp-for="@Model.Content" class="my-1">Текст на статията: </label>
             <textarea asp-for="@Model.Content" class="w-100" rows="10" value="@Model.Content"></textarea>
+            @if (Model.IsDeleted)
+            {
+                <p>Вашата статия е архивирана от администратор!</p>
+            }
         </div>
     }
     else if (User.IsInRole("Admin"))
@@ -18,7 +22,15 @@
         <div>
             <label asp-for="@Model.Content" class="my-1">Текст на статията: </label>
             <textarea disabled asp-for="@Model.Content" class="w-100" rows="10" value="@Model.Content"></textarea>
-            <a asp-action="Delete" asp-route-id="@Model.Id"><i class="fa-solid fa-trash"></i></a>
+            @if (Model.IsDeleted)
+            {
+                <p>Статията е архивирана!</p>
+                <a asp-action="Restore" asp-route-id="@Model.Id"><i class="fa-solid fa-trash-can-arrow-up"></i></a>
+            }
+            else
+            {
+                <a asp-action="Delete" asp-route-id="@Model.Id"><i class="fa-solid fa-box-archive"></i></a>
+            }
         </div>
     }
     <input type="submit" value="Приложи промени" class="btn btn-primary my-2" />

@@ -1,12 +1,58 @@
-﻿@model ICollection<ShumenNews.Models.ViewModels.ArticleViewModel>
+﻿@model ShumenNews.Models.ViewModels.AdminViewModel
 @{
     ViewData["Title"] = "Admin Panel";
 }
-<a class="btn btn-outline-danger" asp-area="" asp-controller="Articles" asp-action="Index">Article Index</a>
-<div class="row gap-5"> 
-    @foreach (var article in Model)
+<h2 class="text-center">Администраторско табло</h2>
+<hr />
+<h3>Търсене на потребител, автор или статия...</h3>
+<div class="d-flex">
+    <input value="Търсене..." aria-required="true" />
+    <i class="fa-solid fa-magnifying-glass p-2"></i>
+</div>
+<hr />
+<h3>Автори</h3>
+<table class="table table-striped text-center">
+    <thead>
+        <tr>
+            <th class="border-1">Име</th>
+            <th class="border-1">Фамилия</th>
+            <th class="border-1">Email</th>
+        </tr>
+    </thead>
+    @foreach (var author in Model.Authors)
     {
-        <div class="card" style="width: 18rem;"> 
+        <tbody>
+            <tr>
+                <td class="border-1">@author.FirstName</td>
+                <td class="border-1">@author.LastName</td>
+                <td class="border-1">@author.Email</td>
+            </tr>
+        </tbody>
+    }
+</table>
+<hr />
+<h3>Категории</h3>
+<table class="table table-striped text-center">
+    @foreach (var category in Model.Categories)
+    {
+        <thead>
+            <tr>
+                <th class="border-1">@category.Id</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="border-1">@category.Name</td>
+            </tr>
+        </tbody>
+    }
+</table>
+<hr />
+<h3>Статии</h3>
+<div class="row gap-5">
+    @foreach (var article in Model.Articles)
+    {
+        <div class="card" style="width: 18rem;">
             <img src="@article.MainImage" class="card-img-top" alt="image" width="400" height="300">
             <div class="card-body d-flex align-items-end flex-column">
                 <h5 class="card-title m-0">@article.Title</h5>
@@ -17,7 +63,7 @@
                     <li><i class="fa-solid fa-comments"></i> 0</li>
                 </ul>
                 <!--Links-->
-                <a asp-controller="Admin" asp-action="Details" asp-route-id="@article.Id" class="btn btn-primary mt-auto p-2">Подробности</a>
+                <a asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id" class="btn btn-primary mt-auto p-2">Подробности</a>
             </div>
         </div>
     }

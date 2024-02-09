@@ -168,6 +168,7 @@ namespace ShumenNews.Controllers
                 //MainImage = imageService.GetArticleMainImageUrl(article.MainImageId, article),
                 //Images = article.Images.Select(a => a.Url),
                 //Category = article.Category,
+                IsDeleted = article.IsDeleted,
                 Author = articleService.GetArticleAuthor(article)
             };
             return View(model);
@@ -188,6 +189,13 @@ namespace ShumenNews.Controllers
         {
             var article = articleService.GetArticleById(id);
             article.IsDeleted = true;
+            db.SaveChanges();
+            return RedirectToAction("All", "Articles");
+        }
+        public IActionResult Restore(int id)
+        {
+            var article = articleService.GetArticleById(id);
+            article.IsDeleted = false;
             db.SaveChanges();
             return RedirectToAction("All", "Articles");
         }
