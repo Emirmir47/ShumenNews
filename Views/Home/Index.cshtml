@@ -79,7 +79,7 @@
                         <a class="btn bg-secondary-color text-white" asp-area="" asp-controller="Articles" asp-action="Index" asp-route-id="@article.Id">Прочети</a>
                         @if (User.IsInRole("Admin"))
                         {
-                            <a asp-controller="Admin" asp-action="Details" asp-route-id="@article.Id"><i class="fas fa-edit"></i></a>
+                            <a asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id"><i class="fas fa-edit"></i></a>
                         }
                     </div>
                 </div>

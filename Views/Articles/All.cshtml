@@ -23,13 +23,20 @@
                 <td class="border-1">@article.Author.FirstName @article.Author.LastName</td>
                 <td class="border-1">@article.Category.Name</td>
                 <td class="border-1">@article.Title</td>
-                <td class="border-1">@article.PublishedOn.ToShortDateString() 
+                <td class="border-1">
+                    @article.PublishedOn.ToShortDateString()
                     @article.PublishedOn.ToShortTimeString()
                 </td>
                 <td class="border-1">@article.LikesCount</td>
                 <td class="border-1">@article.DislikesCount</td>
                 <td class="border-1">@article.ViewsCount</td>
                 <td class="border-1"><img src="@article.MainImage" width="50" height="50" /></td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td class="border-1">
+                        <a asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id"><i class="fas fa-edit"></i></a>
+                    </td>
+                }
             </tr>
         </tbody>
     }

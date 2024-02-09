@@ -3,7 +3,7 @@ using System.Net;
 
 namespace ShumenNews.Data.Models
 {
-    public class ShumenNewsArticle
+    public class ShumenNewsArticle : BaseEntity<int>
     {
         public ShumenNewsArticle()
         {

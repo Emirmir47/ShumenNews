@@ -12,16 +12,16 @@ namespace ShumenNews.Services
         {
             this.db = db;
         }
-        public int GetLastArticleId()
-        {
-            return db.Articles.OrderBy(a => a.Id).Select(a => a.Id)
-                .LastOrDefault();
-        }
         public ShumenNewsArticle GetArticleById(int id)
         {
             var article = db.Articles.Include(a => a.Images)
                 .FirstOrDefault(a => a.Id == id)!;
             return article;
+        }
+        public int GetLastArticleId()
+        {
+            return db.Articles.OrderBy(a => a.Id).Select(a => a.Id)
+                .LastOrDefault();
         }
         public ShumenNewsUser GetArticleAuthor(ShumenNewsArticle article)
         {
@@ -38,19 +38,31 @@ namespace ShumenNews.Services
                 .ToList();
             return articles;
         }
+        public List<ShumenNewsArticle> GetArticlesByCategoryId(string categoryId)
+        {
+            var articles = db.Articles.Where(a=>a.CategoryId == categoryId)
+                .Where(a=>a.IsDeleted == false).ToList();
+            ArticlesWithShortContent(articles, 25);
+            return articles;
+        }
         public List<ShumenNewsArticle> GetAllArticlesWithShortContent()
         {
             var articles = db.Articles
+                .Where(a => a.IsDeleted == false)
                 .Include(a => a.Images)
                 .Include(a => a.Category)
                 .Include(a => a.UserArticles.Where(ua => ua.IsAuthor == true))
                 .ThenInclude(ua => ua.User).OrderByDescending(a => a.Id)
                 .ToList();
+            ArticlesWithShortContent(articles, 5);
+            return articles;
+        }
+        private List<ShumenNewsArticle> ArticlesWithShortContent(List<ShumenNewsArticle> articles,int wordsCount)
+        {
             foreach (var article in articles)
             {
-                var words = article.Content.Split(" ").Take(25).ToList();
-                var shortContent = string.Empty;
-                shortContent = string.Join(" ", words) + "...";
+                var words = article.Content.Split(" ").Take(wordsCount).ToList();
+                string? shortContent = string.Join(" ", words) + "...";
                 article.Content = shortContent;
             }
             return articles;

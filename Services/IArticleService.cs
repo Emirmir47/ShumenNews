@@ -4,10 +4,11 @@ namespace ShumenNews.Services
 {
     public interface IArticleService
     {
-        List<ShumenNewsArticle> GetArticlesByAuthor(ShumenNewsUser author);
-        public List<ShumenNewsArticle> GetAllArticlesWithShortContent();
-        ShumenNewsUser GetArticleAuthor(ShumenNewsArticle article);
-        ShumenNewsArticle GetArticleById(int id);
+        public ShumenNewsArticle GetArticleById(int id);
         public int GetLastArticleId();
+        public List<ShumenNewsArticle> GetArticlesByAuthor(ShumenNewsUser author);
+        List<ShumenNewsArticle> GetArticlesByCategoryId(string categoryId);
+        public List<ShumenNewsArticle> GetAllArticlesWithShortContent();
+        public ShumenNewsUser GetArticleAuthor(ShumenNewsArticle article);
     }
 }

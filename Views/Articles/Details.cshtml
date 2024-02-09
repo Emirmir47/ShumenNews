@@ -1,0 +1,26 @@
+﻿@using ShumenNews.Models.BindingModels
+@model ArticleUpdateBindingModel
+<h1 class="text-center">Редактиране на статията</h1>
+<form class="form form-control col-md-4" method="post">
+    <div>
+        <label asp-for="@Model.Title" class="my-1">Заглавие: </label>
+        <input asp-for="@Model.Title" class="w-100 text-center" value="@Model.Title" />
+    </div>
+    @if (User.IsInRole("Author"))
+    {
+        <div>
+            <label asp-for="@Model.Content" class="my-1">Текст на статията: </label>
+            <textarea asp-for="@Model.Content" class="w-100" rows="10" value="@Model.Content"></textarea>
+        </div>
+    }
+    else if (User.IsInRole("Admin"))
+    {
+        <div>
+            <label asp-for="@Model.Content" class="my-1">Текст на статията: </label>
+            <textarea disabled asp-for="@Model.Content" class="w-100" rows="10" value="@Model.Content"></textarea>
+            <a asp-action="Delete" asp-route-id="@Model.Id"><i class="fa-solid fa-trash"></i></a>
+        </div>
+    }
+    <input type="submit" value="Приложи промени" class="btn btn-primary my-2" />
+</form>
+<p>@Model.Author</p>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using ShumenNews.Data;
 using ShumenNews.Data.Models;
 
@@ -14,7 +15,9 @@ namespace ShumenNews.Services
         }
         public ShumenNewsCategory GetCategoryById(string id)
         {
-            var category = db.Categories.FirstOrDefault(c => c.Id == id);
+            var category = db.Categories.Include(c=>c.Articles)
+                .ThenInclude(a=>a.Images)
+                .FirstOrDefault(c => c.Id == id);
             return category!;
         }
         public List<ShumenNewsCategory> GetAllArticles()

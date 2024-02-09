@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Areas;
 using ShumenNews.Data;
 using ShumenNews.Data.Models;
 using ShumenNews.Models.BindingModels;
@@ -33,38 +34,10 @@ namespace ShumenNews.Controllers
                 ViewsCount = a.ViewsCount,
                 PublishedOn = a.PublishedOn,
                 MainImage = imageService.GetArticleMainImageUrl(a.MainImageId, a),
-                Images = a.Images.Select(a=>a.Url),
+                Images = a.Images.Select(a => a.Url),
                 Category = a.Category
             }).ToList();
             return View(model);
         }
-        public IActionResult Details(int id)
-        {
-            var article = articleService.GetArticleById(id);
-            var model = new ArticleUpdateBindingModel
-            {
-                Id = article.Id,
-                Title = article.Title,
-                Content = article.Content,
-                //LikesCount = article.LikesCount,
-                //DislikesCount = article.DislikesCount,
-                //ViewsCount = article.ViewsCount,
-                //PublishedOn = article.PublishedOn,
-                //MainImage = imageService.GetArticleMainImageUrl(article.MainImageId, article),
-                //Images = article.Images.Select(a => a.Url),
-                //Category = article.Category,
-                Author = articleService.GetArticleAuthor(article)
-            };
-            return View(model);
-        }
-        [HttpPost]
-        public IActionResult Details(ArticleUpdateBindingModel bindingModel)
-        { 
-            var article = articleService.GetArticleById(bindingModel.Id);
-            article.Title = bindingModel.Title;
-            article.Content = bindingModel.Content;
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-        }
+    }
 }

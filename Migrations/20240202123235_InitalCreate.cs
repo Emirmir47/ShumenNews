@@ -182,7 +182,10 @@ namespace ShumenNews.Migrations
                     PublishedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ViewsCount = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    MainImageId = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    MainImageId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -224,6 +227,9 @@ namespace ShumenNews.Migrations
                     ArticleId = table.Column<int>(type: "int", nullable: false),
                     IsAuthor = table.Column<bool>(type: "bit", nullable: false),
                     Attitude = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {

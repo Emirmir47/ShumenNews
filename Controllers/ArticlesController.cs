@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol;
 using ShumenNews.Data;
@@ -38,7 +39,7 @@ namespace ShumenNews.Controllers
             var lastArticleId = articleService.GetLastArticleId();
             if (id > 0 && id <= lastArticleId)
             {
-                var model = db.Articles
+                var model = db.Articles.Where(a=>a.IsDeleted == false)
                     .Include(a => a.Images)
                     .Select(a => new ArticleViewModel
                     {
@@ -50,7 +51,7 @@ namespace ShumenNews.Controllers
                         ViewsCount = a.ViewsCount,
                         PublishedOn = a.PublishedOn,
                         MainImage = imageService.GetArticleMainImageUrl(a.MainImageId, a),
-                        Images = a.Images.Select(a=>a.Url)
+                        Images = a.Images.Select(a => a.Url)
                     }).FirstOrDefault(a => a.Id == id);
                 return View(model);
             }
@@ -142,14 +143,53 @@ namespace ShumenNews.Controllers
         [Authorize(Roles = "Author")]
         public IActionResult MyArticles()
         {
-            var user = db.Users.SingleOrDefault(u=> u.Email == User.Identity!.Name);
+            var user = db.Users.SingleOrDefault(u => u.Email == User.Identity!.Name);
             var articles = articleService.GetArticlesByAuthor(user!);
             var model = articles.Select(a => new ArticleViewModel
             {
+                Id = a.Id,
                 Title = a.Title,
                 //TODO
             }).ToList();
             return View(model);
+        }
+        public IActionResult Details(int id)
+        {
+            var article = articleService.GetArticleById(id);
+            var model = new ArticleUpdateBindingModel
+            {
+                Id = article.Id,
+                Title = article.Title,
+                Content = article.Content,
+                //LikesCount = article.LikesCount,
+                //DislikesCount = article.DislikesCount,
+                //ViewsCount = article.ViewsCount,
+                //PublishedOn = article.PublishedOn,
+                //MainImage = imageService.GetArticleMainImageUrl(article.MainImageId, article),
+                //Images = article.Images.Select(a => a.Url),
+                //Category = article.Category,
+                Author = articleService.GetArticleAuthor(article)
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult Details(ArticleUpdateBindingModel bindingModel)
+        {
+            var article = articleService.GetArticleById(bindingModel.Id);
+            article.Title = bindingModel.Title;
+            if (bindingModel.Content is not null)
+            {
+                article.Content = bindingModel.Content;
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public IActionResult Delete(int id)
+        {
+            var article = articleService.GetArticleById(id);
+            article.IsDeleted = true;
+            db.SaveChanges();
+            return RedirectToAction("All", "Articles");
         }
     }
 }

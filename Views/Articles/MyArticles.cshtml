@@ -2,6 +2,10 @@
 @model ICollection<ArticleViewModel>
 @foreach (var article in Model)
 {
-<h3>@article.Title</h3>
-    
+    <h3>@article.Id</h3> 
+    <h3>@article.Title</h3>
+    @if (User.IsInRole("Author"))
+    {
+        <a asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id"><i class="fas fa-edit"></i></a>
+    }
 }

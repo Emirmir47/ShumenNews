@@ -2,7 +2,7 @@
 
 namespace ShumenNews.Data.Models
 {
-    public class ShumenNewsUserArticle
+    public class ShumenNewsUserArticle : BaseEntity<int>
     {
         [Key]
         public int Id { get; set; }
