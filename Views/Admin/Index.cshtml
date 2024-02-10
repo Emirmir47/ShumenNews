@@ -2,13 +2,13 @@
 @{
     ViewData["Title"] = "Admin Panel";
 }
-<h2 class="text-center">Администраторско табло</h2>
+<h2 class="text-center my-3">Администраторско табло</h2>
 <hr />
 <h3>Търсене на потребител, автор или статия...</h3>
-<div class="d-flex">
-    <input value="Търсене..." aria-required="true" />
-    <i class="fa-solid fa-magnifying-glass p-2"></i>
-</div>
+<form class="d-flex mt-3" role="search">
+    <input class="form-control me-2" type="search" placeholder="Търсене..." aria-label="Search">
+    <button class="btn btn-success" type="submit"><i class="fa-solid fa-magnifying-glass p-2"></i></button>
+</form>
 <hr />
 <h3>Автори</h3>
 <table class="table table-striped text-center">
@@ -49,22 +49,24 @@
 </table>
 <hr />
 <h3>Статии</h3>
-<div class="row gap-5">
-    @foreach (var article in Model.Articles)
-    {
-        <div class="card" style="width: 18rem;">
-            <img src="@article.MainImage" class="card-img-top" alt="image" width="400" height="300">
-            <div class="card-body d-flex align-items-end flex-column">
-                <h5 class="card-title m-0">@article.Title</h5>
-                <ul class="card-title list-group-flush w-100 p-2">
-                    <li>Публикувано: @article.PublishedOn.ToShortDateString()</li>
-                    <li><i class="fa-solid fa-thumbs-up"></i> @article.LikesCount | <i class="fa-solid fa-thumbs-down"></i> @article.DislikesCount</li>
-                    <li><i class="fa-solid fa-eye"></i> @article.ViewsCount</li>
-                    <li><i class="fa-solid fa-comments"></i> 0</li>
-                </ul>
-                <!--Links-->
-                <a asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id" class="btn btn-primary mt-auto p-2">Подробности</a>
+<div class="container">
+    <div class="row gap-5">
+        @foreach (var article in Model.Articles)
+        {
+            <div class="card" style="width: 18rem;">
+                <img src="@article.MainImage" class="card-img-top" alt="image" width="400" height="300">
+                <div class="card-body d-flex align-items-end flex-column">
+                    <h5 class="card-title m-0">@article.Title</h5>
+                    <ul class="card-title list-group-flush w-100 p-2">
+                        <li>Публикувано: @article.PublishedOn.ToShortDateString()</li>
+                        <li><i class="fa-solid fa-thumbs-up"></i> @article.LikesCount | <i class="fa-solid fa-thumbs-down"></i> @article.DislikesCount</li>
+                        <li><i class="fa-solid fa-eye"></i> @article.ViewsCount</li>
+                        <li><i class="fa-solid fa-comments"></i> 0</li>
+                    </ul>
+                    <!--Links-->
+                    <a asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id" class="btn btn-primary mt-auto p-2">Подробности</a>
+                </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>

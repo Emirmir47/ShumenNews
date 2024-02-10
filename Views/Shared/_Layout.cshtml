@@ -31,16 +31,16 @@
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item">
-                                <div class="card card-body">
+                                <div class="card card-body mb-3">
                                     <partial name="_LoginPartial" />
                                 </div>
                             </li>
                             @if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
-                                    <a class="btn btn-outline-danger" asp-area="" asp-controller="Admin" asp-action="Index">Админ панел</a>
+                                    <a class="btn btn-outline-danger me-1" asp-area="" asp-controller="Admin" asp-action="Index">Админ панел</a>
                                     <a class="btn btn-outline-danger" asp-area="" asp-controller="Articles" asp-action="All">Преглед на всички статии</a>
-                                    <a class="btn btn-outline-danger" asp-area="" asp-controller="Articles" asp-action="Create">Добави нова статия</a>
+                                    <a class="btn btn-outline-danger mt-2" asp-area="" asp-controller="Articles" asp-action="Create">Добави нова статия</a>
                                 </li>
                             }
                             else if (User.IsInRole("Author"))
@@ -58,24 +58,7 @@
                                     <a class="btn btn-outline-danger" asp-area="" asp-controller="Articles" asp-action="All">Преглед на всички статии</a>
                                 </li>
                             }
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:aqua">
-                                    Dropdown
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li><a class="dropdown-item" href="#" style="color:aqua">Action</a></li>
-                                    <li><a class="dropdown-item" href="#" style="color:aqua">Another action</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#" style="color:aqua">Something else here</a></li>
-                                </ul>
-                            </li>
                         </ul>
-                        <form class="d-flex mt-3" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-success" type="submit">Search</button>
-                        </form>
                     </div>
                 </div>
             </div>

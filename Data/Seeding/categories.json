@@ -1,0 +1,58 @@
+﻿[
+  {
+    "Id": "Week",
+    "Name": "Водещи новини от седмицата"
+  },
+  {
+    "Id": "Shumen",
+    "Name": "Водещи новини от Шумен"
+  },
+  {
+    "Id": "Bulgaria",
+    "Name": "Водещи новини от България"
+  },
+  {
+    "Id": "World",
+    "Name": "По света"
+  },
+  {
+    "Id": "Politics",
+    "Name": "Политика"
+  },
+  {
+    "Id": "Business",
+    "Name": "Бизнес"
+  },
+  {
+    "Id": "Sport",
+    "Name": "Спорт"
+  },
+  {
+    "Id": "Health",
+    "Name": "Здраве"
+  },
+  {
+    "Id": "Analyses",
+    "Name": "Анализи"
+  },
+  {
+    "Id": "Curious",
+    "Name": "Любопитно"
+  },
+  {
+    "Id": "Culture",
+    "Name": "Култура"
+  },
+  {
+    "Id": "Entertainment",
+    "Name": "Развлечения"
+  },
+  {
+    "Id": "Weather",
+    "Name": "Времето"
+  },
+  {
+    "Id": "Others",
+    "Name": "Други"
+  }
+]

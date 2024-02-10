@@ -16,6 +16,10 @@ html {
 body {
   margin-bottom: 300px;
 }
+.primary-color
+{
+    color: #1D3357;
+}
 .bg-primary-color {
     background-color: #1D3357;
 }
@@ -25,8 +29,11 @@ body {
 .secondary-color {
     color: #22b14c;
 }
+.bg-tertiary-color {
+    background-color: rgb(204, 185, 54);
+}
 a {
-    text-decoration: none; 
+    text-decoration: none;
 }
 .logo {
     margin-right: 9%;
