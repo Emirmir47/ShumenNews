@@ -10,6 +10,7 @@ namespace ShumenNews.Models.ViewModels
         public int LikesCount { get; set; }
         public int DislikesCount { get; set; }
         public int ViewsCount { get; set; }
+        public int CommentsCount { get; set; }
         public DateTime PublishedOn { get; set; }
         public string MainImage { get; set; }
         public virtual ShumenNewsUser Author { get; set; }

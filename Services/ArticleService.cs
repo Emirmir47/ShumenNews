@@ -38,11 +38,14 @@ namespace ShumenNews.Services
                 .ToList();
             return articles;
         }
-        public List<ShumenNewsArticle> GetArticlesByCategoryId(string categoryId)
+        public List<ShumenNewsArticle> GetArticlesByCategoryId(string categoryId, int wordsCount = 0)
         {
-            var articles = db.Articles.Where(a=>a.CategoryId == categoryId)
-                .Where(a=>a.IsDeleted == false).ToList();
-            ArticlesWithShortContent(articles, 25);
+            var articles = db.Articles.Where(a => a.CategoryId == categoryId)
+                .Where(a => a.IsDeleted == false)
+                .Include(a => a.Images)
+                .ToList();
+            articles = articles.OrderByDescending(a=>a.Id).ToList();
+            ArticlesWithShortContent(articles, wordsCount);
             return articles;
         }
         public List<ShumenNewsArticle> GetAllArticlesWithShortContent()
@@ -57,7 +60,7 @@ namespace ShumenNews.Services
             ArticlesWithShortContent(articles, 5);
             return articles;
         }
-        private List<ShumenNewsArticle> ArticlesWithShortContent(List<ShumenNewsArticle> articles,int wordsCount)
+        public List<ShumenNewsArticle> ArticlesWithShortContent(List<ShumenNewsArticle> articles, int wordsCount)
         {
             foreach (var article in articles)
             {

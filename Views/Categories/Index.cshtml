@@ -6,11 +6,11 @@
         @foreach (var article in Model.Articles)
         {
             <div class="card mx-2" style="width: 18rem;">
-                <img src="@article.Images.First(i=>i.Id == article.MainImageId).Url" class="card-img-top" alt="image" width="250" height="200">
+                <img src="@article.MainImage" class="card-img-top" alt="image" width="250" height="200">
                 <div class="card-body">
                     <h5 class="card-title">@article.Title</h5>
                     <h6 class="card-title">
-                        преди @article.PublishedOn.ToShortDateString()
+                        преди @article.PublishedOn.ToString("MM/dd/yyyy")
                         | харесвания @article.LikesCount
                         | преглеждания @article.ViewsCount
                     </h6>

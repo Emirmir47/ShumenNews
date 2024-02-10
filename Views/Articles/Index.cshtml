@@ -7,5 +7,5 @@
     <img src="@Model.MainImage" width="480" height="480"/>
     <p>@Model.Content</p>
     <strong>Харесвания - @Model.LikesCount | Нехаресвания - @Model.DislikesCount</strong>
-    <span>Публикувано на: @Model.PublishedOn</span>
+    <span>Публикувано на: @Model.PublishedOn.ToString("MM/dd/yyyy")</span>
 </div>

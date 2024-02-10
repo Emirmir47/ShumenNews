@@ -13,34 +13,58 @@ namespace ShumenNews.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ShumenNewsDbContext db;
         private readonly IImageService imageService;
+        private readonly ICategoryService categoryService;
         private readonly IArticleService articleService;
 
         public HomeController(ILogger<HomeController> logger,
             ShumenNewsDbContext db,
             IImageService imageService,
+            ICategoryService categoryService,
             IArticleService articleService)
         {
             _logger = logger;
             this.db = db;
             this.imageService = imageService;
+            this.categoryService = categoryService;
             this.articleService = articleService;
         }
 
         public IActionResult Index()
-        {           
-            var articles = articleService.GetAllArticlesWithShortContent();
-            var model = articles.Select(a => new ArticleViewModel
+        {
+            var articles = articleService.GetArticlesByCategoryId("Week", 20);
+            var articleViewModels = articles.Select(a => new ArticleViewModel
             {
                 Id = a.Id,
                 Title = a.Title,
-                Content = a.Content,
                 LikesCount = a.LikesCount,
-                DislikesCount = a.DislikesCount,
                 ViewsCount = a.ViewsCount,
                 PublishedOn = a.PublishedOn,
                 MainImage = imageService.GetArticleMainImageUrl(a.MainImageId, a),
-                Category = a.Category,
             }).ToList();
+            var articleViewModelsForCategoryWeek = articleViewModels
+                .ToList();
+            var categories = categoryService.GetAllCategoriesWithThreeArticles();
+            var categoryViewModels = categories.Select(c => new CategoryViewModel
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Articles = c.Articles.Select(a => new ArticleViewModel
+                {
+                    Id = a.Id,
+                    Title = a.Title,
+                    Content = a.Content,
+                    LikesCount = a.LikesCount,
+                    ViewsCount = a.ViewsCount,
+                    CommentsCount = a.CommentsCount,
+                    PublishedOn = a.PublishedOn,
+                    MainImage = imageService.GetArticleMainImageUrl(a.MainImageId, a),
+                })
+            });
+            var model = new PreViewModel
+            {
+                WeekArticles = articleViewModelsForCategoryWeek,
+                Categories = categoryViewModels,
+            };
             return View(model);
         }
 

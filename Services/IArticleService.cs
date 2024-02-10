@@ -7,8 +7,9 @@ namespace ShumenNews.Services
         public ShumenNewsArticle GetArticleById(int id);
         public int GetLastArticleId();
         public List<ShumenNewsArticle> GetArticlesByAuthor(ShumenNewsUser author);
-        List<ShumenNewsArticle> GetArticlesByCategoryId(string categoryId);
+        public List<ShumenNewsArticle> GetArticlesByCategoryId(string categoryId, int wordsCount);
         public List<ShumenNewsArticle> GetAllArticlesWithShortContent();
         public ShumenNewsUser GetArticleAuthor(ShumenNewsArticle article);
+        public List<ShumenNewsArticle> ArticlesWithShortContent(List<ShumenNewsArticle> articles, int wordsCount);
     }
 }

@@ -5,6 +5,7 @@
     <h3>@article.Id</h3> 
     <h3>@article.Title</h3>
     <p>@article.Content</p>
+    <p>@article.PublishedOn.ToString("MM/dd/yyyy")</p>
     @if (User.IsInRole("Author"))
     {
         <a asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id"><i class="fas fa-edit"></i></a>

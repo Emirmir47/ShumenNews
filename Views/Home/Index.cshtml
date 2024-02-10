@@ -1,4 +1,5 @@
-﻿@model ICollection<ShumenNews.Models.ViewModels.ArticleViewModel>
+﻿@using ShumenNews.Models.ViewModels
+@model PreViewModel
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -18,14 +19,14 @@
                 @if (i == 0)
                 {
                     <div class="carousel-item active">
-                        <a asp-area="" asp-controller="Articles" asp-action="Index" asp-route-id="@Model.Where(a=>a.Category.Id == "Week").ElementAtOrDefault(i)!.Id">
-                            <img src="@Model.Where(a=>a.Category.Id == "Week").ElementAtOrDefault(i)!.MainImage" class="d-block w-100" alt="image" height="400">
+                        <a asp-area="" asp-controller="Articles" asp-action="Index" asp-route-id="@Model.WeekArticles.ElementAtOrDefault(i)!.Id">
+                            <img src="@Model.WeekArticles.ElementAtOrDefault(i)!.MainImage" class="d-block w-100" alt="image" height="400">
                             <div class="carousel-caption d-none d-md-block">
-                                <h5>@Model.Where(a => a.Category.Id == "Week").ElementAtOrDefault(i)!.Title</h5>
+                                <h5>@Model.WeekArticles.ElementAtOrDefault(i)!.Title</h5>
                                 <p>
-                                    Дата: @Model.Where(a => a.Category.Id == "Week").ElementAtOrDefault(i)!.PublishedOn.ToLongDateString() |
-                                    @Model.Where(a => a.Category.Id == "Week").ElementAtOrDefault(i)!.LikesCount харесвания |
-                                    @Model.Where(a => a.Category.Id == "Week").ElementAtOrDefault(i)!.ViewsCount преглеждания
+                                    Дата: @Model.WeekArticles.ElementAtOrDefault(i)!.PublishedOn.ToString("MM/dd/yyyy") |
+                                    @Model.WeekArticles.ElementAtOrDefault(i)!.LikesCount харесвания |
+                                    @Model.WeekArticles.ElementAtOrDefault(i)!.ViewsCount преглеждания
                                 </p>
                             </div>
                         </a>
@@ -34,14 +35,14 @@
                 else
                 {
                     <div class="carousel-item">
-                        <a asp-area="" asp-controller="Articles" asp-action="Index" asp-route-id="@Model.Where(a=>a.Category.Id == "Week").ElementAtOrDefault(i)!.Id">
-                            <img src="@Model.Where(a=>a.Category.Id == "Week").ElementAtOrDefault(i)!.MainImage" class="d-block w-100" alt="image" height="400">
+                        <a asp-area="" asp-controller="Articles" asp-action="Index" asp-route-id="@Model.WeekArticles.ElementAtOrDefault(i)!.Id">
+                            <img src="@Model.WeekArticles.ElementAtOrDefault(i)!.MainImage" class="d-block w-100" alt="image" height="400">
                             <div class="carousel-caption d-none d-md-block">
-                                <h5>@Model.Where(a => a.Category.Id == "Week").ElementAtOrDefault(i)!.Title</h5>
+                                <h5>@Model.WeekArticles.ElementAtOrDefault(i)!.Title</h5>
                                 <p>
-                                    Дата: @Model.Where(a => a.Category.Id == "Week").ElementAtOrDefault(i)!.PublishedOn.ToLongDateString() |
-                                    @Model.Where(a => a.Category.Id == "Week").ElementAtOrDefault(i)!.LikesCount харесвания |
-                                    @Model.Where(a => a.Category.Id == "Week").ElementAtOrDefault(i)!.ViewsCount преглеждания
+                                    Дата: @Model.WeekArticles.ElementAtOrDefault(i)!.PublishedOn.ToLongDateString() |
+                                    @Model.WeekArticles.ElementAtOrDefault(i)!.LikesCount харесвания |
+                                    @Model.WeekArticles.ElementAtOrDefault(i)!.ViewsCount преглеждания
                                 </p>
                             </div>
                         </a>
@@ -59,25 +60,25 @@
         </button>
     </div>
     <!--Cards-->
-    @foreach (var category in Model.Select(a => a.Category).Distinct())
+    @foreach (var category in Model.Categories)
     {
         <div class="d-flex">Категория: @category.Name</div>
         <div class="d-flex justify-content-center my-3">
             @foreach (var article in category.Articles)
             {
                 <div class="card mx-2" style="width: 18rem;">
-                    <img src="@article.Images.First(i=>i.Id == article.MainImageId).Url" class="card-img-top" alt="image" width="250" height="200">
+                    <img src="@article.MainImage" class="card-img-top" alt="image" width="250" height="200">
                     <div class="card-body">
                         <h5 class="card-title">@article.Title</h5>
                         <h6 class="card-title">
                             преди @article.PublishedOn.ToShortDateString()
                         </h6>
                         <h6>
-                            <i class="fa-solid fa-thumbs-up"></i> @article.LikesCount | <i class="fa-solid fa-thumbs-down"></i> @article.DislikesCount
+                            <i class="fa-solid fa-thumbs-up"></i> @article.LikesCount
                         </h6>
                         <h6>
                             <i class="fa-solid fa-eye"></i> @article.ViewsCount |
-                            <i class="fa-solid fa-comments"></i> 0
+                            <i class="fa-solid fa-comments"></i> @article.CommentsCount
                         </h6>
                         <p class="card-text">@article.Content</p>
                         <!--Links-->

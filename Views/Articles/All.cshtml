@@ -24,8 +24,7 @@
                 <td class="border-1">@article.Category.Name</td>
                 <td class="border-1">@article.Title</td>
                 <td class="border-1">
-                    @article.PublishedOn.ToShortDateString()
-                    @article.PublishedOn.ToShortTimeString()
+                    @article.PublishedOn.ToString("MM/dd/yyyy H:mm")
                 </td>
                 <td class="border-1">@article.LikesCount</td>
                 <td class="border-1">@article.DislikesCount</td>

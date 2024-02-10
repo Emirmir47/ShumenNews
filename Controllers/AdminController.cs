@@ -32,6 +32,7 @@ namespace ShumenNews.Controllers
                 LikesCount = a.LikesCount,
                 DislikesCount = a.DislikesCount,
                 ViewsCount = a.ViewsCount,
+                CommentsCount = a.CommentsCount,
                 PublishedOn = a.PublishedOn,
                 MainImage = imageService.GetArticleMainImageUrl(a.MainImageId, a),
                 Images = a.Images.Select(a => a.Url),

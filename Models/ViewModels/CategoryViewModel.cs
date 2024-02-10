@@ -6,6 +6,6 @@ namespace ShumenNews.Models.ViewModels
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public virtual ICollection<ShumenNewsArticle> Articles { get; set; }
+        public virtual IEnumerable<ArticleViewModel> Articles { get; set; }
     }
 }
