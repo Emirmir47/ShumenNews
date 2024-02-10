@@ -65,7 +65,8 @@ namespace ShumenNews.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
+            [Required(ErrorMessage = "Моля въведете имейл")]
+            [Display(Name = "Имейл")]
             [EmailAddress]
             public string Email { get; set; }
 
@@ -73,7 +74,8 @@ namespace ShumenNews.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
+            [Required(ErrorMessage = "Моля въведете парола")]
+            [Display(Name = "Парола")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
@@ -81,7 +83,7 @@ namespace ShumenNews.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Display(Name = "Remember me?")]
+            [Display(Name = "Запомни акаунта ми")]
             public bool RememberMe { get; set; }
         }
 

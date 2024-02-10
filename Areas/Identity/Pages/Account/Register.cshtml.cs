@@ -64,30 +64,30 @@ namespace ShumenNews.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
-            [Required] //TODO Add more validations
-            [Display(Name = "FirstName")]
+            [Required(ErrorMessage = "Моля въведете име")] //TODO Add more validations
+            [Display(Name = "Име")]
             public string FirstName { get; set; }
 
-            [Required] //TODO Add more validations
-            [Display(Name = "LastName")]
+            [Required(ErrorMessage = "Моля въведете фамилия")] //TODO Add more validations
+            [Display(Name = "Фамилия")]
             public string LastName { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
+            [Required(ErrorMessage = "Моля въведете имейл")]
             [EmailAddress]
-            [Display(Name = "Email")]
+            [Display(Name = "Имейл")]
             public string Email { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
+            [Required(ErrorMessage = "Моля въведете парола")]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Парола")]
             public string Password { get; set; }
 
             /// <summary>
@@ -95,8 +95,8 @@ namespace ShumenNews.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Повторна парола")]
+            [Compare("Password", ErrorMessage = "Паролите не съвпадат")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -151,7 +151,7 @@ namespace ShumenNews.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    await _emailSender.SendEmailAsync(Input.Email, "Потвърддете вашия имейл",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
