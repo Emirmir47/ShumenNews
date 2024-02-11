@@ -59,6 +59,33 @@
                                 </li>
                             }
                         </ul>
+                        <div class="row">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#collapse" aria-expanded="false" aria-controls="collapsе">
+                                        <b>Категории</b>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapse" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                <div class="accordion-body row">
+                                    <a asp-controller="Categories" asp-action="Index" asp-route-id="Analyses" class="btn btn-dark bg-primary-color bg-gradient my-1">Анализи</a>
+                                    <a asp-controller="Categories" asp-action="Index" asp-route-id="Bulgaria" class="btn btn-dark bg-primary-color bg-gradient my-1">Водещи новини от България</a>
+                                    <a asp-controller="Categories" asp-action="Index" asp-route-id="Business" class="btn btn-dark bg-primary-color bg-gradient my-1">Бизнес</a>
+                                    <a asp-controller="Categories" asp-action="Index" asp-route-id="Culture" class="btn btn-dark bg-primary-color bg-gradient my-1">Култура</a>
+                                    <a asp-controller="Categories" asp-action="Index" asp-route-id="Curious" class="btn btn-dark bg-primary-color bg-gradient my-1">Любопитно</a>
+                                    <a asp-controller="Categories" asp-action="Index" asp-route-id="Entertainment" class="btn btn-dark bg-primary-color bg-gradient my-1">Развлечения</a>
+                                    <a asp-controller="Categories" asp-action="Index" asp-route-id="Health" class="btn btn-dark bg-primary-color bg-gradient my-1">Здраве</a>
+                                    <a asp-controller="Categories" asp-action="Index" asp-route-id="Others" class="btn btn-dark bg-primary-color bg-gradient my-1">Други</a>
+                                    <a asp-controller="Categories" asp-action="Index" asp-route-id="Politics" class="btn btn-dark bg-primary-color bg-gradient my-1">Политика</a>
+                                    <a asp-controller="Categories" asp-action="Index" asp-route-id="Shumen" class="btn btn-dark bg-primary-color bg-gradient my-1">Водещи новини от Шумен</a>
+                                    <a asp-controller="Categories" asp-action="Index" asp-route-id="Sport" class="btn btn-dark bg-primary-color bg-gradient my-1">Спорт</a>
+                                    <a asp-controller="Categories" asp-action="Index" asp-route-id="Weather" class="btn btn-dark bg-primary-color bg-gradient my-1">Времето</a>
+                                    <a asp-controller="Categories" asp-action="Index" asp-route-id="Week" class="btn btn-dark bg-primary-color bg-gradient my-1">Водещи новини от седмицата</a>
+                                    <a asp-controller="Categories" asp-action="Index" asp-route-id="World" class="btn btn-dark bg-primary-color bg-gradient my-1">По света</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -85,7 +112,7 @@
             <div class="d-flex">
                 <div class="container-fluid">
                     <a asp-area="" asp-controller="Home" asp-action="Index" class="pe-5"> <img src="/Logo2.png" alt="Logo" width="140" height="50"> </a>
-                    <h5 class="text-white">НОВИНИ</h5>
+                    <h5 class="text-white pt-3">НОВИНИ</h5>
                     <div class="container-fluid d-flex p-0">
                         <a class="btn text-white ps-0" asp-controller="Home" asp-action="Index">Начало</a>
                         <a class="btn text-white mx-2" asp-controller="Categories" asp-action="Index" asp-route-id="Shumen">Шумен</a>
@@ -111,11 +138,11 @@
                     </div>
                 </div>
                 <div class="container-fluid">
-                    <h4 class="pt-2">Бюлетин</h4>
-                    <span class="text-wrap">Абонирай се за нашия бюлетин и получавай всички най-актуални новини по света и у нас.</span>
-                    <div class="container-fluid d-flex justify-content-center">
-                        <input class="form-control me-2" type="search" placeholder="Вашият имейл адрес..." aria-label="Search">
-                        <input class="form-control border-0 bg-secondary-color text-white" type="submit" value="Изпрати">
+                    <h4 class="pt-5 text-white">БЮЛЕТИН</h4>
+                    <span class="text-wrap text-white">Абонирай се за нашия бюлетин и получавай всички най-актуални новини по света и у нас.</span>
+                    <div class="container-fluid d-flex justify-content-center p-0 pt-2">
+                        <input class="form-control me-2 pe-3 " type="search" placeholder="Вашият имейл адрес..." aria-label="Search">
+                        <input class="form-control border-0 btn btn-dark bg-secondary-color bg-gradient text-white w-50 " type="submit" value="Изпрати">
                     </div>
                 </div>
             </div>

@@ -16,7 +16,7 @@
                     </h6>
                     <p class="card-text">@article.Content</p>
                     <!--Links-->
-                    <a class="btn bg-secondary-color text-white" asp-area="" asp-controller="Articles" asp-action="Index" asp-route-id="@article.Id">Прочети</a>
+                    <a class="btn btn-dark bg-secondary-color bg-gradient text-white" asp-area="" asp-controller="Articles" asp-action="Index" asp-route-id="@article.Id">Прочети</a>
                     @if (User.IsInRole("Admin"))
                     {
                         <a asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id"><i class="fas fa-edit"></i></a>
