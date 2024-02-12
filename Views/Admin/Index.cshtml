@@ -5,10 +5,38 @@
 <h2 class="text-center my-3">Администраторско табло</h2>
 <hr />
 <h3>Търсене на потребител, автор или статия...</h3>
-<form class="d-flex mt-3" role="search">
-    <input class="form-control me-2" type="search" placeholder="Търсене..." aria-label="Search">
-    <button class="btn btn-success" type="submit"><i class="fa-solid fa-magnifying-glass p-2"></i></button>
+<form method="post" class="d-flex mt-3" role="search">
+    <input asp-for="Email" type="search" placeholder="Търсене..." class="form-control me-2" aria-label="Search">
+    <button asp-action="Index" asp-route-id="@Model.Email" type="submit" class="btn btn-success"><i class="fa-solid fa-magnifying-glass p-2"></i></button>
 </form>
+@if (Model.Results is not null)
+{
+    <div class="form-group">
+        <span class="fst-italic">@Model.Results.User.FullName</span>
+        @if (Model.Results.IsAuthor)
+        {
+            <hr />
+            <div class="container border border-1 pt-2">
+                <h3 class="text-center">Статиите на този автор</h3>
+                @foreach (var article in Model.Results.Articles)
+                {
+                    <ul class="border border-1 list-unstyled p-2">
+                        <li><h5>&#8470; @article.Id</h5></li>
+                        <li><strong>@article.Title</strong></li>
+                        <li><i class="fa-solid fa-thumbs-up"></i> @article.LikesCount | <i class="fa-solid fa-thumbs-down"></i> @article.DislikesCount</li>
+                        <li><i class="fa-solid fa-eye"></i> @article.ViewsCount</li>
+                        <li><i class="fa-solid fa-comments"></i> @article.CommentsCount</li>
+                        <li><p>Публикувано: @article.PublishedOn.ToString("MM/dd/yyyy H:mm")</p></li>
+                        <li class="p-2">
+                            <a asp-controller="Articles" asp-action="Index" asp-route-id="@article.Id" class="btn btn-dark bg-secondary-color bg-gradient text-white">Отвори</a>
+                            <a asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id" class="btn btn-dark bg-secondary-color bg-gradient text-white">Редактирай</a>
+                        </li>
+                    </ul>
+                }
+            </div>
+        }
+    </div>
+}
 <hr />
 <h3>Автори</h3>
 <table class="table table-striped text-center">
@@ -58,7 +86,7 @@
                 <div class="card-body d-flex align-items-end flex-column">
                     <h5 class="card-title m-0">@article.Title</h5>
                     <ul class="card-title list-group-flush w-100 p-2">
-                        <li>Публикувано: @article.PublishedOn.ToString("MM/dd/yyyy H:mm")</li>
+                        <li><p>Публикувано: @article.PublishedOn.ToString("MM/dd/yyyy H:mm")</p></li>
                         <li><i class="fa-solid fa-thumbs-up"></i> @article.LikesCount | <i class="fa-solid fa-thumbs-down"></i> @article.DislikesCount</li>
                         <li><i class="fa-solid fa-eye"></i> @article.ViewsCount</li>
                         <li><i class="fa-solid fa-comments"></i> @article.CommentsCount</li>
@@ -70,3 +98,4 @@
         }
     </div>
 </div>
+    </div>

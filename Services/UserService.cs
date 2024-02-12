@@ -1,4 +1,5 @@
-﻿using ShumenNews.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ShumenNews.Data;
 using ShumenNews.Data.Models;
 
 namespace ShumenNews.Services
@@ -14,6 +15,12 @@ namespace ShumenNews.Services
         public ShumenNewsUser GetUserByUserName(string userName)
         {
             var user = db.Users.SingleOrDefault(u => u.Email == userName)!;
+            return user;
+        }        
+        public ShumenNewsUser GetUserByEmail(string email)
+        {
+            var user = db.Users.Include(u=> u.UserArticles)
+                .SingleOrDefault(u => u.Email == email)!;
             return user;
         }
     }
