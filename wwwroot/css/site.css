@@ -38,4 +38,23 @@ a {
 .logo {
     margin-right: 9%;
 }
-.
+.category {
+    border-radius: 2rem;
+}
+.categoryname {
+    font-family: 'Franklin Gothic';
+    font-size: 40px;
+    color:aqua; 
+}
+.btnrounded {
+    position: absolute;
+    bottom: 25px;
+    border-radius: 5rem;
+    font-size: 110%;
+    font-family: 'Franklin Gothic';
+}
+.carousel-caption {
+    text-shadow: 2px 1px black;
+    font-family: Georgia, serif;
+    
+}
