@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Areas;
 using ShumenNews.Data;
 using ShumenNews.Data.Models;
@@ -14,13 +16,18 @@ namespace ShumenNews.Controllers
     public class AdminController : Controller
     {
         private readonly ShumenNewsDbContext db;
+        private readonly UserManager<ShumenNewsUser> userManager;
         private readonly IImageService imageService;
         private readonly IUserService userService;
         private readonly IArticleService articleService;
 
-        public AdminController(ShumenNewsDbContext db, IImageService imageService, IUserService userService, IArticleService articleService)
+        public AdminController(ShumenNewsDbContext db, UserManager<ShumenNewsUser> userManager,
+            IImageService imageService,
+            IUserService userService,
+            IArticleService articleService)
         {
             this.db = db;
+            this.userManager = userManager;
             this.imageService = imageService;
             this.userService = userService;
             this.articleService = articleService;
@@ -59,7 +66,7 @@ namespace ShumenNews.Controllers
             {
                 Authors = authors,
                 Categories = categories,
-                Articles = articles
+                Articles = articles,
             };
             return View(model);
         }
@@ -94,22 +101,45 @@ namespace ShumenNews.Controllers
                     Id = c.Id,
                     Name = c.Name
                 }).ToList();
+            var roles = db.Roles.ToList();
             var adminViewModel = new AdminViewModel
             {
                 Authors = authors,
                 Categories = categories,
-                Articles = articles
+                Articles = articles,
             };
             if (email is not null)
             {
                 var user = userService.GetUserByEmail(email);
+                var userRoles = userManager.GetRolesAsync(user).Result.ToList();
+                var rolesViewModels = new List<RoleViewModel>();
+                foreach (var role in roles)
+                {
+                    if (userRoles.Contains(role.Name))
+                    {
+                        rolesViewModels.Add(new RoleViewModel
+                        {
+                            Name = role.Name,
+                            IsChecked = true
+                        });
+                    }
+                    else
+                    {
+                        rolesViewModels.Add(new RoleViewModel
+                        {
+                            Name = role.Name,
+                            IsChecked = false
+                        });
+                    }
+                }
                 if (user != null)
                 {
                     var userViewModel = new UserViewModel
                     {
                         FirstName = user.FirstName,
                         LastName = user.LastName,
-                        Email = user.Email
+                        Email = user.Email,
+                        Roles = rolesViewModels
                     };
                     if (user.UserArticles.Any(ua => ua.IsAuthor))
                     {
@@ -128,12 +158,12 @@ namespace ShumenNews.Controllers
                                 PublishedOn = a.PublishedOn,
                             }).ToList()
                         };
-                        return View(new AdminViewModel 
-                        { 
+                        return View(new AdminViewModel
+                        {
                             Authors = authors,
                             Articles = articles,
                             Categories = categories,
-                            Results = modelWithArticles 
+                            Results = modelWithArticles
                         });
                     }
                     var model = new SearchViewModel
@@ -152,5 +182,6 @@ namespace ShumenNews.Controllers
             }
             return View(adminViewModel);
         }
+        //TODO Roles
     }
 }

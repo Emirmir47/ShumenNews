@@ -13,6 +13,7 @@ namespace ShumenNews.Data.Seeding
     public class ShumenNewsSeeder : ISeeder
     {
         private readonly ShumenNewsDbContext db;
+
         public ShumenNewsSeeder(ShumenNewsDbContext db)
         {
             this.db = db;
@@ -285,7 +286,7 @@ namespace ShumenNews.Data.Seeding
                     Email = "viki31@gmail.com",
                     NormalizedEmail = "VIKI31@GMAIL.COM",
                     FirstName = "Виктория",
-                    LastName = "Петорва",
+                    LastName = "Петрова",
                     EmailConfirmed = true
                 };
                 await db.Users.AddAsync(author12);
@@ -731,7 +732,6 @@ namespace ShumenNews.Data.Seeding
                     EmailConfirmed = true,
                 };
                 await db.Users.AddAsync(adminUser);
-
                 db.SaveChanges();
             }
         }

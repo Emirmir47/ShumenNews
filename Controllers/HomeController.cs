@@ -15,22 +15,26 @@ namespace ShumenNews.Controllers
         private readonly IImageService imageService;
         private readonly ICategoryService categoryService;
         private readonly IArticleService articleService;
+        private readonly IUserService userService;
 
         public HomeController(ILogger<HomeController> logger,
             ShumenNewsDbContext db,
             IImageService imageService,
             ICategoryService categoryService,
-            IArticleService articleService)
+            IArticleService articleService,
+            IUserService userService)
         {
             _logger = logger;
             this.db = db;
             this.imageService = imageService;
             this.categoryService = categoryService;
             this.articleService = articleService;
+            this.userService = userService;
         }
 
         public IActionResult Index()
         {
+            //userService.SetAuthorRoles();
             var articles = articleService.GetArticlesByCategoryId("Week", 20);
             var articleViewModels = articles.Select(a => new ArticleViewModel
             {

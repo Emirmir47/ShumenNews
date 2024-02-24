@@ -125,18 +125,6 @@ namespace ShumenNews.Areas.Identity.Pages.Account
                 {
                     await _userManager.AddToRoleAsync(user, "Admin");
                 }
-                else if (_userManager.Users.Count() == 23)
-                {
-                    await _userManager.AddToRoleAsync(user, "Author");
-                }
-                else if (_userManager.Users.Count() == 24)
-                {
-                    await _userManager.AddToRoleAsync(user, "Moderator");
-                }
-                else if (_userManager.Users.Count() == 25)
-                {
-                    await _userManager.AddToRoleAsync(user, "Author");
-                }
 
                 if (result.Succeeded)
                 {

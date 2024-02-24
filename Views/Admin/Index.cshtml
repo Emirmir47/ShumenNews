@@ -12,7 +12,62 @@
 @if (Model.Results is not null)
 {
     <div class="form-group">
-        <span class="fst-italic">@Model.Results.User.FullName</span>
+        <div class="border border-1 mt-3 p-3 d-inline-flex gap-1">
+            <div class="w-auto mx-2">
+                <p class="fst-italic"><span>@@</span>@Model.Results.User.Username</p>
+                <p class="fst-italic">@Model.Results.User.FullName</p>
+                <div class="d-inline-flex gap-2">
+                    <p>
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+                            Роли
+                        </button>
+                    </p>
+                    <p>
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false" aria-controls="collapseWidthExample2">
+                            Блокиране <i class="fa-solid fa-caret-right"></i> 1
+                        </button>
+                    </p>
+                </div>
+            </div>
+            <div class="mx-1" style="min-height: 20px;">
+                <div class="collapse collapse-horizontal" id="collapseWidthExample">
+                    <!--Roles-->
+                    <div class="card card-body" style="width: 300px;">
+                    @foreach (var userRole in Model.Results.User.Roles)
+                    {
+                        if (userRole.IsChecked)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="@userRole.Id" id="flexCheckChecked" checked>
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    @userRole.Name
+                                </label>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="@userRole.Id" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    @userRole.Name
+                                </label>
+                            </div>
+                        }
+                    }
+                    </div>
+                </div>
+            </div>
+            <div class="mx-1" style="min-height: 20px;">
+                <div class="collapse collapse-horizontal" id="collapseWidthExample2">
+                    <!--Block-->
+                    <div class="card card-body d-inline-block" style="width: 354px;">
+                        <button class="btn btn-primary">За ден</button>
+                        <button class="btn btn-primary">За седмица</button>
+                        <button class="btn btn-primary">За постоянно</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         @if (Model.Results.IsAuthor)
         {
             <hr />

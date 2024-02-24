@@ -6,5 +6,7 @@ namespace ShumenNews.Services
     {
         public ShumenNewsUser GetUserByUserName(string userName);
         public ShumenNewsUser GetUserByEmail(string email);
+        public List<string> GetUserRoles(ShumenNewsUser user);
+        public void SetAuthorRoles();
     }
 }
