@@ -4,9 +4,11 @@
 }
 <h2 class="text-center my-3">Администраторско табло</h2>
 <hr />
-<h3>Търсене на потребител, автор или статия...</h3>
+<div class="d-inline-flex m-0 py-2">
+<h3 class="m-0">Търсене на потребител или автор...</h3>
+</div>
 <form method="post" class="d-flex mt-3" role="search">
-    <input asp-for="Email" type="search" placeholder="Търсене..." class="form-control me-2" aria-label="Search">
+    <input asp-for="Email" type="search" placeholder="Търсене... [Имейл]" class="form-control me-2" aria-label="Search">
     <button asp-action="Index" asp-route-id="@Model.Email" type="submit" class="btn btn-success"><i class="fa-solid fa-magnifying-glass p-2"></i></button>
 </form>
 @if (Model.Results is not null)

@@ -111,29 +111,30 @@ namespace ShumenNews.Controllers
             if (email is not null)
             {
                 var user = userService.GetUserByEmail(email);
-                var userRoles = userManager.GetRolesAsync(user).Result.ToList();
-                var rolesViewModels = new List<RoleViewModel>();
-                foreach (var role in roles)
-                {
-                    if (userRoles.Contains(role.Name))
-                    {
-                        rolesViewModels.Add(new RoleViewModel
-                        {
-                            Name = role.Name,
-                            IsChecked = true
-                        });
-                    }
-                    else
-                    {
-                        rolesViewModels.Add(new RoleViewModel
-                        {
-                            Name = role.Name,
-                            IsChecked = false
-                        });
-                    }
-                }
+
                 if (user != null)
                 {
+                    var userRoles = userManager.GetRolesAsync(user).Result.ToList();
+                    var rolesViewModels = new List<RoleViewModel>();
+                    foreach (var role in roles)
+                    {
+                        if (userRoles.Contains(role.Name))
+                        {
+                            rolesViewModels.Add(new RoleViewModel
+                            {
+                                Name = role.Name,
+                                IsChecked = true
+                            });
+                        }
+                        else
+                        {
+                            rolesViewModels.Add(new RoleViewModel
+                            {
+                                Name = role.Name,
+                                IsChecked = false
+                            });
+                        }
+                    }
                     var userViewModel = new UserViewModel
                     {
                         FirstName = user.FirstName,
