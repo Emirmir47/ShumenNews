@@ -8,7 +8,7 @@ namespace ShumenNews.Models.ViewModels
         public string LastName { get; set; }
         public string Email { get; set; }
         public string FullName => $"{FirstName} {LastName}";
-        public string Username => Email.Split('@')[0];
+        public string Username => Email is not null ? Email.Split('@')[0] : "none";
         public IEnumerable<RoleViewModel> Roles { get; set; }
     }
 }

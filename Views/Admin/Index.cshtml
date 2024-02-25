@@ -4,8 +4,9 @@
 }
 <h2 class="text-center my-3">Администраторско табло</h2>
 <hr />
-<div class="d-inline-flex m-0 py-2">
-<h3 class="m-0">Търсене на потребител или автор...</h3>
+<div class="d-flex justify-content-between m-0 py-2" id="searchAndSave">
+    <h3 class="m-0">Търсене на потребител или автор...</h3>
+    <a asp-controller='Admin' asp-action="SetUserProps" class="btn btn-success">Този работи, но другия бутон не!</a>
 </div>
 <form method="post" class="d-flex mt-3" role="search">
     <input asp-for="Email" type="search" placeholder="Търсене... [Имейл]" class="form-control me-2" aria-label="Search">
@@ -35,27 +36,27 @@
                 <div class="collapse collapse-horizontal" id="collapseWidthExample">
                     <!--Roles-->
                     <div class="card card-body" style="width: 300px;">
-                    @foreach (var userRole in Model.Results.User.Roles)
-                    {
-                        if (userRole.IsChecked)
+                        @foreach (var userRole in Model.Results.User.Roles)
                         {
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="@userRole.Id" id="flexCheckChecked" checked>
-                                <label class="form-check-label" for="flexCheckChecked">
-                                    @userRole.Name
-                                </label>
-                            </div>
+                            if (userRole.IsChecked)
+                            {
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="@userRole.Id" onclick="ShowSaveButton()" id="flexCheckChecked" checked>
+                                    <label class="form-check-label" for="flexCheckChecked">
+                                        @userRole.Name
+                                    </label>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="@userRole.Id" onclick="ShowSaveButton()" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        @userRole.Name
+                                    </label>
+                                </div>
+                            }
                         }
-                        else
-                        {
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="@userRole.Id" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    @userRole.Name
-                                </label>
-                            </div>
-                        }
-                    }
                     </div>
                 </div>
             </div>
@@ -63,9 +64,9 @@
                 <div class="collapse collapse-horizontal" id="collapseWidthExample2">
                     <!--Block-->
                     <div class="card card-body d-inline-block" style="width: 354px;">
-                        <button class="btn btn-primary">За ден</button>
-                        <button class="btn btn-primary">За седмица</button>
-                        <button class="btn btn-primary">За постоянно</button>
+                        <button class="btn btn-primary" onclick="ShowSaveButton()">За ден</button>
+                        <button class="btn btn-primary" onclick="ShowSaveButton()">За седмица</button>
+                        <button class="btn btn-primary" onclick="ShowSaveButton()">За постоянно</button>
                     </div>
                 </div>
             </div>
@@ -155,4 +156,16 @@
         }
     </div>
 </div>
-    </div>
+@section Scripts
+{
+    <script>
+        var index = 0;
+        function ShowSaveButton() {
+            index++;
+            if (index === 1) {
+                // $("#searchAndSave").append("<div class='form-control'> Name: <input type='text' name='Ingredients[" + index + "].Name'/>  Quantity: <input type='text' name='Ingredients[" + index + "].Quantity' /> </div>");
+                $("#searchAndSave").append("<a asp-controller='Admin' asp-action='SetUserProps' class='btn btn-success' style='width: 10%;'>Приложи</a>")
+            }
+        }
+    </script>
+}

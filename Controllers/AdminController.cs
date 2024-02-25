@@ -183,6 +183,13 @@ namespace ShumenNews.Controllers
             }
             return View(adminViewModel);
         }
+        [HttpGet]
+        public IActionResult SetUserProps(AdminViewModel user)
+        {
+            var a = 1;
+            a = 2;
+            return Ok();
+        }
         //TODO Roles
     }
 }
