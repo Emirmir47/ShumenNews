@@ -34,7 +34,6 @@ namespace ShumenNews.Controllers
 
         public IActionResult Index()
         {
-            //userService.SetAuthorRoles();
             var articles = articleService.GetArticlesByCategoryId("Week", 20);
             var articleViewModels = articles.Select(a => new ArticleViewModel
             {

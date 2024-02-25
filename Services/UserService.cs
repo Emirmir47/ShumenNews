@@ -15,15 +15,6 @@ namespace ShumenNews.Services
             this.db = db;
             this.userManager = userManager;
         }
-        public void SetAuthorRoles()
-        {
-            var authors = db.Users.Where(u => u.UserArticles.Any(ua => ua.IsAuthor)).ToList();
-            foreach (var author in authors)
-            {
-                userManager.AddToRoleAsync(author, "Author").GetAwaiter();
-            }
-            var a = 0;
-        }
         public ShumenNewsUser GetUserByUserName(string userName)
         {
             var user = db.Users.SingleOrDefault(u => u.Email == userName)!;

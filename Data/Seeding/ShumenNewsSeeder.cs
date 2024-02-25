@@ -13,10 +13,16 @@ namespace ShumenNews.Data.Seeding
     public class ShumenNewsSeeder : ISeeder
     {
         private readonly ShumenNewsDbContext db;
+        private readonly RoleManager<IdentityRole> roleManager;
+        private readonly UserManager<ShumenNewsUser> userManager;
 
-        public ShumenNewsSeeder(ShumenNewsDbContext db)
+        public ShumenNewsSeeder(ShumenNewsDbContext db,
+            RoleManager<IdentityRole> roleManager,
+            UserManager<ShumenNewsUser> userManager)
         {
             this.db = db;
+            this.roleManager = roleManager;
+            this.userManager = userManager;
         }
 
         public async Task Seed()
@@ -39,9 +45,9 @@ namespace ShumenNews.Data.Seeding
                     Name = "Author",
                     NormalizedName = "AUTHOR"
                 };
-                db.Roles.Add(adminRole);
-                db.Roles.Add(moderatorRole);
-                db.Roles.Add(authorRole);
+                await roleManager.CreateAsync(adminRole);
+                await roleManager.CreateAsync(moderatorRole);
+                await roleManager.CreateAsync(authorRole);
 
                 //Root user
                 var rootUser = new ShumenNewsUser
@@ -149,568 +155,580 @@ namespace ShumenNews.Data.Seeding
                 //Authors
                 var author = new ShumenNewsUser
                 {
-                    UserName = "ivanpetrov10",
-                    NormalizedUserName = "IVANPETROV10",
+                    UserName = "ivanpetrov10@gmail.com",
+                    NormalizedUserName = "IVANPETROV@GMAIL.COM",
                     Email = "ivanpetrov10@gmail.com",
                     NormalizedEmail = "IVANPETROV@GMAIL.COM",
                     FirstName = "Иван",
                     LastName = "Петров",
                     EmailConfirmed = true
                 };
-                await db.Users.AddAsync(author);
+                await userManager.CreateAsync(author, "123456");
+                await userManager.AddToRoleAsync(author, authorRole.Name);
 
                 var author2 = new ShumenNewsUser
                 {
-                    UserName = "mihail8elenkov",
-                    NormalizedUserName = "MIHAIL8ELENKOV",
+                    UserName = "mihail8elenkov@gmail.com",
+                    NormalizedUserName = "MIHAIL8ELENKOV@GMAIL.COM",
                     Email = "mihail8elenkov@gmail.com",
                     NormalizedEmail = "MIHAIL8ELENKOV@GMAIL.COM",
                     FirstName = "Михаил",
                     LastName = "Еленков",
                     EmailConfirmed = true
                 };
-                await db.Users.AddAsync(author2);
+                await userManager.CreateAsync(author2, "123456");
+                await userManager.AddToRoleAsync(author2, authorRole.Name);
 
                 var author3 = new ShumenNewsUser
                 {
-                    UserName = "eli34",
-                    NormalizedUserName = "ELI34",
+                    UserName = "eli34@gmail.com",
+                    NormalizedUserName = "ELI34@GMAIL.COM",
                     Email = "eli34@gmail.com",
                     NormalizedEmail = "ELI34@GMAIL.COM",
                     FirstName = "Ели",
                     LastName = "Недялкова",
                     EmailConfirmed = true
                 };
-                await db.Users.AddAsync(author3);
+                await userManager.CreateAsync(author3, "123456");
+                await userManager.AddToRoleAsync(author3, authorRole.Name);
 
                 var author4 = new ShumenNewsUser
                 {
-                    UserName = "ivi677",
-                    NormalizedUserName = "IVI677",
+                    UserName = "ivi677@gmail.com",
+                    NormalizedUserName = "IVI677@GMAIL.COM",
                     Email = "ivi677@gmail.com",
                     NormalizedEmail = "IVI677@GMAIL.COM",
                     FirstName = "Петя",
                     LastName = "Иванова",
                     EmailConfirmed = true
                 };
-                await db.Users.AddAsync(author4);
+                await userManager.CreateAsync(author4, "123456");
+                await userManager.AddToRoleAsync(author4, authorRole.Name);
 
                 var author5 = new ShumenNewsUser
                 {
-                    UserName = "emilian233",
-                    NormalizedUserName = "EMILIAN233",
+                    UserName = "emilian233@gmail.com",
+                    NormalizedUserName = "EMILIAN233@GMAIL.COM",
                     Email = "emilian233@gmail.com",
                     NormalizedEmail = "EMILIAN233@GMAIL.COM",
                     FirstName = "Емилиян",
                     LastName = "Петров",
                     EmailConfirmed = true
                 };
-                await db.Users.AddAsync(author5);
+                await userManager.CreateAsync(author5, "123456");
+                await userManager.AddToRoleAsync(author5, authorRole.Name);
 
                 var author6 = new ShumenNewsUser
                 {
-                    UserName = "vladi43",
-                    NormalizedUserName = "VALDIMIR21",
+                    UserName = "vladi43@gmail.com",
+                    NormalizedUserName = "VALDIMIR21@GMAIL.COM",
                     Email = "vladi21@gmail.com",
                     NormalizedEmail = "VLADI21@GMAIL.COM",
                     FirstName = "Владимир",
                     LastName = "Пенков",
                     EmailConfirmed = true
                 };
-                await db.Users.AddAsync(author6);
+                await userManager.CreateAsync(author6, "123456");
+                await userManager.AddToRoleAsync(author6, authorRole.Name);
 
                 var author7 = new ShumenNewsUser
                 {
-                    UserName = "petrovcho12",
-                    NormalizedUserName = "PETROVCHO12",
+                    UserName = "petrovcho12@gmail.com",
+                    NormalizedUserName = "PETROVCHO12@GMAIL.COM",
                     Email = "golemia12@gmail.com",
                     NormalizedEmail = "GOLEMIA12@GMAIL.COM",
                     FirstName = "Петров",
                     LastName = "Пенков",
                     EmailConfirmed = true
                 };
-                await db.Users.AddAsync(author7);
+                await userManager.CreateAsync(author7, "123456");
+                await userManager.AddToRoleAsync(author7, authorRole.Name);
 
                 var author8 = new ShumenNewsUser
                 {
-                    UserName = "mityoochite51",
-                    NormalizedUserName = "MITYOOCHITE51",
+                    UserName = "mityoochite51@gmail.com",
+                    NormalizedUserName = "MITYOOCHITE51@GMAIL.COM",
                     Email = "mitlo51@gmail.com",
                     NormalizedEmail = "MITKO51@GMAIL.COM",
                     FirstName = "Димитър",
                     LastName = "Владимиров",
                     EmailConfirmed = true
                 };
-                await db.Users.AddAsync(author8);
+                await userManager.CreateAsync(author8, "123456");
+                await userManager.AddToRoleAsync(author8, authorRole.Name);
 
                 var author9 = new ShumenNewsUser
                 {
-                    UserName = "golemiqpesho",
-                    NormalizedUserName = "GOLEMIQPESHO51",
+                    UserName = "pesho81@gmail.com",
+                    NormalizedUserName = "PESHO81@GMAIL.COM",
                     Email = "pesho81@gmail.com",
                     NormalizedEmail = "PESHO81@GMAIL.COM",
                     FirstName = "Петър",
                     LastName = "Петров",
                     EmailConfirmed = true
                 };
-                await db.Users.AddAsync(author9);
+                await userManager.CreateAsync(author9, "123456");
+                await userManager.AddToRoleAsync(author9, authorRole.Name);
 
                 var author10 = new ShumenNewsUser
                 {
-                    UserName = "galin21",
-                    NormalizedUserName = "ГGALIN21",
+                    UserName = "galin21@gmail.com",
+                    NormalizedUserName = "GALIN21@GMAIL.COM",
                     Email = "galin21@gmail.com",
                     NormalizedEmail = "GALIN21@GMAIL.COM",
                     FirstName = "Гален",
                     LastName = "Галнов",
                     EmailConfirmed = true
                 };
-                await db.Users.AddAsync(author10);
+                await userManager.CreateAsync(author10, "123456");
+                await userManager.AddToRoleAsync(author10, authorRole.Name);
 
                 var author11 = new ShumenNewsUser
                 {
-                    UserName = "toshkokuratacha",
-                    NormalizedUserName = "TOSHKOKURATACHA",
+                    UserName = "todor21@gmail.com",
+                    NormalizedUserName = "TODOR21GMAIL.COM",
                     Email = "todor21@gmail.com",
                     NormalizedEmail = "TODOR21@GMAIL.COM",
                     FirstName = "Тодор",
                     LastName = "Тодоров",
                     EmailConfirmed = true
                 };
-                await db.Users.AddAsync(author11);
+                await userManager.CreateAsync(author11, "123456");
+                await userManager.AddToRoleAsync(author11, authorRole.Name);
 
                 var author12 = new ShumenNewsUser
                 {
-                    UserName = "viktoriq31",
-                    NormalizedUserName = "VIKTORIQ31",
+                    UserName = "viki31@gmail.com",
+                    NormalizedUserName = "VIKI31@GMAIL.COM",
                     Email = "viki31@gmail.com",
                     NormalizedEmail = "VIKI31@GMAIL.COM",
                     FirstName = "Виктория",
                     LastName = "Петрова",
                     EmailConfirmed = true
                 };
-                await db.Users.AddAsync(author12);
+                await userManager.CreateAsync(author12, "123456");
+                await userManager.AddToRoleAsync(author12, authorRole.Name);
 
                 //Ordinary users
                 var user = new ShumenNewsUser
                 {
-                    UserName = "hari28",
-                    NormalizedUserName = "HARI28",
+                    UserName = "hari28@gmail.com",
+                    NormalizedUserName = "HARI28@GMAIL.COM",
                     Email = "hari28@gmail.com",
                     NormalizedEmail = "HARI28@GMAIL.COM",
                     FirstName = "Хари",
                     LastName = "Добрев",
                     EmailConfirmed = true
                 };
-                await db.Users.AddAsync(user);
+                await userManager.CreateAsync(user, "123456");
 
                 var user2 = new ShumenNewsUser
                 {
-                    UserName = "hrisi19",
-                    NormalizedUserName = "HRISI19",
+                    UserName = "hristina1@gmail.com",
+                    NormalizedUserName = "HRISTINA1@GMAIL.COM",
                     Email = "hristina1@gmail.com",
                     NormalizedEmail = "HRISTINA1@GMAIL.COM",
                     FirstName = "Христина",
                     LastName = "Добромирова",
                     EmailConfirmed = true
                 };
-                await db.Users.AddAsync(user2);
+                await userManager.CreateAsync(user2, "123456");
 
                 //Commenting users
                 var commenter1 = new ShumenNewsUser
                 {
-                    UserName = "gavrilgod",
-                    NormalizedUserName = "GAVRILGOD",
+                    UserName = "god@gmail.com",
+                    NormalizedUserName = "GOD@GMAIL.COM",
                     Email = "god@gmail.com",
                     NormalizedEmail = "GOD@GMAIL.COM",
                     FirstName = "Гаврил",
                     LastName = "Гаврилов",
                     EmailConfirmed = true
                 };
-                await db.Users.AddAsync(commenter1);
+                await userManager.CreateAsync(commenter1, "123456");
 
                 var commenter2 = new ShumenNewsUser
                 {
-                    UserName = "dani93",
-                    NormalizedUserName = "DANI93",
+                    UserName = "danieil01@gmail.com",
+                    NormalizedUserName = "DANIEL01@GMAIL.COM",
                     Email = "daniel01@gmail.com",
                     NormalizedEmail = "DANIEL01@GMAIL.COM",
                     FirstName = "Даниел",
                     LastName = "Димитров",
                     EmailConfirmed = true
                 };
-                await db.Users.AddAsync(commenter2);
+                await userManager.CreateAsync(commenter2, "123456");
 
                 var commenter3 = new ShumenNewsUser
                 {
-                    UserName = "rosen55",
-                    NormalizedUserName = "ROSEN55",
-                    Email = "rosen!@gmail.com",
-                    NormalizedEmail = "ROSEN!@GMAIL.COM",
+                    UserName = "rosen55@gmail.com",
+                    NormalizedUserName = "ROSEN55@GMAIL.COM",
+                    Email = "rosen55@gmail.com",
+                    NormalizedEmail = "ROSEN55@GMAIL.COM",
                     FirstName = "Росен",
                     LastName = "Тодоров",
                     EmailConfirmed = true
                 };
-                await db.Users.AddAsync(commenter3);
+                await userManager.CreateAsync(commenter3, "123456");
 
                 var commenter4 = new ShumenNewsUser
                 {
-                    UserName = "svetlana99",
-                    NormalizedUserName = "SVETLANA99",
+                    UserName = "svetlana99@gmail.com",
+                    NormalizedUserName = "SVETLANA99@GMAIL.COM",
                     Email = "svetlana99@gmail.com",
                     NormalizedEmail = "svetlana99@GMAIL.COM",
                     FirstName = "Светлана",
                     LastName = "Михайлова",
                     EmailConfirmed = true
                 };
-                await db.Users.AddAsync(commenter4);
+                await userManager.CreateAsync(commenter4, "123456");
 
                 var commenter5 = new ShumenNewsUser
                 {
-                    UserName = "raq96",
-                    NormalizedUserName = "RAQ96",
+                    UserName = "raq96@gmail.com",
+                    NormalizedUserName = "RAQ96@GMAIL.COM",
                     Email = "raq96@gmail.com",
                     NormalizedEmail = "RAQ96@GMAIL.COM",
                     FirstName = "Рая",
                     LastName = "Радославова",
                     EmailConfirmed = true
                 };
-                await db.Users.AddAsync(commenter5);
+                await userManager.CreateAsync(commenter5, "123456");
 
                 //UserArticles
                 List<ShumenNewsUserArticle> userArticles = new List<ShumenNewsUserArticle>
                 {
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author,
                     Article = articles[0],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author2,
                     Article = articles[1],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author,
                     Article = articles[2],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author3,
                     Article = articles[3],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author2,
                     Article = articles[4],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author,
                     Article = articles[5],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author2,
                     Article = articles[6],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author3,
                     Article = articles[7],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author,
                     Article = articles[8],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author3,
                     Article = articles[9],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author2,
                     Article = articles[10],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author3,
                     Article = articles[11],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author4,
                     Article = articles[12],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author5,
                     Article = articles[13],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author5,
                     Article = articles[14],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author4,
                     Article = articles[15],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author6,
                     Article = articles[16],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author6,
                     Article = articles[17],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author5,
                     Article = articles[18],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author5,
                     Article = articles[19],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author4,
                     Article = articles[20],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author4,
                     Article = articles[21],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author6,
                     Article = articles[22],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author7,
                     Article = articles[23],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author6,
                     Article = articles[24],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author7,
                     Article = articles[25],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author7,
                     Article = articles[26],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author7,
                     Article = articles[27],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author8,
                     Article = articles[28],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author9,
                     Article = articles[29],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author9,
                     Article = articles[30],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author10,
                     Article = articles[31],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author8,
                     Article = articles[32],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author8,
                     Article = articles[33],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author9,
                     Article = articles[34],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author9,
                     Article = articles[35],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author10,
                     Article = articles[36],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author10,
                     Article = articles[37],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author11,
                     Article = articles[38],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author12,
                     Article = articles[39],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author11,
                     Article = articles[40],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author11,
                     Article = articles[41],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author12,
                     Article = articles[42],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author11,
                     Article = articles[43],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author12,
                     Article = articles[44],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author12,
                     Article = articles[45],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author12,
                     Article = articles[46],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author,
                     Article = articles[47],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author2,
                     Article = articles[48],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author3,
                     Article = articles[49],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author4,
                     Article = articles[50],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author5,
                     Article = articles[51],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author6,
                     Article = articles[52],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author7,
                     Article = articles[53],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author8,
                     Article = articles[54],
                     IsAuthor = true
                 },
-                   new ShumenNewsUserArticle
+                    new ShumenNewsUserArticle
                 {
                     User = author9,
                     Article = articles[55],
@@ -723,15 +741,16 @@ namespace ShumenNews.Data.Seeding
                 //AdminUser
                 var adminUser = new ShumenNewsUser
                 {
-                    UserName = "hoseJamal",
-                    NormalizedUserName = "HOSEJAMAl",
+                    UserName = "jamaltreti3@gmail.com",
+                    NormalizedUserName = "JAMLTRETI3@GMAIL.COM",
                     Email = "jamaltreti3@gmail.com",
                     NormalizedEmail = "JAMLTRETI3@GMAIL.COM",
                     FirstName = "Hose",
                     LastName = "Jamal",
                     EmailConfirmed = true,
                 };
-                await db.Users.AddAsync(adminUser);
+                await userManager.CreateAsync(adminUser, "123456");
+                await userManager.AddToRoleAsync(adminUser, adminRole.Name);
                 db.SaveChanges();
             }
         }
