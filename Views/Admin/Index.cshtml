@@ -4,10 +4,12 @@
 }
 <h2 class="text-center my-3">Администраторско табло</h2>
 <hr />
-<div class="d-flex justify-content-between m-0 py-1" id="searchAndSave">
-    <h3 class="m-0 pb-2">Търсене на потребител или автор...</h3>
-    <a asp-controller='Admin' asp-action="SetUserProps" class="btn btn-success" id="saveBtn" style="display: none;">Приложи</a>
-</div>
+<form method="post" asp-action="SetUserProps" asp-fragment="@Model" enctype="multipart/form-data">
+    <div class="d-flex justify-content-between m-0 py-1" id="searchAndSave">
+        <h3 class="m-0 pb-2">Търсене на потребител или автор...</h3>
+        <input type="submit" class="btn btn-success" id="saveBtn" style="display: none;" value="Приложи" />
+    </div>
+</form>
 <form method="post" class="d-flex mt-3" role="search">
     <input asp-for="Email" type="search" placeholder="Търсене... [Имейл]" class="form-control me-2" aria-label="Search">
     <button asp-action="Index" asp-route-id="@Model.Email" type="submit" class="btn btn-success"><i class="fa-solid fa-magnifying-glass p-2"></i></button>
@@ -44,7 +46,7 @@
             <div class="mx-1" style="min-height: 20px;">
                 <div class="collapse collapse-horizontal" id="collapseWidthExample">
                     <!--Roles-->
-                    <div class="card card-body" style="width: 300px;">
+                <div class="card card-body" style="width: 300px;">
                         @foreach (var userRole in Model.Results.User.Roles)
                         {
                             if (userRole.IsChecked)
@@ -72,7 +74,7 @@
             <div class="mx-1" style="min-height: 20px;">
                 <div class="collapse collapse-horizontal" id="collapseWidthExample2">
                     <!--Block-->
-                    <div class="card card-body d-inline-block" style="width: 354px;">
+                <div class="card card-body d-inline-block" style="width: 354px;">
                         <button class="btn btn-primary" onclick="ShowSaveButton()">За ден</button>
                         <button class="btn btn-primary" onclick="ShowSaveButton()">За седмица</button>
                         <button class="btn btn-primary" onclick="ShowSaveButton()">За постоянно</button>
@@ -159,7 +161,7 @@
                         <li><i class="fa-solid fa-comments"></i> @article.CommentsCount</li>
                     </ul>
                     <!--Links-->
-                    <a asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id" class="btn btn-primary mt-auto p-2">Подробности</a>
+                <a asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id" class="btn btn-primary mt-auto p-2">Подробности</a>
                 </div>
             </div>
         }
@@ -167,14 +169,14 @@
 </div>
 @section Scripts
 {
-    <script>
-        var index = 0;
-        function ShowSaveButton() {
-            index++;
-            if (index === 1) {
-                let btn = document.getElementById("saveBtn");
-                btn.style.display = "block";
-            }
+<script>
+    var index = 0;
+    function ShowSaveButton() {
+        index++;
+        if (index === 1) {
+            let btn = document.getElementById("saveBtn");
+            btn.style.display = "block";
         }
-    </script>
+    }
+</script>
 }

@@ -187,7 +187,7 @@ namespace ShumenNews.Controllers
             }
             return View(adminViewModel);
         }
-        [HttpGet]
+        [HttpPost]
         public IActionResult SetUserProps(AdminViewModel adminViewModel)
         {
             //TODO AdminViewModel properties are null! Fix it!
