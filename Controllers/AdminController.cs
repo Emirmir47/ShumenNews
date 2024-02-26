@@ -142,6 +142,10 @@ namespace ShumenNews.Controllers
                         Email = user.Email,
                         Roles = rolesViewModels
                     };
+                    if (userManager.IsLockedOutAsync(user).Result)
+                    {
+                        userViewModel.IsBlocked = true;
+                    }
                     if (user.UserArticles.Any(ua => ua.IsAuthor))
                     {
                         var authorArticles = articleService.GetArticlesByAuthor(user);
@@ -184,12 +188,60 @@ namespace ShumenNews.Controllers
             return View(adminViewModel);
         }
         [HttpGet]
-        public IActionResult SetUserProps(AdminViewModel user)
+        public IActionResult SetUserProps(AdminViewModel adminViewModel)
         {
-            var a = 1;
-            a = 2;
-            return Ok();
+            //TODO AdminViewModel properties are null! Fix it!
+
+            //userService.BlockUser(new UserViewModel { Email = "ivi677@gmail.com", BlockTime = 99 });
+            //userService.UnblockUser(new UserViewModel { Email = "ivi677@gmail.com" });
+            //userService.UpdateUserRoles(
+            //    new UserViewModel
+            //    {
+            //        Email = "god@gmail.com",
+            //        Roles = new List<RoleViewModel>
+            //    {
+            //            new RoleViewModel
+            //            {
+            //                Name = "Admin",
+            //                IsChecked = true,
+            //            },
+            //            new RoleViewModel
+            //            {
+            //                Name = "Author",
+            //                IsChecked = true
+            //            },
+            //            new RoleViewModel
+            //            {
+            //                Name = "Moderator",
+            //                IsChecked = false
+            //            },
+            //            new RoleViewModel
+            //            {
+            //                Name = "Bay Ganio",
+            //                IsChecked = true
+            //            }
+            //    }
+            //    });
+
+            
+            if (adminViewModel.Results is not null)
+            {
+                var user = adminViewModel.Results.User;
+                if (user.IsBlocked)
+                {
+                    userService.BlockUser(user);
+                }
+                else if (user.IsUnblocked)
+                {
+                    userService.UnblockUser(user);
+                }
+                if (user.HasUpdatedRoles)
+                {
+                    userService.UpdateUserRoles(user);
+                }
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
         }
-        //TODO Roles
     }
 }

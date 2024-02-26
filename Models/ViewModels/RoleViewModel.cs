@@ -8,6 +8,9 @@
         }
         public string Id { get; set; }
         public string Name { get; set; }
+        /// <summary>
+        /// Determines whether the user is in this role or not
+        /// </summary>
         public bool IsChecked { get; set; }
     }
 }

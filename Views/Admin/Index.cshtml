@@ -4,9 +4,9 @@
 }
 <h2 class="text-center my-3">Администраторско табло</h2>
 <hr />
-<div class="d-flex justify-content-between m-0 py-2" id="searchAndSave">
-    <h3 class="m-0">Търсене на потребител или автор...</h3>
-    <a asp-controller='Admin' asp-action="SetUserProps" class="btn btn-success">Този работи, но другия бутон не!</a>
+<div class="d-flex justify-content-between m-0 py-1" id="searchAndSave">
+    <h3 class="m-0 pb-2">Търсене на потребител или автор...</h3>
+    <a asp-controller='Admin' asp-action="SetUserProps" class="btn btn-success" id="saveBtn" style="display: none;">Приложи</a>
 </div>
 <form method="post" class="d-flex mt-3" role="search">
     <input asp-for="Email" type="search" placeholder="Търсене... [Имейл]" class="form-control me-2" aria-label="Search">
@@ -26,9 +26,18 @@
                         </button>
                     </p>
                     <p>
-                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false" aria-controls="collapseWidthExample2">
-                            Блокиране <i class="fa-solid fa-caret-right"></i> 1
-                        </button>
+                        @if (!Model.Results.User.IsBlocked)
+                        {
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false" aria-controls="collapseWidthExample2">
+                                Блокиране <i class="fa-solid fa-caret-right"></i> 1
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-primary" type="button">
+                                Отблокиране
+                            </button>
+                        }
                     </p>
                 </div>
             </div>
@@ -163,8 +172,8 @@
         function ShowSaveButton() {
             index++;
             if (index === 1) {
-                // $("#searchAndSave").append("<div class='form-control'> Name: <input type='text' name='Ingredients[" + index + "].Name'/>  Quantity: <input type='text' name='Ingredients[" + index + "].Quantity' /> </div>");
-                $("#searchAndSave").append("<a asp-controller='Admin' asp-action='SetUserProps' class='btn btn-success' style='width: 10%;'>Приложи</a>")
+                let btn = document.getElementById("saveBtn");
+                btn.style.display = "block";
             }
         }
     </script>
