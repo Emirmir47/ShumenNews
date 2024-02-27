@@ -14,5 +14,6 @@ namespace ShumenNews.Models.ViewModels
         public string Username => Email is not null ? Email.Split('@')[0] : "none";
         public bool HasUpdatedRoles { get; set; } = false;
         public IEnumerable<RoleViewModel> Roles { get; set; }
+        public string RolesInStr { get; set; }
     }
 }

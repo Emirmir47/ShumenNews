@@ -1,0 +1,129 @@
+﻿@using ShumenNews.Models.ViewModels
+@model SearchViewModel
+
+<h2 class="text-center my-3">Администраторско табло</h2>
+<hr />
+<div class="form-group">
+    <div class="border border-1 mt-3 p-3 d-inline-flex gap-1">
+        <div class="w-auto mx-2">
+            <p class="fst-italic"><span>@@</span>@Model.User.Username</p>
+            <p class="fst-italic">@Model.User.FullName</p>
+            <div class="d-inline-flex gap-4">
+                <p>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+                        Роли <i class="fa-solid fa-square-arrow-up-right"></i>
+                    </button>
+                </p>
+                <p>
+                    @if (!Model.User.IsBlocked)
+                    {
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false" aria-controls="collapseWidthExample2">
+                            Блокиране <i class="fa-solid fa-sort"></i>
+                            <i class="fa-solid fa-1" id="blockNum"></i>
+                        </button>
+                    }
+                    else
+                    {
+                        <input asp-for="@Model.User.IsUnblocked" class="btn btn-primary" type="button" onclick="Unblock()"
+                               value="Отблокиране" />
+                    }
+                </p>
+            </div>
+        </div>
+        <form method="post" asp-action="Details" class="d-flex justify-content-between m-0 mt-auto h-25" id="searchAndSave">
+            <div class="mx-1" style="min-height: 20px;">
+                <div class="collapse collapse-horizontal" id="collapseWidthExample">
+                    <!--Roles-->
+                    <div class="card card-body" style="width: 300px;">
+                        @foreach (var userRole in Model.User.Roles)
+                        {
+                            <div class="form-check">
+                                <input asp-for="@userRole.IsChecked" class="form-check-input" type="checkbox" onclick="ShowSaveButton()" id="flexCheckDefault" checked="@userRole.IsChecked">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    @userRole.Name
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="mx-1" style="min-height: 20px;">
+                <div class="collapse collapse-horizontal" id="collapseWidthExample2">
+                    <!--Block-->
+                    <div class="card card-body d-inline-block" style="width: 354px;">
+                        <button type="button" class="btn btn-primary" onclick="BlockFor1Day()">За ден</button>
+                        <button type="button" class="btn btn-primary" onclick="BlockFor7Days()">За седмица</button>
+                        <button type="button" class="btn btn-primary" onclick="BlockPermanently()">За постоянно</button>
+                    </div>
+                </div>
+            </div>
+            <input asp-for="User.Email" name="User.Email" style="display:none;" />
+            @{
+                Model.User.RolesInStr = string.Join(",", Model.User.Roles.Select(r => $"{r.Name}={r.IsChecked}"));
+            }
+            <input asp-for="User.RolesInStr" name="User.RolesInStr" value="@string.Join(" ,", Model.User.Roles.Select(r=> $"{r.Name}={r.IsChecked}"))" style="display:none;" />
+            <input asp-for="User.IsBlocked" name="User.IsBlocked" checked="@Model.User.IsBlocked" style="display:none;" />
+            <input asp-for="User.IsUnblocked" name="User.IsUnblocked" checked="@Model.User.IsUnblocked" style="display:none;" />
+            <input asp-for="User.BlockTime" name="User.BlockTime" value="7" style="display:none;" />
+            <input asp-for="User.HasUpdatedRoles" name="User.HasUpdatedRoles" checked="@Model.User.HasUpdatedRoles" style="display:none;" />
+            <button type="submit" class="btn btn-success" id="saveBtn" style="display: none;">Приложи</button>
+        </form>
+    </div>
+    @if (Model.IsAuthor)
+    {
+        <hr />
+        <div class="container border border-1 pt-2">
+            <h3 class="text-center">Статиите на този автор</h3>
+            @foreach (var article in Model.Articles)
+            {
+                <ul class="border border-1 list-unstyled p-2">
+                    <li><h5>&#8470; @article.Id</h5></li>
+                    <li><strong>@article.Title</strong></li>
+                    <li><i class="fa-solid fa-thumbs-up"></i> @article.LikesCount | <i class="fa-solid fa-thumbs-down"></i> @article.DislikesCount</li>
+                    <li><i class="fa-solid fa-eye"></i> @article.ViewsCount</li>
+                    <li><i class="fa-solid fa-comments"></i> @article.CommentsCount</li>
+                    <li><p>Публикувано: @article.PublishedOn.ToString("MM/dd/yyyy H:mm")</p></li>
+                    <li class="p-2">
+                        <a asp-controller="Articles" asp-action="Index" asp-route-id="@article.Id" class="btn btn-dark bg-secondary-color bg-gradient text-white">Отвори</a>
+                        <a asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id" class="btn btn-dark bg-secondary-color bg-gradient text-white">Редактирай</a>
+                    </li>
+                </ul>
+            }
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        var index = 0;
+
+        function ShowSaveButton() {
+            index++;
+            if (index === 1) {
+                let btn = document.getElementById("saveBtn");
+                btn.style.display = "block";
+            }
+        }
+        function Unblock() {
+            ShowSaveButton();
+        }
+        function BlockFor1Day() {
+            let faNumber = document.getElementById("blockNum");
+            faNumber.classList.remove(faNumber.classList.item(1));
+            faNumber.classList.add("fa-1");
+            ShowSaveButton();
+        }
+        function BlockFor7Days() {
+            let faNumber = document.getElementById("blockNum");
+            faNumber.classList.remove(faNumber.classList.item(1));
+            faNumber.classList.add("fa-7");
+            ShowSaveButton();
+        }
+        function BlockPermanently() {
+            let faNumber = document.getElementById("blockNum");
+            faNumber.classList.remove(faNumber.classList.item(1));
+            faNumber.classList.add("fa-infinity");
+            ShowSaveButton();
+        }
+    </script>
+}
