@@ -25,7 +25,7 @@
                     else
                     {
                         <input asp-for="@Model.User.IsUnblocked" class="btn btn-primary" type="button" onclick="Unblock()"
-                           value="Отблокиране" />
+                               value="Отблокиране" />
                     }
                 </p>
             </div>
@@ -38,7 +38,7 @@
                         @foreach (var userRole in Model.User.Roles)
                         {
                             <div class="form-check">
-                                <input asp-for="@userRole.IsChecked" class="form-check-input" type="checkbox" onclick="ChangeRole()" id="flexCheckDefault" checked="@userRole.IsChecked">
+                                <input asp-for="@userRole.IsChecked" class="form-check-input" type="checkbox" onclick="ChangeRole()" id="flexCheckDefault-@userRole.Id" checked="@userRole.IsChecked">
                                 <label class="form-check-label" for="flexCheckDefault">
                                     @userRole.Name
                                 </label>
@@ -50,7 +50,7 @@
             <div class="mx-1" style="min-height: 20px;">
                 <div class="collapse collapse-horizontal" id="collapseWidthExample2">
                     <!--Block-->
-                    <div class="card card-body d-inline-block" style="width: 354px;">
+                    <div class="card card-body d-inline-block" style="width: 354px; height: 112px;">
                         <button type="button" class="btn btn-primary" id="blockFor1Day" onclick="BlockFor1Day()">За ден</button>
                         <button type="button" class="btn btn-primary" id="blockFor7Days" onclick="BlockFor7Days()">За седмица</button>
                         <button type="button" class="btn btn-primary" id="blockPermanently" onclick="BlockPermanently()">За постоянно</button>
@@ -61,7 +61,7 @@
             @{
                 Model.User.RolesInStr = string.Join(",", Model.User.Roles.Select(r => $"{r.Name}={r.IsChecked}"));
             }
-            <input asp-for="User.RolesInStr" name="User.RolesInStr" id="rolesInStr" style="display: none;"/>
+            <input asp-for="User.RolesInStr" name="User.RolesInStr" id="rolesInStr" style="display: none;" />
             <input asp-for="User.IsBlocked" name="User.IsBlocked" type="checkbox" checked="@Model.User.IsBlocked" id="isBlocked" style="display:none;" />
             <input asp-for="User.IsUnblocked" name="User.IsUnblocked" type="checkbox" checked="@Model.User.IsUnblocked" id="isUnblocked" style="display:none;" />
             <input asp-for="User.BlockTime" name="User.BlockTime" id="blockTime" style="display:none;" />
@@ -94,65 +94,75 @@
 </div>
 
 @section Scripts {
-<script>
-    var index = 0;
+    <script>
+        var index = 0;
 
-    function ShowSaveButton() {
-        index++;
-        if (index === 1) {
-            let btn = document.getElementById("saveBtn");
-            btn.style.display = "block";
+        function ShowSaveButton() {
+            index++;
+            if (index === 1) {
+                let btn = document.getElementById("saveBtn");
+                btn.style.display = "block";
+            }
         }
-    }
-    function ChangeRole() {
-        var flexCheck = document.getElementById("flexCheckDefault");
-        console.log(flexCheck);
-        var hasUpdatedRoles = document.getElementById("hasUpdatedRoles");
-        hasUpdatedRoles.checked = true;
-        var rolesInStr = document.getElementById("rolesInStr");
-        var roles = @Html.Raw(Json.Serialize(Model.User.Roles));
-        console.log(roles);
-        console.log(hasUpdatedRoles);
-        rolesInStr.value = roles.map(function (r) {
-            return r.name + '=' + r.isChecked;
-        }).join(',');
-        console.log(rolesInStr.value);
-        ShowSaveButton();
-    }
-    function Unblock() {
-        var isUnblocked = document.getElementById("isUnblocked");
-        isUnblocked.checked = true;
-        ShowSaveButton();
-    }
-    function BlockFor1Day() {
-        let faNumber = document.getElementById("blockNum");
-        faNumber.classList.remove(faNumber.classList.item(1));
-        faNumber.classList.add("fa-1");
-        var blockTime = document.getElementById("blockTime");
-        blockTime.value = 1;
-        var isBlocked = document.getElementById("isBlocked");
-        isBlocked.checked = true;
-        ShowSaveButton();
-    }
-    function BlockFor7Days() {
-        let faNumber = document.getElementById("blockNum");
-        faNumber.classList.remove(faNumber.classList.item(1));
-        faNumber.classList.add("fa-7");
-        var blockTime = document.getElementById("blockTime");
-        blockTime.value = 7;
-        var isBlocked = document.getElementById("isBlocked");
-        isBlocked.checked = true;
-        ShowSaveButton();
-    }
-    function BlockPermanently() {
-        let faNumber = document.getElementById("blockNum");
-        faNumber.classList.remove(faNumber.classList.item(1));
-        faNumber.classList.add("fa-infinity");
-        var blockTime = document.getElementById("blockTime");
-        blockTime.value = 999;
-        var isBlocked = document.getElementById("isBlocked");
-        isBlocked.checked = true;
-        ShowSaveButton();
-    }
-</script>
+        function ChangeRole() {
+            var hasUpdatedRoles = document.getElementById("hasUpdatedRoles");
+            hasUpdatedRoles.checked = true;
+            var rolesInStr = document.getElementById("rolesInStr");
+            var roles = @Html.Raw(Json.Serialize(Model.User.Roles));
+            roles.forEach(function (element) {
+                debugger;
+                let elementId = element.id;
+                var flexCheck = document.getElementById(`flexCheckDefault-${elementId}`);
+                element.isChecked = flexCheck.checked;
+                console.log(flexCheck);
+            });
+
+
+            console.log(roles);
+            console.log(hasUpdatedRoles);
+
+            rolesInStr.value = roles.map(function (r) {
+                return r.name + '=' + r.isChecked;
+            }).join(',');
+
+            console.log(rolesInStr.value);
+
+            ShowSaveButton();
+        }
+        function Unblock() {
+            var isUnblocked = document.getElementById("isUnblocked");
+            isUnblocked.checked = true;
+            ShowSaveButton();
+        }
+        function BlockFor1Day() {
+            let faNumber = document.getElementById("blockNum");
+            faNumber.classList.remove(faNumber.classList.item(1));
+            faNumber.classList.add("fa-1");
+            var blockTime = document.getElementById("blockTime");
+            blockTime.value = 1;
+            var isBlocked = document.getElementById("isBlocked");
+            isBlocked.checked = true;
+            ShowSaveButton();
+        }
+        function BlockFor7Days() {
+            let faNumber = document.getElementById("blockNum");
+            faNumber.classList.remove(faNumber.classList.item(1));
+            faNumber.classList.add("fa-7");
+            var blockTime = document.getElementById("blockTime");
+            blockTime.value = 7;
+            var isBlocked = document.getElementById("isBlocked");
+            isBlocked.checked = true;
+            ShowSaveButton();
+        }
+        function BlockPermanently() {
+            let faNumber = document.getElementById("blockNum");
+            faNumber.classList.remove(faNumber.classList.item(1));
+            faNumber.classList.add("fa-infinity");
+            var blockTime = document.getElementById("blockTime");
+            blockTime.value = 999;
+            var isBlocked = document.getElementById("isBlocked");
+            isBlocked.checked = true;
+            ShowSaveButton();
+        }
+    </script>
 }
