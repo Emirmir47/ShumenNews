@@ -48,8 +48,6 @@ namespace ShumenNews.Controllers
                 var user = userService.GetUserByEmail(email);
                 if (user != null)
                 {
-                    var userRoles = userManager.GetRolesAsync(user).Result.ToList();
-
                     //UserViewModel
                     var userViewModel = new UserViewModel
                     {
@@ -57,10 +55,6 @@ namespace ShumenNews.Controllers
                         LastName = user.LastName,
                         Email = user.Email,
                     };
-                    if (userManager.IsLockedOutAsync(user).Result)
-                    {
-                        userViewModel.IsBlocked = true;
-                    }
 
                     //SearchViewModel
                     var searchViewModel = new SearchViewModel
@@ -68,23 +62,6 @@ namespace ShumenNews.Controllers
                         IsAuthor = false,
                         User = userViewModel
                     };
-
-                    if (user.UserArticles.Any(ua => ua.IsAuthor))
-                    {
-                        var authorArticles = articleService.GetArticlesByAuthor(user);
-                        {
-                            searchViewModel.IsAuthor = true;
-                            searchViewModel.Articles = authorArticles.Select(a => new ArticleViewModel
-                            {
-                                Id = a.Id,
-                                Title = a.Title,
-                                LikesCount = a.LikesCount,
-                                ViewsCount = a.ViewsCount,
-                                CommentsCount = a.CommentsCount,
-                                PublishedOn = a.PublishedOn,
-                            }).ToList();
-                        };
-                    }
                     adminViewModel.Results = searchViewModel;
                 }
             }
@@ -176,44 +153,11 @@ namespace ShumenNews.Controllers
                 Name = ur.Split("=")[0],
                 IsChecked = Convert.ToBoolean(ur.Split("=")[1])
             }).ToList();
-            SetUserProps(searchViewModel.User);
+            SetUserProps(user);
             return RedirectToAction("Index");
         }
         private void SetUserProps(UserViewModel user)
         {
-            //TODO AdminViewModel properties are null! Fix it!
-
-            //userService.BlockUser(new UserViewModel { Email = "ivi677@gmail.com", BlockTime = 99 });
-            //userService.UnblockUser(new UserViewModel { Email = "ivi677@gmail.com" });
-            //userService.UpdateUserRoles(
-            //    new UserViewModel
-            //    {
-            //        Email = "god@gmail.com",
-            //        Roles = new List<RoleViewModel>
-            //    {
-            //            new RoleViewModel
-            //            {
-            //                Name = "Admin",
-            //                IsChecked = true,
-            //            },
-            //            new RoleViewModel
-            //            {
-            //                Name = "Author",
-            //                IsChecked = true
-            //            },
-            //            new RoleViewModel
-            //            {
-            //                Name = "Moderator",
-            //                IsChecked = false
-            //            },
-            //            new RoleViewModel
-            //            {
-            //                Name = "Bay Ganio",
-            //                IsChecked = true
-            //            }
-            //    }
-            //    });
-
             if (user.IsBlocked)
             {
                 userService.BlockUser(user);
@@ -251,6 +195,13 @@ namespace ShumenNews.Controllers
                     LastName = u.LastName,
                     Email = u.Email
                 }).ToList();
+            var moderators = userService.GetModerators()
+                .Select(u => new UserViewModel
+                {
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Email = u.Email
+                }).ToList();
             var categories = db.Categories
                 .Select(c => new CategoryViewModel
                 {
@@ -261,6 +212,7 @@ namespace ShumenNews.Controllers
             {
                 { "Articles", articles },
                 { "Authors", authors },
+                { "Moderator", moderators },
                 { "Categories", categories }
             };
         }
@@ -270,6 +222,7 @@ namespace ShumenNews.Controllers
             {
                 Articles = (List<ArticleViewModel>)data["Articles"],
                 Authors = (List<UserViewModel>)data["Authors"],
+                Moderators = (List<UserViewModel>)data["Moderator"],
                 Categories = (List<CategoryViewModel>)data["Categories"],
             };
             return adminViewModel;

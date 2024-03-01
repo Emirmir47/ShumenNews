@@ -39,7 +39,7 @@ namespace ShumenNews.Controllers
             var lastArticleId = articleService.GetLastArticleId();
             if (id > 0 && id <= lastArticleId)
             {
-                var model = db.Articles.Where(a=>a.IsDeleted == false)
+                var model = db.Articles.Where(a => a.IsDeleted == false)
                     .Include(a => a.Images)
                     .Select(a => new ArticleViewModel
                     {
@@ -155,23 +155,38 @@ namespace ShumenNews.Controllers
         }
         public IActionResult Details(int id)
         {
+            var isAdmin = User.IsInRole("Admin");
             var article = articleService.GetArticleById(id);
-            var model = new ArticleUpdateBindingModel
+            var author = articleService.GetArticleAuthor(article);
+            var isArticleAuthor = false;
+            if (author is not null)
             {
-                Id = article.Id,
-                Title = article.Title,
-                Content = article.Content,
-                //LikesCount = article.LikesCount,
-                //DislikesCount = article.DislikesCount,
-                //ViewsCount = article.ViewsCount,
-                //PublishedOn = article.PublishedOn,
-                //MainImage = imageService.GetArticleMainImageUrl(article.MainImageId, article),
-                //Images = article.Images.Select(a => a.Url),
-                //Category = article.Category,
-                IsDeleted = article.IsDeleted,
-                Author = articleService.GetArticleAuthor(article)
-            };
-            return View(model);
+                isArticleAuthor = User.Identity!.Name == author.UserName;
+            }
+            if (article is not null)
+            {
+                if (isAdmin || isArticleAuthor)
+                {
+                    var model = new ArticleUpdateBindingModel
+                    {
+                        Id = article.Id,
+                        Title = article.Title,
+                        Content = article.Content,
+                        //LikesCount = article.LikesCount,
+                        //DislikesCount = article.DislikesCount,
+                        //ViewsCount = article.ViewsCount,
+                        //PublishedOn = article.PublishedOn,
+                        //MainImage = imageService.GetArticleMainImageUrl(article.MainImageId, article),
+                        //Images = article.Images.Select(a => a.Url),
+                        //Category = article.Category,
+                        IsDeleted = article.IsDeleted,
+                        Author = author
+                    };
+                    return View(model);
+                }
+
+            }
+            return RedirectToAction("Index", "Home");
         }
         [HttpPost]
         public IActionResult Details(ArticleUpdateBindingModel bindingModel)

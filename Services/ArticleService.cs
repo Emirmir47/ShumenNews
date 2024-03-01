@@ -25,8 +25,14 @@ namespace ShumenNews.Services
         }
         public ShumenNewsUser GetArticleAuthor(ShumenNewsArticle article)
         {
-            var author = article.UserArticles.Where(ua => ua.IsAuthor == true).Select(ua => ua.User).SingleOrDefault();
-            return author!;
+            if (article is not null)
+            {
+                var author = db.UserArticles
+                    .Where(ua => ua.Article.Id == article.Id && ua.IsAuthor == true)
+                    .Select(ua => ua.User).SingleOrDefault();
+                return author!;
+            }
+            return null!;
         }
         public List<ShumenNewsArticle> GetArticlesByAuthor(ShumenNewsUser author)
         {
@@ -44,7 +50,7 @@ namespace ShumenNews.Services
                 .Where(a => a.IsDeleted == false)
                 .Include(a => a.Images)
                 .ToList();
-            articles = articles.OrderByDescending(a=>a.Id).ToList();
+            articles = articles.OrderByDescending(a => a.Id).ToList();
             ArticlesWithShortContent(articles, wordsCount);
             return articles;
         }

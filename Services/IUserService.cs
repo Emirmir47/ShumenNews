@@ -11,5 +11,6 @@ namespace ShumenNews.Services
         public void UpdateUserRoles(UserViewModel user);
         public void BlockUser(UserViewModel user);
         public void UnblockUser(UserViewModel user);
+        public List<ShumenNewsUser> GetModerators();
     }
 }

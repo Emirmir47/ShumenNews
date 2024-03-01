@@ -28,6 +28,12 @@ namespace ShumenNews.Services
                 .SingleOrDefault(u => u.Email == email)!;
             return user;
         }
+        public List<ShumenNewsUser> GetModerators()
+        {
+            var moderators = userManager.GetUsersInRoleAsync("Moderator")
+                .GetAwaiter().GetResult().ToList();
+            return moderators;
+        }
         public List<string> GetUserRoles(ShumenNewsUser user)
         {
             var userRoles = db.UserRoles.Where(ur => ur.UserId == user.Id)

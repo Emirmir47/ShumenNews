@@ -19,50 +19,12 @@
                 <p class="fst-italic"><span>@@</span>@Model.Results.User.Username</p>
                 <p class="fst-italic">@Model.Results.User.FullName</p>
                 <div class="d-inline-flex gap-2">
-                    <p>
-                        <a asp-action="Details" asp-route-id="@Model.Email" class="btn btn-primary">
-                            Роли
-                        </a>
-                    </p>
-                    <p>
-                        @if (!Model.Results.User.IsBlocked)
-                        {
-                            <a asp-action="Details" asp-route-id="@Model.Email" class="btn btn-primary">
-                                Блокиране
-                            </a>
-                        }
-                        else
-                        {
-                            <a asp-action="Details" asp-route-id="@Model.Email" class="btn btn-primary">
-                                Отблокиране
-                            </a>
-                        }
-                    </p>
+                    <a asp-action="Details" asp-route-id="@Model.Email" class="btn btn-primary">
+                        Подробности за този потребител
+                    </a>
                 </div>
             </div>
         </div>
-        @if (Model.Results.IsAuthor)
-        {
-            <hr />
-            <div class="container border border-1 pt-2">
-                <h3 class="text-center">Статиите на този автор</h3>
-                @foreach (var article in Model.Results.Articles)
-                {
-                    <ul class="border border-1 list-unstyled p-2">
-                        <li><h5>&#8470; @article.Id</h5></li>
-                        <li><strong>@article.Title</strong></li>
-                        <li><i class="fa-solid fa-thumbs-up"></i> @article.LikesCount | <i class="fa-solid fa-thumbs-down"></i> @article.DislikesCount</li>
-                        <li><i class="fa-solid fa-eye"></i> @article.ViewsCount</li>
-                        <li><i class="fa-solid fa-comments"></i> @article.CommentsCount</li>
-                        <li><p>Публикувано: @article.PublishedOn.ToString("MM/dd/yyyy H:mm")</p></li>
-                        <li class="p-2">
-                            <a asp-controller="Articles" asp-action="Index" asp-route-id="@article.Id" class="btn btn-dark bg-secondary-color bg-gradient text-white">Отвори</a>
-                            <a asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id" class="btn btn-dark bg-secondary-color bg-gradient text-white">Редактирай</a>
-                        </li>
-                    </ul>
-                }
-            </div>
-        }
     </div>
 }
 <hr />
@@ -73,6 +35,7 @@
             <th class="border-1">Име</th>
             <th class="border-1">Фамилия</th>
             <th class="border-1">Email</th>
+            <th class="border-1"><i class="fa-solid fa-circle-user"></i></th>
         </tr>
     </thead>
     @foreach (var author in Model.Authors)
@@ -82,6 +45,38 @@
                 <td class="border-1">@author.FirstName</td>
                 <td class="border-1">@author.LastName</td>
                 <td class="border-1">@author.Email</td>
+                <td class="border-1">
+                    <a asp-action="Details" asp-route-id="@author.Email" class="btn btn-primary">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>
+<hr />
+<h3>Модератори</h3>
+<table class="table table-striped text-center">
+    <thead>
+        <tr>
+            <th class="border-1">Име</th>
+            <th class="border-1">Фамилия</th>
+            <th class="border-1">Email</th>
+            <th class="border-1"><i class="fa-solid fa-circle-user"></i></th>
+        </tr>
+    </thead>
+    @foreach (var mod in Model.Moderators)
+    {
+        <tbody>
+            <tr>
+                <td class="border-1">@mod.FirstName</td>
+                <td class="border-1">@mod.LastName</td>
+                <td class="border-1">@mod.Email</td>
+                <td class="border-1">
+                    <a asp-action="Details" asp-route-id="@mod.Email" class="btn btn-primary">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </a>
+                </td>
             </tr>
         </tbody>
     }
