@@ -1,13 +1,23 @@
 ﻿@using ShumenNews.Models.ViewModels
 @model ICollection<ArticleViewModel>
-@foreach (var article in Model)
-{
-    <h3>@article.Id</h3> 
-    <h3>@article.Title</h3>
-    <p>@article.Content</p>
-    <p>@article.PublishedOn.ToString("MM/dd/yyyy")</p>
-    @if (User.IsInRole("Author"))
+<div class="container my-4">
+    @foreach (var article in Model)
     {
-        <a asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id"><i class="fas fa-edit"></i></a>
+        <div class="border border-3 my-1 p-2 justify-content-between">
+            <div class="d-inline-block">
+                <span style="font-size: 20px">&#8470;@article.Id. @article.Title</span>
+                <br />
+                <span class="border border-1">Публикувано на: @article.PublishedOn.ToString("MM/dd/yyyy")г в @article.PublishedOn.ToString("HH:mm")ч</span>
+                <br />
+                @if (User.IsInRole("Author"))
+                {
+                    <a asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id">Редактиране на статията: <i class="fas fa-edit"></i></a>
+                }
+            </div>
+            <div class="d-inline-block">
+                <img src="@article.MainImage" width="150" height="150"/>
+            </div>
+        </div>
     }
-}
+</div>
+

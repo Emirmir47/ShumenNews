@@ -18,5 +18,6 @@ namespace ShumenNews.Models.ViewModels
         public virtual UserArticleViewModel UserArticle { get; set; }
         public virtual ICollection<ShumenNewsComment> Comments { get; set; }
         public virtual IEnumerable<string> Images { get; set; }
+        public bool? UserAttitude { get; set; }
     }
 }

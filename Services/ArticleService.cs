@@ -19,7 +19,9 @@ namespace ShumenNews.Services
             var article = db.Articles
                 .Include(a => a.Images)
                 .Include(a => a.UserArticles)
-                .Include(a => a.Comments) //Error
+                .ThenInclude(ua => ua.User)
+                .Include(a => a.Comments)
+                .ThenInclude(a => a.User)
                 .FirstOrDefault(a => a.Id == id && a.IsDeleted == false)!;
             return article;
         }
@@ -31,14 +33,18 @@ namespace ShumenNews.Services
         public UserArticleViewModel GetUserArticleAsDTOByUsername(string username, ShumenNewsArticle article)
         {
             var userArticle = article.UserArticles
-                .Where(u=>u.User.UserName == username)
+                .Where(u => u.User.UserName == username)
                 .FirstOrDefault()!;
-            var userArticleViewModel = new UserArticleViewModel
+            if (userArticle is not null)
             {
-                Id = userArticle.Id,
-                Attitude = userArticle.Attitude,
-            };
-            return userArticleViewModel!;
+                var userArticleViewModel = new UserArticleViewModel
+                {
+                    Id = userArticle.Id,
+                    Attitude = userArticle.Attitude,
+                };
+                return userArticleViewModel!;
+            }
+            return null!;
         }
         public ShumenNewsUser GetArticleAuthor(ShumenNewsArticle article)
         {
@@ -92,6 +98,40 @@ namespace ShumenNews.Services
                 article.Content = shortContent;
             }
             return articles;
+        }
+        public void CreateUserArticle(ArticleViewModel articleViewModel, ShumenNewsUser user)
+        {
+            var article = GetArticleById(articleViewModel.Id);
+            var userArticle = new ShumenNewsUserArticle
+            {
+                Article = article,
+                User = user,
+                Attitude = articleViewModel.UserAttitude
+            };
+            db.UserArticles.Add(userArticle);
+            db.SaveChanges();
+        }
+        public void SetAttitudeToArticle(ArticleViewModel articleViewModel)
+        {
+            var userArticles = db.UserArticles
+                .FirstOrDefault(ua => ua.Id == articleViewModel.UserArticle.Id);
+            if (userArticles!.Attitude == articleViewModel.UserArticle.Attitude)
+            {
+                userArticles!.Attitude = null;
+            }
+            else
+            {
+                userArticles!.Attitude = articleViewModel.UserArticle.Attitude;
+            }
+            db.SaveChanges();
+        }
+        public void AddCommentToArticle(ArticleViewModel articleViewModel)
+        {
+
+        }
+        public void DeleteCommentFromArticle(ArticleViewModel articleViewModel)
+        {
+
         }
     }
 }

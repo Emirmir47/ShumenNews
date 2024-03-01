@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ namespace ShumenNews.Controllers
     public class ArticlesController : Controller
     {
         private readonly ShumenNewsDbContext db;
+        private readonly UserManager<ShumenNewsUser> userManager;
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly IUserService userService;
         private readonly ICategoryService categoryService;
@@ -21,6 +23,7 @@ namespace ShumenNews.Controllers
         private readonly IImageService imageService;
 
         public ArticlesController(ShumenNewsDbContext db,
+            UserManager<ShumenNewsUser> userManager,
             IWebHostEnvironment webHostEnvironment,
             IUserService userService,
             ICategoryService categoryService,
@@ -28,6 +31,7 @@ namespace ShumenNews.Controllers
             IImageService imageService)
         {
             this.db = db;
+            this.userManager = userManager;
             this.webHostEnvironment = webHostEnvironment;
             this.userService = userService;
             this.categoryService = categoryService;
@@ -69,20 +73,29 @@ namespace ShumenNews.Controllers
         }
         [Authorize]
         [HttpPost]
-        public IActionResult LikeArticle()
+        public IActionResult GetUserAttitude(ArticleViewModel article)
         {
-            return RedirectToAction("Index");
+            if (article is not null)
+            {
+                if (article.UserArticle is not null)
+                {
+                    articleService.SetAttitudeToArticle(article);
+                }
+                else
+                {
+                    var user = userManager.FindByNameAsync(User.Identity!.Name)
+                        .GetAwaiter().GetResult();
+                    articleService.CreateUserArticle(article, user);
+                }
+                return RedirectToAction("Index", "Articles", article.Id); //Връща Home/Index
+            }
+            return RedirectToAction("Index", article);
         }
         [Authorize]
         [HttpPost]
-        public IActionResult DisLike()
+        public IActionResult GetUserComment(ArticleViewModel article)
         {
-            return RedirectToAction("Index");
-        }
-        [Authorize]
-        [HttpPost]
-        public IActionResult CommentArticle()
-        {
+            //TODO Comments
             return RedirectToAction("Index");
         }
 
@@ -178,7 +191,8 @@ namespace ShumenNews.Controllers
             {
                 Id = a.Id,
                 Title = a.Title,
-                //TODO
+                PublishedOn = a.PublishedOn,
+                MainImage = imageService.GetImageUrlById(a.MainImageId),
             }).ToList();
             return View(model);
         }
