@@ -237,12 +237,6 @@ namespace ShumenNews.Migrations
                     b.Property<int>("LikesCount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ParentCommentId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ShumenNewsArticleId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -250,10 +244,6 @@ namespace ShumenNews.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ArticleId");
-
-                    b.HasIndex("ParentCommentId");
-
-                    b.HasIndex("ShumenNewsArticleId");
 
                     b.HasIndex("UserId");
 
@@ -452,14 +442,6 @@ namespace ShumenNews.Migrations
                         .WithMany()
                         .HasForeignKey("ArticleId");
 
-                    b.HasOne("ShumenNews.Data.Models.ShumenNewsComment", "ParentComment")
-                        .WithMany("Kids")
-                        .HasForeignKey("ParentCommentId");
-
-                    b.HasOne("ShumenNews.Data.Models.ShumenNewsArticle", null)
-                        .WithMany("Comments")
-                        .HasForeignKey("ShumenNewsArticleId");
-
                     b.HasOne("ShumenNews.Data.Models.ShumenNewsUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -467,8 +449,6 @@ namespace ShumenNews.Migrations
                         .IsRequired();
 
                     b.Navigation("Article");
-
-                    b.Navigation("ParentComment");
 
                     b.Navigation("User");
                 });
@@ -513,11 +493,6 @@ namespace ShumenNews.Migrations
             modelBuilder.Entity("ShumenNews.Data.Models.ShumenNewsCategory", b =>
                 {
                     b.Navigation("Articles");
-                });
-
-            modelBuilder.Entity("ShumenNews.Data.Models.ShumenNewsComment", b =>
-                {
-                    b.Navigation("Kids");
                 });
 
             modelBuilder.Entity("ShumenNews.Data.Models.ShumenNewsUser", b =>

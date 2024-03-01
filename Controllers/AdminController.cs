@@ -131,6 +131,7 @@ namespace ShumenNews.Controllers
                             Id = a.Id,
                             Title = a.Title,
                             LikesCount = a.LikesCount,
+                            DislikesCount = a.DislikesCount,
                             ViewsCount = a.ViewsCount,
                             CommentsCount = a.CommentsCount,
                             PublishedOn = a.PublishedOn,

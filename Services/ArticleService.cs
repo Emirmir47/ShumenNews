@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShumenNews.Data;
 using ShumenNews.Data.Models;
+using ShumenNews.Models.ViewModels;
+using System.Net.WebSockets;
 
 namespace ShumenNews.Services
 {
@@ -14,14 +16,29 @@ namespace ShumenNews.Services
         }
         public ShumenNewsArticle GetArticleById(int id)
         {
-            var article = db.Articles.Include(a => a.Images)
-                .FirstOrDefault(a => a.Id == id)!;
+            var article = db.Articles
+                .Include(a => a.Images)
+                .Include(a => a.UserArticles)
+                .Include(a => a.Comments) //Error
+                .FirstOrDefault(a => a.Id == id && a.IsDeleted == false)!;
             return article;
         }
         public int GetLastArticleId()
         {
             return db.Articles.OrderBy(a => a.Id).Select(a => a.Id)
                 .LastOrDefault();
+        }
+        public UserArticleViewModel GetUserArticleAsDTOByUsername(string username, ShumenNewsArticle article)
+        {
+            var userArticle = article.UserArticles
+                .Where(u=>u.User.UserName == username)
+                .FirstOrDefault()!;
+            var userArticleViewModel = new UserArticleViewModel
+            {
+                Id = userArticle.Id,
+                Attitude = userArticle.Attitude,
+            };
+            return userArticleViewModel!;
         }
         public ShumenNewsUser GetArticleAuthor(ShumenNewsArticle article)
         {

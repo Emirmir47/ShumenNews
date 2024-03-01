@@ -258,15 +258,13 @@ namespace ShumenNews.Migrations
                     DislikesCount = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ArticleId = table.Column<int>(type: "int", nullable: true),
-                    ParentCommentId = table.Column<int>(type: "int", nullable: true),
-                    ShumenNewsArticleId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comments_Articles_ShumenNewsArticleId",
-                        column: x => x.ShumenNewsArticleId,
+                        name: "FK_Comments_Articles_ArticleId",
+                        column: x => x.ArticleId,
                         principalTable: "Articles",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -275,16 +273,6 @@ namespace ShumenNews.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_Comments_Comments_ParentCommentId",
-                        column: x => x.ParentCommentId,
-                        principalTable: "Comments",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Comments_UserArticles_ArticleId",
-                        column: x => x.ArticleId,
-                        principalTable: "UserArticles",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -335,16 +323,6 @@ namespace ShumenNews.Migrations
                 name: "IX_Comments_ArticleId",
                 table: "Comments",
                 column: "ArticleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Comments_ParentCommentId",
-                table: "Comments",
-                column: "ParentCommentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Comments_ShumenNewsArticleId",
-                table: "Comments",
-                column: "ShumenNewsArticleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_UserId",

@@ -39,24 +39,53 @@ namespace ShumenNews.Controllers
             var lastArticleId = articleService.GetLastArticleId();
             if (id > 0 && id <= lastArticleId)
             {
-                var model = db.Articles.Where(a => a.IsDeleted == false)
-                    .Include(a => a.Images)
-                    .Select(a => new ArticleViewModel
+                var article = articleService.GetArticleById(id);
+                if (article is not null)
+                {
+                    var mainImage = imageService.GetArticleMainImageUrl(article.MainImageId, article);
+
+                    var model = new ArticleViewModel
                     {
-                        Id = a.Id,
-                        Title = a.Title,
-                        Content = a.Content,
-                        LikesCount = a.LikesCount,
-                        DislikesCount = a.DislikesCount,
-                        ViewsCount = a.ViewsCount,
-                        PublishedOn = a.PublishedOn,
-                        MainImage = imageService.GetArticleMainImageUrl(a.MainImageId, a),
-                        Images = a.Images.Select(a => a.Url)
-                    }).FirstOrDefault(a => a.Id == id);
-                return View(model);
+                        Id = article.Id,
+                        Title = article.Title,
+                        Content = article.Content,
+                        LikesCount = article.LikesCount,
+                        DislikesCount = article.DislikesCount,
+                        ViewsCount = article.ViewsCount,
+                        PublishedOn = article.PublishedOn,
+                        MainImage = mainImage,
+                        Comments = article.Comments,
+                        Images = article.Images.Select(a => a.Url)
+                    };
+                    if (User.Identity!.IsAuthenticated)
+                    {
+                        var userArticle = articleService.GetUserArticleAsDTOByUsername(User.Identity.Name!, article);
+                        model.UserArticle = userArticle;
+                    }
+                    return View(model);
+                }
             }
             return RedirectToAction("Index", "Home");
         }
+        [Authorize]
+        [HttpPost]
+        public IActionResult LikeArticle()
+        {
+            return RedirectToAction("Index");
+        }
+        [Authorize]
+        [HttpPost]
+        public IActionResult DisLike()
+        {
+            return RedirectToAction("Index");
+        }
+        [Authorize]
+        [HttpPost]
+        public IActionResult CommentArticle()
+        {
+            return RedirectToAction("Index");
+        }
+
         [Authorize(Roles = "Admin, Moderator")]
         public IActionResult All()
         {

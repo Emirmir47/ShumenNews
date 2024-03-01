@@ -152,6 +152,7 @@ namespace ShumenNews.Data.Seeding
                 //    Article = article1
                 //};
 
+
                 //Authors
                 var author = new ShumenNewsUser
                 {
@@ -165,6 +166,14 @@ namespace ShumenNews.Data.Seeding
                 };
                 await userManager.CreateAsync(author, "123456");
                 await userManager.AddToRoleAsync(author, authorRole.Name);
+
+                ShumenNewsComment comment = new ShumenNewsComment
+                {
+                    Content = "Bahti grozdeto!",
+                    User = author,
+                    Article = articles[35],
+                };
+                db.Comments.Add(comment);
 
                 var author2 = new ShumenNewsUser
                 {

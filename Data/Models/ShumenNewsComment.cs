@@ -9,9 +9,6 @@
         public string UserId { get; set; }
         public virtual ShumenNewsUser User { get; set; }
         public int? ArticleId { get; set; }
-        public virtual ShumenNewsUserArticle? Article { get; set; }
-        public int? ParentCommentId { get; set; }
-        public virtual ShumenNewsComment? ParentComment { get; set; }
-        public virtual ICollection<ShumenNewsComment>? Kids { get; set; }
+        public virtual ShumenNewsArticle? Article { get; set; }
     }
 }
