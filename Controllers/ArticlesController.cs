@@ -46,6 +46,7 @@ namespace ShumenNews.Controllers
                 var article = articleService.GetArticleById(id);
                 if (article is not null && article.IsDeleted == false)
                 {
+                    articleService.AddAViewToArticle(article);
                     var mainImage = imageService.GetArticleMainImageUrl(article.MainImageId, article);
 
                     var model = new ArticleViewModel
@@ -201,6 +202,7 @@ namespace ShumenNews.Controllers
         {
             var isAdmin = User.IsInRole("Admin");
             var article = articleService.GetArticleById(id);
+            var categories = categoryService.GetAllCategoriesAsSelectListItem();
             var author = articleService.GetArticleAuthor(article);
             var isArticleAuthor = false;
             if (author is not null)
@@ -219,7 +221,7 @@ namespace ShumenNews.Controllers
                         PublishedOn = article.PublishedOn,
                         Images = article.Images.Select(a => a.Url),
                         CategoryId = article.Category.Id,
-                        CategoryName = article.Category.Name,
+                        Categories = categories,
                         IsDeleted = article.IsDeleted,
                         Author = author!
                     };
@@ -240,7 +242,11 @@ namespace ShumenNews.Controllers
                 {
                     article.Content = bindingModel.Content;
                 }
-                db.SaveChanges();
+                article.PublishedOn = new DateTime(
+                    bindingModel.PublishedOn.Year, bindingModel.PublishedOn.Month, bindingModel.PublishedOn.Day,
+                    article.PublishedOn.Hour, article.PublishedOn.Minute, article.PublishedOn.Second);
+                article.CategoryId = bindingModel.CategoryId;
+                db.SaveChanges(); 
                 if (User.IsInRole("Author"))
                 {
                     return RedirectToAction("MyArticles");

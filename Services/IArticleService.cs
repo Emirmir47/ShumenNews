@@ -13,6 +13,7 @@ namespace ShumenNews.Services
         public UserArticleViewModel GetUserArticleAsDTOByUsername(string username, ShumenNewsArticle article);
         public ShumenNewsUser GetArticleAuthor(ShumenNewsArticle article);
         public List<ShumenNewsArticle> ArticlesWithShortContent(List<ShumenNewsArticle> articles, int wordsCount);
+        public void AddAViewToArticle(ShumenNewsArticle article);
         public void CreateUserArticle(ArticleViewModel article, ShumenNewsUser user);
         public void SetAttitudeToArticle(ArticleViewModel articleViewModel);
         public void AddCommentToArticle(ArticleViewModel articleViewModel);

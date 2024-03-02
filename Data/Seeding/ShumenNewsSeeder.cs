@@ -167,14 +167,6 @@ namespace ShumenNews.Data.Seeding
                 await userManager.CreateAsync(author, "123456");
                 await userManager.AddToRoleAsync(author, authorRole.Name);
 
-                ShumenNewsComment comment = new ShumenNewsComment
-                {
-                    Content = "Bahti grozdeto!",
-                    User = author,
-                    Article = articles[35],
-                };
-                db.Comments.Add(comment);
-
                 var author2 = new ShumenNewsUser
                 {
                     UserName = "mihail8elenkov@gmail.com",
@@ -430,6 +422,39 @@ namespace ShumenNews.Data.Seeding
                     EmailConfirmed = true
                 };
                 await userManager.CreateAsync(commenter5, "123456");
+
+                //Comments
+                ShumenNewsComment comment1 = new ShumenNewsComment
+                {
+                    Content = "Това грозде е много полезно наистина!",
+                    User = commenter1,
+                    Article = articles[35],
+                };
+                db.Comments.Add(comment1); 
+                
+                ShumenNewsComment comment2 = new ShumenNewsComment
+                {
+                    Content = "Колко килограма грозде ядете?",
+                    User = commenter1,
+                    Article = articles[35],
+                };
+                db.Comments.Add(comment2);   
+                
+                ShumenNewsComment comment3 = new ShumenNewsComment
+                {
+                    Content = "5 килограма не ми стигат и ям като куче XD",
+                    User = commenter5,
+                    Article = articles[35],
+                };
+                db.Comments.Add(comment3); 
+                
+                ShumenNewsComment comment4 = new ShumenNewsComment
+                {
+                    Content = "Виждам много добре за годините си.",
+                    User = commenter3,
+                    Article = articles[34],
+                };
+                db.Comments.Add(comment4);
 
                 //UserArticles
                 List<ShumenNewsUserArticle> userArticles = new List<ShumenNewsUserArticle>

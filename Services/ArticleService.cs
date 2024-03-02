@@ -101,9 +101,24 @@ namespace ShumenNews.Services
             }
             return articles;
         }
+        public void AddAViewToArticle(ShumenNewsArticle article)
+        {
+            var articleFromDb = db.Articles.FirstOrDefault(a => a.Id == article.Id);
+            if (articleFromDb is not null)
+            articleFromDb!.ViewsCount++;
+            db.SaveChanges();
+        }
         public void CreateUserArticle(ArticleViewModel articleViewModel, ShumenNewsUser user)
         {
             var article = GetArticleById(articleViewModel.Id);
+            if (articleViewModel.UserAttitude == true)
+            {
+                article.LikesCount++;
+            }
+            else
+            {
+                article.DislikesCount++;
+            }
             var userArticle = new ShumenNewsUserArticle
             {
                 Article = article,
@@ -115,14 +130,41 @@ namespace ShumenNews.Services
         }
         public void SetAttitudeToArticle(ArticleViewModel articleViewModel)
         {
-            var userArticles = db.UserArticles
+            var userArticles = db.UserArticles.Include(a => a.Article)
                 .FirstOrDefault(ua => ua.Id == articleViewModel.UserArticle.Id);
             if (userArticles!.Attitude == articleViewModel.UserArticle.Attitude)
             {
+                if (userArticles.Attitude == true)
+                {
+                    userArticles.Article.LikesCount--;
+                }
+                else if (userArticles.Attitude == false)
+                {
+                    userArticles.Article.DislikesCount--;
+                }
                 userArticles!.Attitude = null;
             }
             else
             {
+                if (articleViewModel.UserArticle.Attitude == true && userArticles.Attitude == false)
+                {
+                    userArticles.Article.LikesCount++;
+                    userArticles.Article.DislikesCount--;
+                }
+                else if (articleViewModel.UserArticle.Attitude == true && userArticles.Attitude is null)
+                {
+                    userArticles.Article.LikesCount++;
+                }
+                else if (articleViewModel.UserArticle.Attitude == false && userArticles.Attitude == true)
+                {
+                    userArticles.Article.DislikesCount++;
+                    userArticles.Article.LikesCount--;
+                }
+                else if (articleViewModel.UserArticle.Attitude == false && userArticles.Attitude is null)
+                {
+                    userArticles.Article.DislikesCount++;
+                }
+
                 userArticles!.Attitude = articleViewModel.UserArticle.Attitude;
             }
             db.SaveChanges();

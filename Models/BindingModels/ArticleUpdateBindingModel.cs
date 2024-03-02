@@ -10,7 +10,6 @@ namespace ShumenNews.Models.BindingModels
         public string Content { get; set; }
         public DateTime PublishedOn { get; set; }
         public string CategoryId { get; set; }
-        public string CategoryName { get; set; }
         public List<SelectListItem> Categories { get; set; } = new List<SelectListItem>();
         public IEnumerable<string> Images { get; set; }
         public ShumenNewsUser Author { get; set; }

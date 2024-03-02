@@ -39,6 +39,12 @@
             }
         </div>
     }
-    <input type="submit" value="Приложи промени" class="btn btn-primary mt-2" />
+    <div class="mt-2">
+        <input type="submit" value="Приложи промени" class="btn btn-primary" />
+        <input asp-for="PublishedOn" type="date" class="btn btn-success" value="@Model.PublishedOn.ToString("yyyy-MM-dd")" />
+        <select asp-for="CategoryId" class="btn btn-success" asp-items="@Model.Categories">
+            <option class="text-light" disabled>Категории</option>
+        </select>
+        <div class="btn btn-success m-0"><span>Потребител: @Model.Author</span></div>
+    </div>
 </form>
-<p>@Model.Author</p>

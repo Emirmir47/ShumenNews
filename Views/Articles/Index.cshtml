@@ -6,8 +6,11 @@
     <h3 class="text-center">@Model.Title</h3>
     <img src="@Model.MainImage" width="480" height="480" />
     <p>@Model.Content</p>
-    <strong>Харесвания - @Model.LikesCount | Нехаресвания - @Model.DislikesCount</strong>
-    <span>Публикувано на: @Model.PublishedOn.ToString("MM/dd/yyyy")</span>
+    <div class="d-flex justify-content-between">
+        <strong>Харесвания - @Model.LikesCount | Нехаресвания - @Model.DislikesCount | @Model.ViewsCount преглеждания</strong>
+        <span>Публикувано на: @Model.PublishedOn.ToString("MM/dd/yyyy")</span>
+    </div>
+    
 </div>
 <div class="container">
     <div class="d-flex justify-content-center rounded-2 py-3 mt-3" style="background-color: grey;">
