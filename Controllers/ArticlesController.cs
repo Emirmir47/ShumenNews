@@ -44,7 +44,7 @@ namespace ShumenNews.Controllers
             if (id > 0 && id <= lastArticleId)
             {
                 var article = articleService.GetArticleById(id);
-                if (article is not null)
+                if (article is not null && article.IsDeleted == false)
                 {
                     var mainImage = imageService.GetArticleMainImageUrl(article.MainImageId, article);
 
@@ -196,6 +196,7 @@ namespace ShumenNews.Controllers
             }).ToList();
             return View(model);
         }
+        [Authorize(Roles = "Admin, Author")]
         public IActionResult Details(int id)
         {
             var isAdmin = User.IsInRole("Admin");
@@ -215,47 +216,61 @@ namespace ShumenNews.Controllers
                         Id = article.Id,
                         Title = article.Title,
                         Content = article.Content,
-                        //LikesCount = article.LikesCount,
-                        //DislikesCount = article.DislikesCount,
-                        //ViewsCount = article.ViewsCount,
-                        //PublishedOn = article.PublishedOn,
-                        //MainImage = imageService.GetArticleMainImageUrl(article.MainImageId, article),
-                        //Images = article.Images.Select(a => a.Url),
-                        //Category = article.Category,
+                        PublishedOn = article.PublishedOn,
+                        Images = article.Images.Select(a => a.Url),
+                        CategoryId = article.Category.Id,
+                        CategoryName = article.Category.Name,
                         IsDeleted = article.IsDeleted,
-                        Author = author
+                        Author = author!
                     };
                     return View(model);
                 }
-
             }
             return RedirectToAction("Index", "Home");
         }
+        [Authorize(Roles = "Admin, Author")]
         [HttpPost]
         public IActionResult Details(ArticleUpdateBindingModel bindingModel)
         {
             var article = articleService.GetArticleById(bindingModel.Id);
-            article.Title = bindingModel.Title;
-            if (bindingModel.Content is not null)
+            if (article is not null)
             {
-                article.Content = bindingModel.Content;
+                article.Title = bindingModel.Title;
+                if (bindingModel.Content is not null)
+                {
+                    article.Content = bindingModel.Content;
+                }
+                db.SaveChanges();
+                if (User.IsInRole("Author"))
+                {
+                    return RedirectToAction("MyArticles");
+                }
+                else if (User.IsInRole("Admin"))
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
             }
-            db.SaveChanges();
             return RedirectToAction("Index");
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             var article = articleService.GetArticleById(id);
             article.IsDeleted = true;
             db.SaveChanges();
+            if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Admin");
+            }
             return RedirectToAction("All", "Articles");
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult Restore(int id)
         {
             var article = articleService.GetArticleById(id);
             article.IsDeleted = false;
             db.SaveChanges();
-            return RedirectToAction("All", "Articles");
+            return RedirectToAction("Index", "Admin");
         }
     }
 }

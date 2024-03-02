@@ -114,6 +114,10 @@
                         <li><i class="fa-solid fa-eye"></i> @article.ViewsCount</li>
                         <li><i class="fa-solid fa-comments"></i> @article.CommentsCount</li>
                     </ul>
+                    @if (article.IsDeleted)
+                    {
+                        <p class="border border-2">Тази статия е свалена и не се показва на сайта!</p>
+                    }
                     <!--Links-->
                     <a asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id" class="btn btn-primary mt-auto p-2">Подробности</a>
                 </div>

@@ -17,12 +17,13 @@ namespace ShumenNews.Services
         public ShumenNewsArticle GetArticleById(int id)
         {
             var article = db.Articles
+                .Include(a => a.Category)
                 .Include(a => a.Images)
                 .Include(a => a.UserArticles)
                 .ThenInclude(ua => ua.User)
                 .Include(a => a.Comments)
                 .ThenInclude(a => a.User)
-                .FirstOrDefault(a => a.Id == id && a.IsDeleted == false)!;
+                .FirstOrDefault(a => a.Id == id)!;
             return article;
         }
         public int GetLastArticleId()
@@ -61,6 +62,7 @@ namespace ShumenNews.Services
         {
             var articles = db.UserArticles
                 .Where(ua => ua.User.Id == author.Id)
+                .Where(ua => ua.IsAuthor == true)
                 .Include(ua => ua.Article)
                 .ThenInclude(a => a.Images)
                 .Select(ua => ua.Article)

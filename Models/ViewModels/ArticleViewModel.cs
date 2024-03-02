@@ -19,5 +19,6 @@ namespace ShumenNews.Models.ViewModels
         public virtual ICollection<ShumenNewsComment> Comments { get; set; }
         public virtual IEnumerable<string> Images { get; set; }
         public bool? UserAttitude { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

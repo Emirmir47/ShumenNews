@@ -1,8 +1,14 @@
 ﻿@using ShumenNews.Models.BindingModels
 @model ArticleUpdateBindingModel
 <h1 class="text-center">Редактиране на статията</h1>
-<form class="form form-control col-md-4" method="post">
+<form class="form form-control col-md-4 p-4" method="post">
     <div>
+        <div class="shadow p-3 mb-3 bg-body-tertiary rounded">
+            @foreach (var img in Model.Images)
+            {
+                <img src="@img" class="shadow p-1 mb-1 bg-primary-color rounded" width="400" height="218" alt="снимка на статия" />
+            }
+        </div>
         <label asp-for="@Model.Title" class="my-1">Заглавие: </label>
         <input asp-for="@Model.Title" class="w-100 text-center" value="@Model.Title" />
     </div>
@@ -33,6 +39,6 @@
             }
         </div>
     }
-    <input type="submit" value="Приложи промени" class="btn btn-primary my-2" />
+    <input type="submit" value="Приложи промени" class="btn btn-primary mt-2" />
 </form>
 <p>@Model.Author</p>

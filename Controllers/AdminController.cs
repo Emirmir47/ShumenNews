@@ -186,7 +186,8 @@ namespace ShumenNews.Controllers
                 PublishedOn = a.PublishedOn,
                 MainImage = imageService.GetArticleMainImageUrl(a.MainImageId, a),
                 Images = a.Images.Select(a => a.Url),
-                Category = a.Category
+                Category = a.Category,
+                IsDeleted = a.IsDeleted,
             }).ToList();
             var authors = db.Users
                 .Where(u => u.UserArticles.Any(ua => ua.IsAuthor == true))
