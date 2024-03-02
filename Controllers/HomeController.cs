@@ -35,12 +35,14 @@ namespace ShumenNews.Controllers
         public IActionResult Index()
         {
             var articles = articleService.GetArticlesByCategoryId("Week", 20);
+
             var articleViewModels = articles.Select(a => new ArticleViewModel
             {
                 Id = a.Id,
                 Title = a.Title,
                 LikesCount = a.LikesCount,
                 ViewsCount = a.ViewsCount,
+                CommentsCount = a.CommentsCount,
                 PublishedOn = a.PublishedOn,
                 MainImage = imageService.GetArticleMainImageUrl(a.MainImageId, a),
             }).ToList();

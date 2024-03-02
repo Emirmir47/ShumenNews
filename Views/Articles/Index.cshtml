@@ -10,7 +10,7 @@
         <strong>Харесвания - @Model.LikesCount | Нехаресвания - @Model.DislikesCount | @Model.ViewsCount преглеждания</strong>
         <span>Публикувано на: @Model.PublishedOn.ToString("MM/dd/yyyy")</span>
     </div>
-    
+
 </div>
 <div class="container">
     <div class="d-flex justify-content-center rounded-2 py-3 mt-3" style="background-color: grey;">
@@ -27,7 +27,7 @@
                         </i>
                     </button>
                 </form>
-                <form asp-action ="GetUserAttitude">
+                <form asp-action="GetUserAttitude">
                     <button type="submit" class="btn">
                         <i class="fa-solid fa-thumbs-down">
                             <input asp-for="@Model.UserArticle.Attitude" value="false" style="display: none;" />
@@ -46,7 +46,7 @@
                         </i>
                     </button>
                 </form>
-                <form asp-action ="GetUserAttitude">
+                <form asp-action="GetUserAttitude">
                     <button type="submit" class="btn">
                         <i class="fa-solid fa-thumbs-down">
                             <input asp-for="@Model.UserArticle.Attitude" value="false" style="display: none;" />
@@ -72,7 +72,7 @@
                             <input asp-for="@Model.UserArticle.Id" style="display: none;" />
                         </i>
                     </button>
-                </form>                
+                </form>
             }
         }
         else
@@ -98,56 +98,61 @@
 </div>
 <div class="container">
     <div class="d-flex justify-content-start my-2">
-        <div class="p-3 rounded-circle" style="background-color: red;"><i class="fa-solid fa-comments fa-xl"></i></div>
+        <div class="p-3 rounded-circle primary-color" style="background-color: darkred;"><i class="fa-solid fa-comments fa-xl"></i></div>
         <h4 class="my-auto ms-2">КОМЕНТАРИ</h4>
     </div>
-    <div class="d-flex justify-content-start rounded-2" style="background-color: red">
+    <div class="d-flex justify-content-start rounded-2" style="background-color: darkred">
         <div class="p-3">
-            <i class="fa-solid fa-ban fa-rotate-90 fa-xl"></i>
+            <i class="fa-solid fa-ban fa-rotate-90 fa-xl primary-color"></i>
         </div>
         <p class="my-auto ms-2 text-white">
             Обиди или квалификации в коментарите не са позволени!
         </p>
     </div>
+    <!--Comment post section-->
     <div class="d-flex my-3">
         <div class="p-2 my-auto">
-            <i class="fa-solid fa-circle-user fa-xl"></i>
+            <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="fa-solid fa-circle-user fa-xl primary-color"></i></a>
         </div>
-        <div class="d-flex justify-content-between rounded-2 py-3 w-100" style="background-color: grey;">
-            <input class="ps-2 w-100" value="Публикувай своето мнение...">
-            <div class="p-2">
-                <i class="fa-solid fa-share fa-lg"></i>
-            </div>
-        </div>
+        <form method="post" asp-action="GetUserComment" class="d-flex justify-content-between rounded-2 py-3 w-100" style="background-color: grey;">
+            <input asp-for="@Model.Id" value="@Model.Id" style="display: none;" />
+            <input asp-for="UserComment.Content" class="ps-2 w-100 ms-3 me-1 rounded-2" style="border:1px #1D3357 solid;" placeholder="Публикувай своето мнение...">
+            <button type="submit" class="btn p-2 me-2">
+                <i class="fa-solid fa-play fa-xl primary-color"></i>
+            </button>
+        </form>
     </div>
     <hr class="my-4" />
+    <!--All comments section-->
     <div>
-        <div class="d-flex my-2">
-            <div class="my-auto">
-                <i class="fa-regular fa-circle-user fa-2xl"></i>
-                <span>Iron Lexx</span>
-                <br />
-                <span>Преди 6 месеца</span>
+        @foreach (var comment in Model.Comments)
+        {
+            <div class="d-flex my-2">
+                <div class="my-auto">
+                    <i class="fa-regular fa-circle-user fa-2xl primary-color"></i>
+                    <span>@comment.User.FirstName @comment.User.LastName</span>
+                    <br />
+                    <span>@comment.CreatedOn.ToString("MM/dd/yyyy HH:mm")</span>
+                </div>
             </div>
-            <div class="my-auto ms-auto">
-                <button class="btn btn-outline-success">
-                    <i class="fa-solid fa-share fa-flip-horizontal"></i>
-                </button>
-
+            <!--Comment content section-->
+            <div class="rounded-2 w-100 d-flex justify-content-between" style="background-color: grey;">
+                <span class="p-2 text-white" style="font-family: sans-serif;">
+                    @comment.Content
+                </span>
+                @if (User.Identity!.IsAuthenticated)
+                {
+                    if (comment.User.UserName == User.Identity.Name || User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                    {
+                        <form asp-action="RemoveUserComment" method="post" class="d-inline">
+                            <input asp-for="@Model.Id" value="@Model.Id" style="display: none;" />
+                            <input asp-for="@Model.UserComment.Id" value="@comment.Id" style="display: none;" />
+                            <button type="submit" class="btn"><i class="fa-solid fa-xmark"></i></button>
+                        </form>
+                    }
+                }
             </div>
-        </div>
-        <div class="rounded-2 w-100" style="background-color: grey;">
-            <p class="p-2">
-                Едно от любимите ми препоръчвам, много е добро
-            </p>
-        </div>
-    </div>
-</div>
-@section Scripts {
-    <script>
-        var attitude = null;
-        function getUserAttitude(attitude) {
 
         }
-    </script>
-}
+    </div>
+</div>

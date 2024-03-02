@@ -442,7 +442,7 @@ namespace ShumenNews.Data.Seeding
                 
                 ShumenNewsComment comment3 = new ShumenNewsComment
                 {
-                    Content = "5 килограма не ми стигат и ям като куче XD",
+                    Content = "5 на ден!",
                     User = commenter5,
                     Article = articles[35],
                 };

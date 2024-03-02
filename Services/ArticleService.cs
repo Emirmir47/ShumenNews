@@ -21,9 +21,10 @@ namespace ShumenNews.Services
                 .Include(a => a.Images)
                 .Include(a => a.UserArticles)
                 .ThenInclude(ua => ua.User)
-                .Include(a => a.Comments)
+                .Include(a => a.Comments.Where(c => !c.IsDeleted))
                 .ThenInclude(a => a.User)
                 .FirstOrDefault(a => a.Id == id)!;
+            CalCommentsCount();
             return article;
         }
         public int GetLastArticleId()
@@ -33,6 +34,7 @@ namespace ShumenNews.Services
         }
         public UserArticleViewModel GetUserArticleAsDTOByUsername(string username, ShumenNewsArticle article)
         {
+            CalCommentsCount();
             var userArticle = article.UserArticles
                 .Where(u => u.User.UserName == username)
                 .FirstOrDefault()!;
@@ -67,6 +69,7 @@ namespace ShumenNews.Services
                 .ThenInclude(a => a.Images)
                 .Select(ua => ua.Article)
                 .ToList();
+            CalCommentsCount();
             return articles;
         }
         public List<ShumenNewsArticle> GetArticlesByCategoryId(string categoryId, int wordsCount = 0)
@@ -76,6 +79,7 @@ namespace ShumenNews.Services
                 .Include(a => a.Images)
                 .ToList();
             articles = articles.OrderByDescending(a => a.Id).ToList();
+            CalCommentsCount();
             ArticlesWithShortContent(articles, wordsCount);
             return articles;
         }
@@ -176,6 +180,12 @@ namespace ShumenNews.Services
         public void DeleteCommentFromArticle(ArticleViewModel articleViewModel)
         {
 
+        }
+        private void CalCommentsCount()
+        {
+            var articles = db.Articles.Include(a=>a.Comments.Where(c => !c.IsDeleted)).ToList();
+            articles.ForEach(article => article.CommentsCount = article.Comments.Count);
+            db.SaveChanges();
         }
     }
 }

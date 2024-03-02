@@ -94,10 +94,52 @@ namespace ShumenNews.Controllers
         }
         [Authorize]
         [HttpPost]
-        public IActionResult GetUserComment(ArticleViewModel article)
+        public IActionResult GetUserComment(ArticleViewModel articleViewModel)
         {
-            //TODO Comments
-            return RedirectToAction("Index");
+            var user = userManager.FindByNameAsync(User.Identity?.Name)
+                .GetAwaiter().GetResult();
+            var article = db.Articles.FirstOrDefault(a => a.Id == articleViewModel.Id);
+            var userId = user.Id;
+            var comment = new ShumenNewsComment
+            {
+                Content = articleViewModel.UserComment.Content,
+                Article = article,
+                User = user
+            };
+            db.Comments.Add(comment);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Articles", articleViewModel.Id);
+        }
+        [Authorize]
+        [HttpPost]
+        public IActionResult RemoveUserComment(ArticleViewModel articleViewModel)
+        {
+            var user = userManager.FindByNameAsync(User.Identity?.Name)
+                .GetAwaiter().GetResult();
+            var article = db.Articles.FirstOrDefault(a => a.Id == articleViewModel.Id);
+            var comment = new ShumenNewsComment();
+            if (user is not null)
+            {
+                if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                {
+                    comment = db.Comments
+                        .FirstOrDefault(c => c.Id == articleViewModel.UserComment.Id);
+                }
+                else
+                {
+                    comment = db.Comments
+                        .FirstOrDefault(c => c.Id == articleViewModel.UserComment.Id
+                                        && c.UserId == user.Id);
+                }
+
+            }
+            if (comment is not null && article is not null)
+            {
+                comment.IsDeleted = true;
+                article!.CommentsCount--;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index", articleViewModel.Id);
         }
 
         [Authorize(Roles = "Admin, Moderator")]
@@ -246,7 +288,7 @@ namespace ShumenNews.Controllers
                     bindingModel.PublishedOn.Year, bindingModel.PublishedOn.Month, bindingModel.PublishedOn.Day,
                     article.PublishedOn.Hour, article.PublishedOn.Minute, article.PublishedOn.Second);
                 article.CategoryId = bindingModel.CategoryId;
-                db.SaveChanges(); 
+                db.SaveChanges();
                 if (User.IsInRole("Author"))
                 {
                     return RedirectToAction("MyArticles");

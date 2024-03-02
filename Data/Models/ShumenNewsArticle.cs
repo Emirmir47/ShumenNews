@@ -26,6 +26,9 @@ namespace ShumenNews.Data.Models
         public virtual ICollection<ShumenNewsComment> Comments { get; set; }
         public virtual ICollection<ShumenNewsImage> Images { get; set; }
         public string MainImageId { get; set; }
-
+        public void CalCommentsCount()
+        {
+            CommentsCount = Comments.Count;
+        }
     }
 }
