@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using ShumenNews.Data.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace ShumenNews.Models.BindingModels
 {

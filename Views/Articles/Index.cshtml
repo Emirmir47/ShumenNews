@@ -2,9 +2,15 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-<div class="container my-3">
+<div class="container my-3 articlefont">
     <h3 class="text-center">@Model.Title</h3>
-    <img src="@Model.MainImage" width="480" height="480" />
+    <div class="mb-3">
+        @foreach (var img in Model.Images)
+        {
+            <img src="@img" class="shadow p-1 mb-1 bg-primary-color rounded artimg" width="400" height="218" alt="снимка на статия" />
+            <input asp-for="Images" value="@img" style="display: none;" />
+        }
+    </div>
     <p>@Model.Content</p>
     <div class="d-flex justify-content-between">
         <strong>Харесвания - @Model.LikesCount | Нехаресвания - @Model.DislikesCount | @Model.ViewsCount преглеждания</strong>
@@ -96,14 +102,14 @@
         }
     </div>
 </div>
-<div class="container">
+<div class="container alltextstyle">
     <div class="d-flex justify-content-start my-2">
-        <div class="p-3 rounded-circle primary-color" style="background-color: darkred;"><i class="fa-solid fa-comments fa-xl"></i></div>
+        <div class="p-3 rounded-circle text-light" style="background-color: #1D3357;"><i class="fa-solid fa-comments fa-xl"></i></div>
         <h4 class="my-auto ms-2">КОМЕНТАРИ</h4>
     </div>
-    <div class="d-flex justify-content-start rounded-2" style="background-color: darkred">
+    <div class="d-flex justify-content-start rounded-2" style="background-color: #1D3357">
         <div class="p-3">
-            <i class="fa-solid fa-ban fa-rotate-90 fa-xl primary-color"></i>
+            <i class="fa-solid fa-ban fa-rotate-90 fa-xl text-light"></i>
         </div>
         <p class="my-auto ms-2 text-white">
             Обиди или квалификации в коментарите не са позволени!

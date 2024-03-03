@@ -7,10 +7,11 @@
             @foreach (var img in Model.Images)
             {
                 <img src="@img" class="shadow p-1 mb-1 bg-primary-color rounded" width="400" height="218" alt="снимка на статия" />
+                <input asp-for="Images" value="@img" style="display: none;" />
             }
         </div>
         <label asp-for="@Model.Title" class="my-1">Заглавие: </label>
-        <input asp-for="@Model.Title" class="w-100 text-center" value="@Model.Title" />
+        <input asp-for="@Model.Title" type="text" class="w-100 text-center" value="@Model.Title" />
     </div>
     @if (User.IsInRole("Author"))
     {
@@ -27,7 +28,8 @@
     {
         <div>
             <label asp-for="@Model.Content" class="my-1">Текст на статията: </label>
-            <textarea disabled asp-for="@Model.Content" class="w-100" rows="10" value="@Model.Content"></textarea>
+            <textarea asp-for="@Model.Content" class="w-100" rows="10" value="@Model.Content" disabled></textarea>
+            <input asp-for="@Model.Content" value="@Model.Content" style="display: none;">
             @if (Model.IsDeleted)
             {
                 <p>Статията е архивирана!</p>
@@ -45,6 +47,6 @@
         <select asp-for="CategoryId" class="btn btn-success" asp-items="@Model.Categories">
             <option class="text-light" disabled>Категории</option>
         </select>
-        <div class="btn btn-success m-0"><span>Потребител: @Model.Author</span></div>
+        <div class="btn btn-success m-0"><span>Автор: @Model.Author</span></div>
     </div>
 </form>

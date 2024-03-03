@@ -36,6 +36,7 @@ namespace ShumenNews.Controllers
             return View(adminViewModel);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Index(string email)
         {
             var data = LoadViewModels();
@@ -144,6 +145,7 @@ namespace ShumenNews.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Details(SearchViewModel searchViewModel)
         {
             var formData = Request.Form;

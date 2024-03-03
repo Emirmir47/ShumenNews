@@ -60,15 +60,15 @@
         </button>
     </div>
     <!--Cards-->
-    <div class="container">
+    <div class="container alltextstyle">
         @foreach (var category in Model.Categories)
         {   
             <div class="category bg-secondary-color bg-gradient p-0 m-0 mt-3"><h1 class="text-center categoryname">  @category.Name </h1></div>
             <div class="d-flex justify-content-center my-3">
                 @foreach (var article in category.Articles)
                 {
-                    <div class="card mx-2" style="width: 100rem; height: 50rem; border-radius: 5rem;">
-                        <img src="@article.MainImage" class="card-img-top" alt="image" width="250" height="400" style="border-radius: 5rem;">
+                    <div class="card mx-2" style="width: 100rem; height: 50rem; border-radius: 1rem;">
+                        <img src="@article.MainImage" class="card-img-top" alt="image" width="250" height="400" style="border-radius: 1rem;">
                         <div class="card-body">
                             <h5 class="card-title">@article.Title</h5>
                             <h6 class="card-title">
@@ -83,7 +83,7 @@
                             </h6>
                             <p class="card-text" style="margin-bottom: 3rem;">@article.Content</p>
                             <!--Links-->
-                            <a asp-area="" asp-controller="Articles" asp-action="Index" asp-route-id="@article.Id" class="btn btn-dark bg-secondary-color bg-gradient text-white ms-3 p-2 btnrounded">Прочети</a>
+                            <a asp-area="" asp-controller="Articles" asp-action="Index" asp-route-id="@article.Id" class="btn btn-dark bg-secondary-color bg-gradient text-white ms-1 p-2 btnrounded">Прочети</a>
                             @if (User.IsInRole("Admin"))
                             {
                                 <a asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id"><i class="fas fa-edit "></i></a>

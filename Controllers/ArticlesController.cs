@@ -74,6 +74,7 @@ namespace ShumenNews.Controllers
         }
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult GetUserAttitude(ArticleViewModel article)
         {
             if (article is not null)
@@ -94,6 +95,7 @@ namespace ShumenNews.Controllers
         }
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult GetUserComment(ArticleViewModel articleViewModel)
         {
             var user = userManager.FindByNameAsync(User.Identity?.Name)
@@ -112,6 +114,7 @@ namespace ShumenNews.Controllers
         }
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult RemoveUserComment(ArticleViewModel articleViewModel)
         {
             var user = userManager.FindByNameAsync(User.Identity?.Name)
@@ -173,6 +176,7 @@ namespace ShumenNews.Controllers
         }
         [Authorize(Roles = "Admin, Author")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(ArticleCreateBindingModel bindingModel)
         {
             if (ModelState.IsValid)
@@ -200,11 +204,11 @@ namespace ShumenNews.Controllers
                         };
                         image.Id = fileName;
                         image.Extension = extension;
-                        article.Images.Add(image);
+                        article.Images.Add(image); //Това вместо да добавя нова снимка я заменя и от три стават една снимка!!!
                         images.Add(image);
-                        db.Articles.Add(article);
                     }
                     article.MainImageId = images[0].Id;
+                    db.Articles.Add(article);
                     var userName = User.Identity!.Name;
                     var user = userService.GetUserByUserName(userName!);
                     var userArticle = new ShumenNewsUserArticle
@@ -274,6 +278,7 @@ namespace ShumenNews.Controllers
         }
         [Authorize(Roles = "Admin, Author")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Details(ArticleUpdateBindingModel bindingModel)
         {
             var article = articleService.GetArticleById(bindingModel.Id);

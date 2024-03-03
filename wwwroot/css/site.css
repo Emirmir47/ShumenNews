@@ -44,7 +44,7 @@ a {
 .categoryname {
     font-family: 'Franklin Gothic';
     font-size: 40px;
-    color:aqua; 
+    color:white; 
 }
 .btnrounded {
     position: absolute;
@@ -57,4 +57,16 @@ a {
     text-shadow: 2px 1px black;
     font-family: Georgia, serif;
     
+}
+.articlefont {
+    font-family: 'Franklin Gothic';
+    color: black;
+    text-align: justify;
+    text-justify: inter-word;
+}
+.artimg {
+   margin-left: 1rem;
+}
+.alltextstyle {
+    font-family: 'Franklin Gothic';
 }
