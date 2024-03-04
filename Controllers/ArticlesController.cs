@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Packaging;
 using NuGet.Protocol;
 using ShumenNews.Data;
 using ShumenNews.Data.Models;
@@ -192,7 +193,7 @@ namespace ShumenNews.Controllers
                 if (bindingModel.Images is not null)
                 {
                     List<ShumenNewsImage> images = new List<ShumenNewsImage>();
-                    var image = new ShumenNewsImage();
+
                     foreach (var img in bindingModel.Images)
                     {
                         var extension = Path.GetExtension(img.FileName);
@@ -202,11 +203,14 @@ namespace ShumenNews.Controllers
                         {
                             img.CopyTo(fs);
                         };
-                        image.Id = fileName;
-                        image.Extension = extension;
-                        article.Images.Add(image); //Това вместо да добавя нова снимка я заменя и от три стават една снимка!!!
+                        var image = new ShumenNewsImage
+                        {
+                            Id = fileName,
+                            Extension = extension
+                        };
                         images.Add(image);
                     }
+                    article.Images.AddRange(images);
                     article.MainImageId = images[0].Id;
                     db.Articles.Add(article);
                     var userName = User.Identity!.Name;
