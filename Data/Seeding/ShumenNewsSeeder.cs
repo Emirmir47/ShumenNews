@@ -10,6 +10,17 @@ using System.Text.Json;
 
 namespace ShumenNews.Data.Seeding
 {
+
+    // Tеми за тест
+    // Видове HTTP
+    // Основни тагове на HTML
+    // Контролери и екшани 
+    // RAZOR
+    // Предаване на параметри
+    // CRUD 
+    // Code first
+    // DateBase first
+    // Автентикация авторизация
     public class ShumenNewsSeeder : ISeeder
     {
         private readonly ShumenNewsDbContext db;
@@ -423,6 +434,66 @@ namespace ShumenNews.Data.Seeding
                 };
                 await userManager.CreateAsync(commenter5, "123456");
 
+                var commenter6 = new ShumenNewsUser
+                {
+                    UserName = "atanas21@gmail.com",
+                    NormalizedUserName = "ATANAS21@GMAIL.COM",
+                    Email = "atanas21@gmail.com",
+                    NormalizedEmail = "ATANAS21@GMAIL.COM",
+                    FirstName = "Атанас",
+                    LastName = "Георгиев",
+                    EmailConfirmed = true
+                };
+                await userManager.CreateAsync(commenter6, "123456");
+
+                var commenter7 = new ShumenNewsUser
+                {
+                    UserName = "nikolay76@gmail.com",
+                    NormalizedUserName = "NIKOLAY76@GMAIL.COM",
+                    Email = "nikolay76@gmail.com",
+                    NormalizedEmail = "NIKOLAY76@GMAIL.COM",
+                    FirstName = "Николай",
+                    LastName = "Николов",
+                    EmailConfirmed = true
+                };
+                await userManager.CreateAsync(commenter7, "123456");
+
+                var commenter8 = new ShumenNewsUser
+                {
+                    UserName = "angel@gmail.com",
+                    NormalizedUserName = "ANGEL@GMAIL.COM",
+                    Email = "angel@gmail.com",
+                    NormalizedEmail = "ANGEL@GMAIL.COM",
+                    FirstName = "Ангел",
+                    LastName = "Григотов",
+                    EmailConfirmed = true
+                };
+                await userManager.CreateAsync(commenter8, "123456");
+
+                var commenter9 = new ShumenNewsUser
+                {
+                    UserName = "marin55@gmail.com",
+                    NormalizedUserName = "MARIN55@GMAIL.COM",
+                    Email = "marin55@gmail.com",
+                    NormalizedEmail = "MARIN55@GMAIL.COM",
+                    FirstName = "Марин",
+                    LastName = "Маринов",
+                    EmailConfirmed = true
+                };
+                await userManager.CreateAsync(commenter9, "123456");
+
+                var commenter10 = new ShumenNewsUser
+                {
+                    UserName = "gabriela6@gmail.com",
+                    NormalizedUserName = "GABRIELA6@GMAIL.COM",
+                    Email = "gabriela6@gmail.com",
+                    NormalizedEmail = "GABRIELA6@GMAIL.COM",
+                    FirstName = "Габриела",
+                    LastName = "Георгиева",
+                    EmailConfirmed = true
+                };
+                await userManager.CreateAsync(commenter10, "123456");
+
                 //Comments
                 ShumenNewsComment comment1 = new ShumenNewsComment
                 {
@@ -450,11 +521,35 @@ namespace ShumenNews.Data.Seeding
                 
                 ShumenNewsComment comment4 = new ShumenNewsComment
                 {
-                    Content = "Виждам много добре за годините си.",
+                    Content = "От малък мразя вкуса на гроздето.",
                     User = commenter3,
-                    Article = articles[34],
+                    Article = articles[35],
                 };
                 db.Comments.Add(comment4);
+
+                ShumenNewsComment comment5 = new ShumenNewsComment
+                {
+                    Content = "Защото сме висши същества.",
+                    User = commenter4,
+                    Article = articles[34],
+                };
+                db.Comments.Add(comment5);
+
+                ShumenNewsComment comment6 = new ShumenNewsComment
+                {
+                    Content = "Заради това кучетата имат нощно виждане.",
+                    User = commenter7,
+                    Article = articles[34],
+                };
+                db.Comments.Add(comment6);
+
+                ShumenNewsComment comment7 = new ShumenNewsComment
+                {
+                    Content = "Заради това кучетата имат нощно виждане.",
+                    User = commenter7,
+                    Article = articles[34],
+                };
+                db.Comments.Add(comment7);
 
                 //UserArticles
                 List<ShumenNewsUserArticle> userArticles = new List<ShumenNewsUserArticle>
