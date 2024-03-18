@@ -550,7 +550,7 @@ namespace ShumenNews.Data.Seeding
                     Article = articles[34],
                 };
                 db.Comments.Add(comment7);
-
+                  
                 //UserArticles
                 List<ShumenNewsUserArticle> userArticles = new List<ShumenNewsUserArticle>
                 {
