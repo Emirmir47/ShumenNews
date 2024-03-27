@@ -14,37 +14,39 @@
                     <div class="card bg-primary-color text-white p-5">
 
                         <h2 class="text-uppercase text-center mb-5">Създай нов акаунт</h2>
-
+                        <div class="container" id="alert-container">
+                        </div>
                         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                            
+
                             <hr />
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="form-floating mb-4">
-                                <input asp-for="Input.FirstName" type="text" id="form3Example1cg" class="form-control form-control-lg" autocomplete="firstname" aria-required="true" />
+                                <input asp-for="Input.FirstName" type="text" id="inputFirstName" class="form-control form-control-lg" autocomplete="firstname" aria-required="true" />
                                 <label asp-for="Input.FirstName" class="text-dark h5"></label>
                                 <span asp-validation-for="Input.FirstName" class="text-danger"></span>
                             </div>
                             <div class="form-floating mb-4">
-                                <input asp-for="Input.LastName" type="text" id="form3Example1cg" class="form-control form-control-lg" autocomplete="lastname" aria-required="true" />
+                                <input asp-for="Input.LastName" type="text" id="inputLastName" class="form-control form-control-lg" autocomplete="lastname" aria-required="true" />
                                 <label asp-for="Input.LastName" class="text-dark h5"></label>
                                 <span asp-validation-for="Input.LastName" class="text-danger"></span>
                             </div>
                             <div class="form-floating mb-4">
-                                <input asp-for="Input.Email" type="email" id="form3Example1cg" class="form-control form-control-lg" autocomplete="email" aria-required="true" />
+                                <input asp-for="Input.Email" type="email" id="inputEmail" class="form-control form-control-lg" autocomplete="email" aria-required="true" />
                                 <label asp-for="Input.Email" class="text-dark h5"></label>
                                 <span asp-validation-for="Input.Email" class="text-danger"></span>
                             </div>
                             <div class="form-floating mb-4">
-                                <input asp-for="Input.Password" type="password" id="form3Example1cg" class="form-control form-control-lg" autocomplete="password" aria-required="true" />
+                                <input asp-for="Input.Password" type="password" id="inputPassword" class="form-control form-control-lg" autocomplete="password" aria-required="true" />
                                 <label asp-for="Input.Password" class="text-dark h5"></label>
                                 <span asp-validation-for="Input.Password" class="text-danger"></span>
                             </div>
                             <div class="form-floating mb-4">
-                                <input asp-for="Input.ConfirmPassword" type="password" id="form3Example1cg" class="form-control form-control-lg" autocomplete="confirmpassword" aria-required="true" />
+                                <input asp-for="Input.ConfirmPassword" type="password" id="inputConfirmPassword" class="form-control form-control-lg" autocomplete="confirmpassword" aria-required="true" />
                                 <label asp-for="Input.ConfirmPassword" class="text-dark h5"></label>
                                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                             </div>
-                            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-dark bg-secondary-color bg-gradient">Регистрирай се</button>
+                            <button id="submitBtn" type="submit" class="w-100 btn btn-lg btn-dark bg-secondary-color bg-gradient">Регистрирай се</button>
+
                         </form>
 
                     </div>
@@ -53,6 +55,162 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    const firstnameMinLength = 3;
+    const lastnameMinLength = 5;
+    const emailMinLength = 5;
+    const passwordMinLength = 8;
+    const passwordMaxLength = 16;
+    let firstname = document.getElementById('inputFirstName');
+    let lastname = document.getElementById('inputLastName');
+    let email = document.getElementById('inputEmail');
+    let password = document.getElementById('inputPassword');
+    let confirmpassword = document.getElementById('inputConfirmPassword');
+    let submitBtn = document.getElementById('submitBtn');
+    let alertContainer = document.getElementById('alert-container');
+
+
+    function validateFirstName(isSubmitBtnClicked = null) {
+
+        if (firstname.value.length >= firstnameMinLength) {
+            if (alertContainer.childElementCount >= 0) {
+                while (alertContainer.firstChild) {
+                    alertContainer.removeChild(alertContainer.firstChild);
+                }
+            }
+            if (submitBtn.disabled === true) {
+                activateBtn();
+            }
+        }
+        else {
+            if (alertContainer.childElementCount === 0) {
+                let alertDiv = document.createElement('div');
+                alertDiv.classList.add('alert', 'alert-warning');
+                alertDiv.setAttribute('role', 'alert');
+                alertDiv.innerHTML = `Името трябва да садържа поне ${firstnameMinLength} символа.`;
+                alertContainer.appendChild(alertDiv);
+            }
+            debugger;
+            deactivateBtn();
+        }
+    }
+    
+    function validateLastName(isSubmitBtnClicked = null) {
+
+        if (lastname.value.length >= lastnameMinLength) {
+            if (alertContainer.childElementCount >= 0) {
+                while (alertContainer.firstChild) {
+                    alertContainer.removeChild(alertContainer.firstChild);
+                }
+            }
+            if (submitBtn.disabled === true) {
+                activateBtn();
+            }
+        }
+        else {
+            if (alertContainer.childElementCount === 0) {
+                let alertDiv = document.createElement('div');
+                alertDiv.classList.add('alert', 'alert-warning');
+                alertDiv.setAttribute('role', 'alert');
+                alertDiv.innerHTML = `Фамилията трябва да садържа поне ${lastnameMinLength} символа.`;
+                alertContainer.appendChild(alertDiv);
+            }
+            debugger;
+            deactivateBtn();
+        }
+    }
+
+    function validateEmail(isSubmitBtnClicked = null) {
+
+        if (email.value.length >= emailMinLength) {
+            if (alertContainer.childElementCount >= 0) {
+                while (alertContainer.firstChild) {
+                    alertContainer.removeChild(alertContainer.firstChild);
+                }
+            }
+            if (submitBtn.disabled === true) {
+                activateBtn();
+            }
+        }
+        else {
+            if (alertContainer.childElementCount === 0) {
+                let alertDiv = document.createElement('div');
+                alertDiv.classList.add('alert', 'alert-warning');
+                alertDiv.setAttribute('role', 'alert');
+                alertDiv.innerHTML = `Имейл адресът трябва да съдържа поне ${emailMinLength} символа.`;
+                alertContainer.appendChild(alertDiv);
+            }
+            deactivateBtn();
+        }
+    }
+
+    function validatePassword(isSubmitBtnClicked = null) {
+
+        if (password.value.length >= passwordMinLength && password.value.length <= passwordMaxLength) {
+            if (alertContainer.childElementCount >= 0) {
+                while (alertContainer.firstChild) {
+                    alertContainer.removeChild(alertContainer.firstChild);
+                }
+            }
+            if (submitBtn.disabled === true) {
+                activateBtn();
+            }
+        }
+        else {
+            if (alertContainer.childElementCount === 0) {
+                let alertDiv = document.createElement('div');
+                alertDiv.classList.add('alert', 'alert-warning');
+                alertDiv.setAttribute('role', 'alert');
+                alertDiv.innerHTML = `Паролата трябва да е от ${passwordMinLength} до ${passwordMaxLength} символа.`;
+                alertContainer.appendChild(alertDiv);
+            }
+            deactivateBtn();
+        }
+    }
+ 
+    function activateBtn() {
+        submitBtn.disabled = false;
+    }
+
+    function deactivateBtn() {
+        submitBtn.disabled = true;
+    }
+
+    function sendFormAndShowMessage() {
+        alert("Формата е изпратена успешно!");
+        location.reload();
+    }
+
+    firstname.addEventListener('keyup', (event) => {
+        validateFirstName();
+        console.log("Key: ", event.key);
+    });
+
+    lastname.addEventListener('keyup', (event) => {
+        validateLastName();
+        console.log("Key: ", event.key);
+    });
+
+    email.addEventListener('keyup', (event) => {
+        validateEmail();
+        console.log("Key: ", event.key);
+    });
+
+    password.addEventListener('keyup', (event) => {
+        validatePassword();
+        console.log("Key: ", event.key);
+    });
+
+    submitBtn.addEventListener('click', (event) => {
+        if (validateEmail(true) === true && validatePassword(true) === true) {
+            sendFormAndShowMessage();
+        }
+    });
+
+</script>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
