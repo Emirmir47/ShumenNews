@@ -10,17 +10,6 @@ using System.Text.Json;
 
 namespace ShumenNews.Data.Seeding
 {
-
-    // Tеми за тест
-    // Видове HTTP
-    // Основни тагове на HTML
-    // Контролери и екшани 
-    // RAZOR
-    // Предаване на параметри
-    // CRUD 
-    // Code first
-    // DateBase first
-    // Автентикация авторизация
     public class ShumenNewsSeeder : ISeeder
     {
         private readonly ShumenNewsDbContext db;
