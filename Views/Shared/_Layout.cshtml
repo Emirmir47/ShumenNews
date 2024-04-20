@@ -15,9 +15,9 @@
     <header>
         <nav class="navbar navbar-dark bg-primary-color p-0">
             <div class="container-fluid p-2">
-                <form class="d-flex my-auto p-2" role="search">
-                    <input class="form-control " type="search" placeholder="Search" aria-label="Search">
-                    <i class="fa-solid fa-magnifying-glass bg-transparent text-white  py-3 px-2"></i>
+                <form asp-action="SearchArticle" asp-controller="Articles" class="d-flex my-auto p-2" role="search">
+                    <input name="words" class="form-control" type="search" placeholder="Search" aria-label="Search">
+                    <button type="submit" class="btn p-0"><i class="fa-solid fa-magnifying-glass bg-transparent text-white  py-3 px-2"></i></button>
                 </form>
                 <a class="logo" asp-area="" asp-controller="Home" asp-action="Index" style="color:aqua"> <img src="/Logo.png" alt="Logo" width="160" height="70"></a>
                 <button class="navbar-toggler me-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">

@@ -32,6 +32,16 @@ namespace ShumenNews.Services
             return db.Articles.OrderBy(a => a.Id).Select(a => a.Id)
                 .LastOrDefault();
         }
+        public int GetServiceIdBySearchingWords(string searchingWords)
+        {
+            var serviceId = 0;
+            var foundServices = db.Articles.Where(a => a.Title.Contains(searchingWords)).ToList();
+            if (foundServices != null && foundServices.Count != 0)
+            {
+                serviceId = foundServices.FirstOrDefault()!.Id;
+            }               
+            return serviceId;
+        }
         public UserArticleViewModel GetUserArticleAsDTOByUsername(string username, ShumenNewsArticle article)
         {
             CalCommentsCount();

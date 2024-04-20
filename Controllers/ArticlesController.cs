@@ -73,6 +73,24 @@ namespace ShumenNews.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SearchArticle(string words)
+        {
+            if (words != null)
+            {
+                var serviceId = articleService.GetServiceIdBySearchingWords(words);
+                if (serviceId != 0)
+                {
+                    return RedirectToAction("Index", new { id = serviceId});
+                }
+            }
+            return RedirectToAction("NoResults");
+        }
+        public IActionResult NoResults()
+        {
+            return View();
+        }
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -99,18 +117,22 @@ namespace ShumenNews.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult GetUserComment(ArticleViewModel articleViewModel)
         {
-            var user = userManager.FindByNameAsync(User.Identity?.Name)
-                .GetAwaiter().GetResult();
-            var article = db.Articles.FirstOrDefault(a => a.Id == articleViewModel.Id);
-            var userId = user.Id;
-            var comment = new ShumenNewsComment
+            if (articleViewModel.UserComment.Content != null)
             {
-                Content = articleViewModel.UserComment.Content,
-                Article = article,
-                User = user
-            };
-            db.Comments.Add(comment);
-            db.SaveChanges();
+                var user = userManager.FindByNameAsync(User.Identity?.Name)
+                                .GetAwaiter().GetResult();
+                var article = db.Articles.FirstOrDefault(a => a.Id == articleViewModel.Id);
+                var userId = user.Id;
+                var comment = new ShumenNewsComment
+                {
+                    Content = articleViewModel.UserComment.Content,
+                    Article = article,
+                    User = user
+                };
+                db.Comments.Add(comment);
+                db.SaveChanges();
+                return RedirectToAction("Index", "Articles", articleViewModel.Id);
+            }
             return RedirectToAction("Index", "Articles", articleViewModel.Id);
         }
         [Authorize]
