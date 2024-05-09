@@ -29,7 +29,8 @@ namespace ShumenNews
 
             builder.Services.AddDefaultIdentity<ShumenNewsUser>(options =>
             {
-                options.SignIn.RequireConfirmedAccount = true;
+                options.SignIn.RequireConfirmedAccount = false;
+                
                 //Password settings
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
