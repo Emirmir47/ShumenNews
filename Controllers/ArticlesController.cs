@@ -108,7 +108,7 @@ namespace ShumenNews.Controllers
                         .GetAwaiter().GetResult();
                     articleService.CreateUserArticle(article, user);
                 }
-                return RedirectToAction("Index", "Articles", article.Id); //Връща Home/Index
+                return RedirectToAction("Index", "Articles", new { id = article.Id });
             }
             return RedirectToAction("Index", article);
         }
@@ -131,9 +131,9 @@ namespace ShumenNews.Controllers
                 };
                 db.Comments.Add(comment);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Articles", articleViewModel.Id);
+                return RedirectToAction("Index", "Articles", new { id = articleViewModel.Id });
             }
-            return RedirectToAction("Index", "Articles", articleViewModel.Id);
+            return RedirectToAction("Index", "Articles", new { id = articleViewModel.Id });
         }
         [Authorize]
         [HttpPost]
@@ -165,7 +165,7 @@ namespace ShumenNews.Controllers
                 article!.CommentsCount--;
                 db.SaveChanges();
             }
-            return RedirectToAction("Index", articleViewModel.Id);
+            return RedirectToAction("Index", new { id = articleViewModel.Id });
         }
 
         [Authorize(Roles = "Admin, Moderator")]
