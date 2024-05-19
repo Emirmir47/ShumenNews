@@ -18,17 +18,77 @@
     </div>
 
 </div>
-<div class="container">
-    <div class="d-flex justify-content-center rounded-2 py-3 mt-3" style="background-color: grey;">
-        @if (Model.UserArticle is not null)
-        {
-            if (Model.UserArticle.Attitude is null)
+@if (Model.Author.UserName != User.Identity.Name)
+{
+    <div class="container">
+        <div class="d-flex justify-content-center rounded-2 py-3 mt-3" style="background-color: grey;">
+            @if (Model.UserArticle is not null)
+            {
+                if (Model.UserArticle.Attitude is null)
+                {
+                    <form asp-action="GetUserAttitude">
+                        <button type="submit" class="btn">
+                            <i class="fa-solid fa-thumbs-up">
+                                <input asp-for="@Model.UserArticle.Attitude" value="true" style="display: none;" />
+                                <input asp-for="@Model.UserArticle.Id" style="display: none;" />
+                                <input asp-for="@Model.Id" value="@Model.Id" style="display: none;" />
+                            </i>
+                        </button>
+                    </form>
+                    <form asp-action="GetUserAttitude">
+                        <button type="submit" class="btn">
+                            <i class="fa-solid fa-thumbs-down">
+                                <input asp-for="@Model.UserArticle.Attitude" value="false" style="display: none;" />
+                                <input asp-for="@Model.UserArticle.Id" style="display: none;" />
+                            </i>
+                        </button>
+                    </form>
+                }
+                else if (Model.UserArticle.Attitude == true)
+                {
+                    <form asp-action="GetUserAttitude">
+                        <button type="submit" class="btn">
+                            <i class="fa-solid fa-thumbs-up" style="color: #16e339;">
+                                <input asp-for="@Model.UserArticle.Attitude" value="true" style="display: none;" />
+                                <input asp-for="@Model.UserArticle.Id" style="display: none;" />
+                            </i>
+                        </button>
+                    </form>
+                    <form asp-action="GetUserAttitude">
+                        <button type="submit" class="btn">
+                            <i class="fa-solid fa-thumbs-down">
+                                <input asp-for="@Model.UserArticle.Attitude" value="false" style="display: none;" />
+                                <input asp-for="@Model.UserArticle.Id" style="display: none;" />
+                            </i>
+                        </button>
+                    </form>
+                }
+                else if (Model.UserArticle.Attitude == false)
+                {
+                    <form asp-action="GetUserAttitude">
+                        <button type="submit" class="btn">
+                            <i class="fa-solid fa-thumbs-up">
+                                <input asp-for="@Model.UserArticle.Attitude" value="true" style="display: none;" />
+                                <input asp-for="@Model.UserArticle.Id" style="display: none;" />
+                            </i>
+                        </button>
+                    </form>
+                    <form asp-action="GetUserAttitude">
+                        <button type="submit" class="btn">
+                            <i class="fa-solid fa-thumbs-down" style="color: #ff0000;">
+                                <input asp-for="@Model.UserArticle.Attitude" value="false" style="display: none;" />
+                                <input asp-for="@Model.UserArticle.Id" style="display: none;" />
+                            </i>
+                        </button>
+                    </form>
+                }
+            }
+            else
             {
                 <form asp-action="GetUserAttitude">
                     <button type="submit" class="btn">
                         <i class="fa-solid fa-thumbs-up">
-                            <input asp-for="@Model.UserArticle.Attitude" value="true" style="display: none;" />
-                            <input asp-for="@Model.UserArticle.Id" style="display: none;" />
+                            <input asp-for="@Model.UserAttitude" value="true" style="display: none;" />
                             <input asp-for="@Model.Id" value="@Model.Id" style="display: none;" />
                         </i>
                     </button>
@@ -36,72 +96,15 @@
                 <form asp-action="GetUserAttitude">
                     <button type="submit" class="btn">
                         <i class="fa-solid fa-thumbs-down">
-                            <input asp-for="@Model.UserArticle.Attitude" value="false" style="display: none;" />
-                            <input asp-for="@Model.UserArticle.Id" style="display: none;" />
+                            <input asp-for="@Model.UserAttitude" value="false" style="display: none;" />
+                            <input asp-for="@Model.Id" value="@Model.Id" style="display: none;" />
                         </i>
                     </button>
                 </form>
             }
-            else if (Model.UserArticle.Attitude == true)
-            {
-                <form asp-action="GetUserAttitude">
-                    <button type="submit" class="btn">
-                        <i class="fa-solid fa-thumbs-up" style="color: #16e339;">
-                            <input asp-for="@Model.UserArticle.Attitude" value="true" style="display: none;" />
-                            <input asp-for="@Model.UserArticle.Id" style="display: none;" />
-                        </i>
-                    </button>
-                </form>
-                <form asp-action="GetUserAttitude">
-                    <button type="submit" class="btn">
-                        <i class="fa-solid fa-thumbs-down">
-                            <input asp-for="@Model.UserArticle.Attitude" value="false" style="display: none;" />
-                            <input asp-for="@Model.UserArticle.Id" style="display: none;" />
-                        </i>
-                    </button>
-                </form>
-            }
-            else if (Model.UserArticle.Attitude == false)
-            {
-                <form asp-action="GetUserAttitude">
-                    <button type="submit" class="btn">
-                        <i class="fa-solid fa-thumbs-up">
-                            <input asp-for="@Model.UserArticle.Attitude" value="true" style="display: none;" />
-                            <input asp-for="@Model.UserArticle.Id" style="display: none;" />
-                        </i>
-                    </button>
-                </form>
-                <form asp-action="GetUserAttitude">
-                    <button type="submit" class="btn">
-                        <i class="fa-solid fa-thumbs-down" style="color: #ff0000;">
-                            <input asp-for="@Model.UserArticle.Attitude" value="false" style="display: none;" />
-                            <input asp-for="@Model.UserArticle.Id" style="display: none;" />
-                        </i>
-                    </button>
-                </form>
-            }
-        }
-        else
-        {
-            <form asp-action="GetUserAttitude">
-                <button type="submit" class="btn">
-                    <i class="fa-solid fa-thumbs-up">
-                        <input asp-for="@Model.UserAttitude" value="true" style="display: none;" />
-                        <input asp-for="@Model.Id" value="@Model.Id" style="display: none;" />
-                    </i>
-                </button>
-            </form>
-            <form asp-action="GetUserAttitude">
-                <button type="submit" class="btn">
-                    <i class="fa-solid fa-thumbs-down">
-                        <input asp-for="@Model.UserAttitude" value="false" style="display: none;" />
-                        <input asp-for="@Model.Id" value="@Model.Id" style="display: none;" />
-                    </i>
-                </button>
-            </form>
-        }
+        </div>
     </div>
-</div>
+}
 <div class="container alltextstyle">
     <div class="d-flex justify-content-start my-2">
         <div class="p-3 rounded-circle text-light" style="background-color: #1D3357;"><i class="fa-solid fa-comments fa-xl"></i></div>
@@ -116,19 +119,22 @@
         </p>
     </div>
     <!--Comment post section-->
-    <div class="d-flex my-3">
-        <div class="p-2 my-auto">
-            <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="fa-solid fa-circle-user fa-xl primary-color"></i></a>
+    @if (Model.Author.UserName != User.Identity.Name)
+    {
+        <div class="d-flex my-3">
+            <div class="p-2 my-auto">
+                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="fa-solid fa-circle-user fa-xl primary-color"></i></a>
+            </div>
+            <form method="post" asp-action="GetUserComment" class="d-flex justify-content-between rounded-2 py-3 w-100" style="background-color: grey;">
+                <input asp-for="@Model.Id" value="@Model.Id" style="display: none;" />
+                <input asp-for="UserComment.Content" class="ps-2 w-100 ms-3 me-1 rounded-2" style="border:1px #1D3357 solid;" placeholder="Публикувай своето мнение...">
+                <button type="submit" class="btn p-2 me-2">
+                    <i class="fa-solid fa-play fa-xl primary-color"></i>
+                </button>
+            </form>
         </div>
-        <form method="post" asp-action="GetUserComment" class="d-flex justify-content-between rounded-2 py-3 w-100" style="background-color: grey;">
-            <input asp-for="@Model.Id" value="@Model.Id" style="display: none;" />
-            <input asp-for="UserComment.Content" class="ps-2 w-100 ms-3 me-1 rounded-2" style="border:1px #1D3357 solid;" placeholder="Публикувай своето мнение...">
-            <button type="submit" class="btn p-2 me-2">
-                <i class="fa-solid fa-play fa-xl primary-color"></i>
-            </button>
-        </form>
-    </div>
-    <hr class="my-4" />
+        <hr class="my-4" />
+    }
     <!--All comments section-->
     <div>
         @foreach (var comment in Model.Comments)

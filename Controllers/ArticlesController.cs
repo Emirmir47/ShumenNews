@@ -61,7 +61,8 @@ namespace ShumenNews.Controllers
                         PublishedOn = article.PublishedOn,
                         MainImage = mainImage,
                         Comments = article.Comments,
-                        Images = article.Images.Select(a => a.Url)
+                        Images = article.Images.Select(a => a.Url),
+                        Author = article.UserArticles.FirstOrDefault(a=> a.IsAuthor).User
                     };
                     if (User.Identity!.IsAuthenticated)
                     {
