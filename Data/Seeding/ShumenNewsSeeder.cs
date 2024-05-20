@@ -313,25 +313,25 @@ namespace ShumenNews.Data.Seeding
                 //Moderators
                 var moderator = new ShumenNewsUser
                 {
-                    UserName = "nikikunchev@gmail.com",
-                    NormalizedUserName = "NIKIKUNCHEV@GMAIL.COM",
-                    Email = "nikikunchev@gmail.com",
-                    NormalizedEmail = "NIKIKUNCHEV@GMAIL.COM",
+                    UserName = "nikolaipetrov@gmail.com",
+                    NormalizedUserName = "NIKOLAIPETROV@GMAIL.COM",
+                    Email = "nikolaipetrov@gmail.com",
+                    NormalizedEmail = "NIKOLAIPETROV@GMAIL.COM",
                     FirstName = "Николай",
-                    LastName = "Кънчев",
+                    LastName = "Петров",
                     EmailConfirmed = true
                 };
                 await userManager.CreateAsync(moderator, "123456");
                 await userManager.AddToRoleAsync(moderator, moderatorRole.Name);
-                
+
                 var moderator2 = new ShumenNewsUser
                 {
-                    UserName = "mihailbilalov@gmail.com",
-                    NormalizedUserName = "MIHAILBILALOV@GMAIL.COM",
-                    Email = "mihailbilalov@gmail.com",
-                    NormalizedEmail = "MIHAILBILALOV@GMAIL.COM",
-                    FirstName = "Михаил",
-                    LastName = "Билалов",
+                    UserName = "aleksanderpetrov@gmail.com",
+                    NormalizedUserName = "ALEKSANDERPETROV@GMAIL.COM",
+                    Email = "aleksanderpetrov@gmail.com",
+                    NormalizedEmail = "ALEKSANDERPETROV@GMAIL.COM",
+                    FirstName = "Александър",
+                    LastName = "Петров",
                     EmailConfirmed = true
                 };
                 await userManager.CreateAsync(moderator2, "123456");
